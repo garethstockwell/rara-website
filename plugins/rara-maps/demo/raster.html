@@ -1,0 +1,38 @@
+<!-- Flat raster map -->
+
+<html>
+  <head>
+    <script src='../node_modules/maplibre-gl/dist/maplibre-gl.js'></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <link href='../node_modules/maplibre-gl/dist/maplibre-gl.css' rel='stylesheet' />
+    <link href='style.css' rel='stylesheet' />
+
+    <!-- Inject base URL into library -->
+    <script src='data.js'></script>
+
+    <script type="module">
+      import { createToolbar } from "../src/control/toolbar.js";
+      createToolbar('raster');
+
+      import { createMap } from "../src/map/raster.js";
+      const map = createMap();
+
+      import { Info } from "../src/component/info.js";
+      const info = new Info( {
+        map,
+      } );
+    </script>
+  </head>
+
+  <body>
+    <div id="toolbar" class="toolbar"></div>
+
+    <nav id="menu" hidden=true></nav>
+
+    <div id="content">
+      <div id="map" class="map"></div>
+    </div>
+
+    <pre id="info" style="display: none;"></pre>
+  </body>
+</html>
