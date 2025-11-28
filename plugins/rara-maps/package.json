@@ -22,8 +22,7 @@
 		"http-server": "^14.1.1"
 	},
 	"scripts": {
-		"build-dev": "NODE_ENV=development wp-scripts build",
-		"build-prod": "NODE_ENV=production wp-scripts build",
+		"build": "wp-scripts build",
 		"format": "wp-scripts format",
 		"lint": "npm run lint:css && npm run lint:js && npm run lint:pkg-json",
 		"lint:css": "wp-scripts lint-style",

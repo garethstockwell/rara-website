@@ -20,9 +20,9 @@ function getCommitHash() {
 	return commit;
 }
 
-const isProduction = process.env.NODE_ENV === 'production';
+const minify = process.env.MINIFY === '1';
 
-console.log( 'isProduction = ', isProduction );
+console.log( 'minify:', minify );
 
 const baseConfig = {
 	entry: resolve( __dirname, 'src/index.js' ),
@@ -45,14 +45,16 @@ const baseConfig = {
 	],
 };
 
-const prodConfig = {};
+const prodConfig = {
+	mode: 'production',
+};
 
 const devConfig = {
 	devtool: false,
 	mode: 'development',
 };
 
-const mainConfig = isProduction
+const mainConfig = minify
 	? {
 			...baseConfig,
 			...prodConfig,

@@ -1,0 +1,44 @@
+name: build
+
+on:
+  push:
+    branches: [ "dev", "main" ]
+
+  workflow_dispatch:
+    inputs:
+      minify:
+        description: "Minify JavaScript"
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+
+    env:
+      node-version: 24.7.0
+      MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
+               || '1' }}
+
+    strategy:
+      matrix:
+        dir:
+          - ./plugins/rara-maps
+
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ env.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.node-version }}
+        cache: 'npm'
+        cache-dependency-path: '${{ matrix.dir }}/package-lock.json'
+    - run: npm install
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run lint
