@@ -8,7 +8,7 @@ export function addOverlayLayer( map, options ) {
 	const id = options.id;
 
 	map.on( 'load', () => {
-		fetch( absUrl('%{PLUGIN}/public/assets/data/overlays.json') )
+		fetch( absUrl( '%{PLUGIN}/public/assets/data/overlays.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				const entry = data.overlays.features.find(
@@ -18,7 +18,7 @@ export function addOverlayLayer( map, options ) {
 				// Add image source
 				map.addSource( id, {
 					type: 'image',
-					url: absUrl(entry.properties.url),
+					url: absUrl( entry.properties.url ),
 					coordinates: entry.geometry.coordinates,
 				} );
 

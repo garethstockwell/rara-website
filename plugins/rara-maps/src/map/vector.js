@@ -20,7 +20,7 @@ export function createMap( args ) {
 	};
 
 	const config = {
-		style: absUrl('%{PLUGIN}/public/assets/data/style.json'),
+		style: absUrl( '%{PLUGIN}/public/assets/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -56,7 +56,7 @@ export function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'boundary',
 			text: 'Riverside area boundary',
-			url: absUrl('%{PLUGIN}/public/assets/data/line_boundary.json'),
+			url: absUrl( '%{PLUGIN}/public/assets/data/line_boundary.json' ),
 			color: 'black',
 			visible: true,
 		} );
@@ -66,7 +66,9 @@ export function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'heritage_trail',
 			text: 'Heritage trail line',
-			url: absUrl('%{PLUGIN}/public/assets/data/line_heritage_trail.json'),
+			url: absUrl(
+				'%{PLUGIN}/public/assets/data/line_heritage_trail.json'
+			),
 			color: 'green',
 			visible: false,
 		} );
@@ -76,7 +78,7 @@ export function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'attractions',
 			text: 'Attractions',
-			url: absUrl('%{PLUGIN}/public/assets/data/locations.json'),
+			url: absUrl( '%{PLUGIN}/public/assets/data/locations.json' ),
 			tags: [ 'attractions' ],
 			color: 'yellow',
 			onclick: args.locationOnClick ?? null,
@@ -90,7 +92,7 @@ export function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'improvements',
 			text: 'Improvements',
-			url: absUrl('%{PLUGIN}/public/assets/data/locations.json'),
+			url: absUrl( '%{PLUGIN}/public/assets/data/locations.json' ),
 			tags: [ 'improvements' ],
 			color: 'red',
 			onclick: args.locationOnClick ?? null,

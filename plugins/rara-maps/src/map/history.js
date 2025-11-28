@@ -14,7 +14,7 @@ import { absUrl } from '../util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl('%{PLUGIN}/public/assets/data/style.json'),
+		style: absUrl( '%{PLUGIN}/public/assets/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -36,7 +36,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl('%{PLUGIN}/public/assets/data/line_boundary.json'),
+		url: absUrl( '%{PLUGIN}/public/assets/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
