@@ -5,7 +5,27 @@ Description: Interactive maps for rar.org.uk
 Author: gareth.stockwell@gmail.com
 */
 
-function enqueue_rara_maps_script_force_module() {
+/*
+ * Enqueue MapLibre GL JS
+ */
+function rara_maps_enqueue_maplibregl() {
+    $turf_version = '6.5.0';
+    $maplibregl_version = '5.13.0';
+
+    wp_enqueue_script( 'turf',
+        'https://unpkg.com/@turf/turf@' . $turf_version . '/turf.min.js'
+    );
+
+    wp_enqueue_style( 'maplibregl',
+        'https://unpkg.com/maplibre-gl@' . $maplibregl_version . '/dist/maplibre-gl.css'
+    );
+
+    wp_enqueue_script( 'maplibregl',
+        'https://unpkg.com/maplibre-gl@' . $maplibregl_version . '/dist/maplibre-gl.js'
+    );
+}
+
+function rara_maps_enqueue_script() {
     $handle    = 'rara-maps-script';
     $this_url  = plugin_dir_url(__FILE__);
     $this_path = plugin_dir_path(__FILE__);
@@ -30,4 +50,20 @@ function enqueue_rara_maps_script_force_module() {
         echo '<script type="module" src="' . $src . '" id="' . esc_attr( $handle ) . '-js"></script>' . "\n";
     }, 100 ); // run late in footer
 }
-add_action( 'wp_enqueue_scripts', 'enqueue_rara_maps_script_force_module', 20 );
+
+/*
+ * Enqueue plugin scripts and styles
+ */
+function rara_maps_enqueue() {
+    $obj = get_queried_object();
+
+    if (isset($obj->post_name)) {
+        $slug = $obj->post_name;
+
+        if (strpos($slug, 'explore') === 0) {
+            rara_maps_enqueue_maplibregl();
+            rara_maps_enqueue_script();
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'rara_maps_enqueue', 20 );
