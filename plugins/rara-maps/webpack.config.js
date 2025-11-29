@@ -20,7 +20,7 @@ function getCommitHash() {
 	return commit;
 }
 
-const minify = process.env.MINIFY === '1';
+const minify = process.env.WEBPACK_MINIFY === '1';
 
 console.log( 'minify:', minify );
 

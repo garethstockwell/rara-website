@@ -22,10 +22,10 @@ jobs:
           - rara-maps
 
     env:
-      MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
-               || '1' }}
       node-version: 24.7.0
       plugin-path: ./plugins/${{ matrix.plugin-name }}
+      WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
+               || '1' }}
 
     defaults:
       run:
