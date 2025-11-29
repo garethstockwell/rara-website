@@ -19,8 +19,10 @@ function getCommitHash() {
 }
 
 const minify = process.env.WEBPACK_MINIFY === '1';
+const commit = getCommitHash();
 
 console.log( 'minify:', minify );
+console.log( 'commit:', commit );
 
 const baseConfig = {
 	entry: resolve( __dirname, 'src/index.js' ),
@@ -37,7 +39,7 @@ const baseConfig = {
 	},
 	plugins: [
 		new webpack.BannerPlugin( {
-			banner: `Built from commit: ${ getCommitHash() }`, // you can embed your git hash here
+			banner: `Built from commit: ${ commit }`,
 			entryOnly: true,
 		} ),
 	],
