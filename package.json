@@ -15,12 +15,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "open": "concurrently \"http-server ./plugins/rara-maps -a localhost -p 1234\" \"open http://localhost:1234/demo\"",
+    "start": "npm run -w plugins/rara-maps start"
   },
   "dependencies": {
+    "concurrently": "^9.2.1",
+    "http-server": "^14.1.1",
     "rara-maps": "^1.0.0"
   },
-  "devDependencies": {},
   "workspaces": [
     "plugins/rara-maps"
   ]
