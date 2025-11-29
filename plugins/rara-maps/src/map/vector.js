@@ -66,9 +66,7 @@ export function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'heritage_trail',
 			text: 'Heritage trail line',
-			url: absUrl(
-				'%{RARA_MAPS}/assets/data/line_heritage_trail.json'
-			),
+			url: absUrl( '%{RARA_MAPS}/assets/data/line_heritage_trail.json' ),
 			color: 'green',
 			visible: false,
 		} );

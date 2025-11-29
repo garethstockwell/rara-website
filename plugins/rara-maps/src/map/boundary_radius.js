@@ -89,9 +89,7 @@ export function createMap() {
 	};
 
 	map.on( 'load', async () => {
-		fetch(
-			absUrl( '%{RARA_MAPS}/assets/data/line_boundary_smooth.json' )
-		)
+		fetch( absUrl( '%{RARA_MAPS}/assets/data/line_boundary_smooth.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				const coordinates = data.features[ 0 ].geometry.coordinates;
