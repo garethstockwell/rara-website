@@ -24,8 +24,10 @@ jobs:
     env:
       node-version: 24.7.0
       plugin-path: ./plugins/${{ matrix.plugin-name }}
-      WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
-               || '1' }}
+      WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch'
+                          && github.event.inputs.minify == 'false'
+                          && ''
+                       || '1' }}
 
     defaults:
       run:
@@ -47,3 +49,34 @@ jobs:
       with:
         name: ${{ matrix.plugin-name }}-build
         path: ${{ env.plugin-path }}/build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-plugin
+
+    env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+      COMMIT: ${{ github.sha }}
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: rara-maps-build
+        path: ./plugins/rara-maps/build
+
+    - run: ls ./plugins/rara-maps
+
+    - name: Prepare deploy branch with built assets
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        git checkout -B deploy-${{ env.BRANCH_NAME }}
+
+        # Make sure build directory is not ignored
+        sed -i '/^\/build$/d' .gitignore || true
+
+        git add -A
+        git commit -m "Deploy build from ${{ env.COMMIT }} [skip ci]" || echo "No changes to commit"
