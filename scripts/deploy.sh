@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Deploy a build
+# Deploy a build to the remote git repo
 
 branch=$1
 commit=$2
