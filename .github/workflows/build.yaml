@@ -64,4 +64,4 @@ jobs:
       with:
         name: rara-maps-build
         path: ./plugins/rara-maps/build
-    - run: ./scripts/deploy.sh ${{ env.BRANCH_NAME }} ${{ env.COMMIT }}
+    - run: ./scripts/deploy.sh deploy-${{ env.BRANCH_NAME }} ${{ env.COMMIT }}
