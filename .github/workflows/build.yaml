@@ -4,24 +4,13 @@ on:
   push:
     branches: [ "dev", "main" ]
 
-  workflow_dispatch:
-    inputs:
-      minify:
-        description: "Minify JavaScript"
-        required: true
-        default: true
-        type: boolean
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
       node-version: 24.7.0
-      WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch'
-                          && github.event.inputs.minify == 'false'
-                          && ''
-                       || '1' }}
+      WEBPACK_MINIFY: '1'
     
     steps:
     - uses: actions/checkout@v5
