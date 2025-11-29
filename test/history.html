@@ -13,15 +13,50 @@
     <script src='../node_modules/rara-maps/build/bundle.js'></script>
 
     <script type="module">
-      import { createToolbar } from "./src/control/toolbar.js";
+      import { createToolbar } from "./src/toolbar.js";
       createToolbar('history');
 
       const map = raraMaps.historyCreateMap();
 
-      import { Info } from "./src/control/info.js";
+      import { Info } from "./src/info.js";
       const info = new Info( {
         map,
       } );
+
+      import { Commentary } from './src/commentary.js';
+      // Map from era to layer
+      const eraToLayer = {
+        c_1836_1838: 'camantsoc_1836_1838',
+        c_1910: 'camantsoc_1910',
+        c_1925: 'camantsoc_1925',
+      };
+
+      const commentary = new Commentary( {
+        callback( oldId, newId ) {
+          console.debug( `history.onUpdate id ${ oldId } -> ${ newId }` );
+
+          const oldLayer = eraToLayer[ oldId ];
+          const newLayer = eraToLayer[ newId ];
+
+          console.debug(
+            `history.onUpdate layer ${ oldLayer } -> ${ newLayer }`
+          );
+
+          map.appData.layers.getLayer( oldLayer ).visible = false;
+          map.appData.layers.getLayer( newLayer ).visible = true;
+        },
+      } );
+
+      function loaded( e ) {
+        const layerId = eraToLayer[ commentary.ids[ 0 ] ];
+        if ( e.isSourceLoaded && e.sourceId === layerId ) {
+          console.debug( `Source ${ e.sourceId } is loaded` );
+          commentary.setIndex( 0 );
+          map.off( 'sourcedata', loaded );
+        }
+      }
+
+      map.on( 'sourcedata', loaded );
     </script>
   </head>
 

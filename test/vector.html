@@ -13,7 +13,7 @@
     <script src='../node_modules/rara-maps/build/bundle.js'></script>
 
     <script type="module">
-      import { createToolbar } from "./src/control/toolbar.js";
+      import { createToolbar } from "./src/toolbar.js";
       createToolbar('vector');
 
       const imageElem = document.getElementById("image");
@@ -35,7 +35,7 @@
         locationVisible: true,
       });
 
-      import { Info } from "./src/control/info.js";
+      import { Info } from "./src/info.js";
       const info = new Info( {
         map,
       } );

@@ -11,7 +11,7 @@
     <script src='../node_modules/rara-maps/build/bundle.js'></script>
 
     <script type="module">
-      import { createToolbar } from "./src/control/toolbar.js";
+      import { createToolbar } from "./src/toolbar.js";
       createToolbar('improvements');
 
       // Function which scrolls commentary panel to show a specified section
@@ -33,7 +33,7 @@
         ]
       });
 
-      import { Info } from "./src/control/info.js";
+      import { Info } from "./src/info.js";
       const info = new Info( {
         map,
       } );

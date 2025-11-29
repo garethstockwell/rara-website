@@ -13,17 +13,55 @@
     <script src='../node_modules/rara-maps/build/bundle.js'></script>
 
     <script type="module">
-      import { createToolbar } from "./src/control/toolbar.js";
+      import { createToolbar } from "./src/toolbar.js";
       createToolbar('heritage_trail');
 
       const map = raraMaps.heritageTrailCreateMap({
         locationVisible: true,
       });
 
-      import { Info } from "./src/control/info.js";
+      import { Info } from "./src/info.js";
       const info = new Info( {
         map,
       } );
+
+      import { Commentary } from './src/commentary.js';
+
+      const locations = map.appData.locations;
+
+      const commentary = new Commentary( {
+        callback( oldId, newId ) {
+          let hideIds = [ oldId ];
+          const oldAdditional = document
+            .getElementById( oldId )
+            .getAttribute( 'additionalLocations' );
+          if ( oldAdditional ) {
+            hideIds = hideIds.concat( oldAdditional.split( ' ' ) );
+          }
+
+          let showIds = [ newId ];
+          const newAdditional = document
+            .getElementById( newId )
+            .getAttribute( 'additionalLocations' );
+          if ( newAdditional ) {
+            showIds = showIds.concat( newAdditional.split( ' ' ) );
+          }
+
+          console.debug( `hideIds = ${ hideIds }` );
+          for ( const id of hideIds ) {
+            locations.getLocation( id ).popupVisible = false;
+          }
+
+          console.debug( `showIds = ${ showIds }` );
+          for ( const id of showIds ) {
+            locations.getLocation( id ).popupVisible = true;
+          }
+
+          map.appData.fly( oldId, newId );
+        },
+      } );
+
+      commentary.setIndex( 0 );
     </script>
   </head>
 
