@@ -23,4 +23,4 @@ git reset origin/${branch}
 git add -A
 git commit -m "Deploy build from ${commit} [skip ci]" || echo "No changes to commit"
 
-git push origin ${branch}
+git push origin HEAD:${branch}
