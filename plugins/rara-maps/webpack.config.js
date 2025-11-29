@@ -11,7 +11,7 @@ function getCommitHash() {
 	const status = execSync( 'git status --porcelain' )
 		.toString( 'utf8' )
 		.trim();
-	let commit = execSync( 'git rev-parse --short HEAD' )
+	let commit = execSync( 'git rev-parse HEAD' )
 		.toString( 'utf8' )
 		.trim();
 	if ( status !== '' ) {
