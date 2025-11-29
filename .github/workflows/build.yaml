@@ -66,17 +66,4 @@ jobs:
         name: rara-maps-build
         path: ./plugins/rara-maps/build
 
-    - run: ls ./plugins/rara-maps
-
-    - name: Prepare deploy branch with built assets
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-
-        git checkout -B deploy-${{ env.BRANCH_NAME }}
-
-        # Make sure build directory is not ignored
-        sed -i '/^\/build$/d' .gitignore || true
-
-        git add -A
-        git commit -m "Deploy build from ${{ env.COMMIT }} [skip ci]" || echo "No changes to commit"
+    - run: ./scripts/deploy.sh ${{ env.BRANCH_NAME }} ${{ env.COMMIT }}
