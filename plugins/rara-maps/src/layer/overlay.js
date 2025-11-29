@@ -8,7 +8,7 @@ export function addOverlayLayer( map, options ) {
 	const id = options.id;
 
 	map.on( 'load', () => {
-		fetch( absUrl( '%{RARA_MAPS}/public/assets/data/overlays.json' ) )
+		fetch( absUrl( '%{RARA_MAPS}/assets/data/overlays.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				const entry = data.overlays.features.find(
