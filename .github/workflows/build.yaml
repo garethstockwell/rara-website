@@ -43,3 +43,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run lint
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.plugin-name }}-build
+        path: ${{ env.plugin-path }}/build
