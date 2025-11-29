@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
+
+# Commit the current build, and optionally push it to a remote branch
+
 set -euo pipefail
+
+#------------------------------------------------------------------------------
+# Parse arguments
+#------------------------------------------------------------------------------
 
 usage() {
     echo "Usage: $0 <remote> <branch> [--push]"
@@ -9,8 +16,6 @@ usage() {
     echo "  --push   Optional flag; if provided, the script will push"
     exit 1
 }
-
-# --- Parse arguments ---
 
 push=
 
@@ -42,7 +47,9 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# --- Script logic ---
+#------------------------------------------------------------------------------
+# Script logic
+#------------------------------------------------------------------------------
 
 # Get source commit
 source_commit=$(git rev-parse HEAD)
@@ -83,5 +90,6 @@ git commit -m "Deploy build from ${source_commit} [skip ci]" || echo "No changes
 # Push to remote, if the flag was set
 [[ -z "${push}" ]] || git push ${remote} HEAD:${target_branch}
 
-# Return to original branch
+# Return to original branch and remove temporary branch
 git checkout ${source_branch}
+git branch -D ${temp_branch}

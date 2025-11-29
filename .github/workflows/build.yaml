@@ -56,7 +56,6 @@ jobs:
 
     env:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-      COMMIT: ${{ github.sha }}
 
     steps:
     - uses: actions/checkout@v5
@@ -64,4 +63,4 @@ jobs:
       with:
         name: rara-maps-build
         path: ./plugins/rara-maps/build
-    - run: ./scripts/deploy.sh deploy-${{ env.BRANCH_NAME }} ${{ env.COMMIT }} --push
+    - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
