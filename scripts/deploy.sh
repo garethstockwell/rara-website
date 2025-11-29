@@ -59,6 +59,7 @@ fi
 
 # Get source branch
 source_branch=$(git rev-parse --abbrev-ref HEAD)
+source_pwd=$(pwd)
 
 # Set git user details
 git config user.name "github-actions[bot]"
@@ -69,6 +70,9 @@ temp_branch=__deploy-${source_commit}
 git branch -D ${temp_branch} &>/dev/null || true
 git checkout -b ${temp_branch}
 
+# Change working directory to root of repo
+cd $(git rev-parse --show-toplevel)
+
 # Fetch from remote
 git fetch ${remote}
 git reset ${remote}/${target_branch}
@@ -77,7 +81,11 @@ git reset ${remote}/${target_branch}
 for dir in themes/rara plugins/rara-maps; do
   mkdir -p ${dir}/build
   rm -f ${dir}/build/commit
-  echo ${source_commit} > ${dir}/build/commit
+  cat << EOF > ${dir}/build/build.json
+{
+  "commit": "${source_commit}"
+}
+EOF
 done
 
 # Make sure build directories are not ignored
@@ -90,6 +98,13 @@ git commit -m "Deploy build from ${source_commit} [skip ci]" || echo "No changes
 # Push to remote, if the flag was set
 [[ -z "${push}" ]] || git push ${remote} HEAD:${target_branch}
 
-# Return to original branch and remove temporary branch
+# Return to original branch and directory
 git checkout ${source_branch}
-git branch -D ${temp_branch}
+cd ${source_pwd}
+
+# Remove temporary branch if it has been pushed to the remote
+if [[ -z "${push}" ]]; then
+  echo "Commit saved in branch ${temp_branch}"
+else
+  git branch -D ${temp_branch}
+fi
