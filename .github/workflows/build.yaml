@@ -13,25 +13,15 @@ on:
         type: boolean
 
 jobs:
-  build-plugin:
+  build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        plugin-name:
-          - rara-maps
 
     env:
       node-version: 24.7.0
-      plugin-path: ./plugins/${{ matrix.plugin-name }}
       WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch'
                           && github.event.inputs.minify == 'false'
                           && ''
                        || '1' }}
-
-    defaults:
-      run:
-        working-directory: ${{ env.plugin-path }}
     
     steps:
     - uses: actions/checkout@v5
@@ -40,19 +30,18 @@ jobs:
       with:
         node-version: ${{ env.node-version }}
         cache: 'npm'
-        cache-dependency-path: '${{ env.plugin-path }}/package-lock.json'
     - run: npm install
     - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run lint
+    - run: npm run build --workspaces
+    - run: npm run lint --workspaces
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.plugin-name }}-build
-        path: ${{ env.plugin-path }}/build
+        name: rara-maps-build
+        path: ./plugins/rara-maps/build
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-plugin
+    needs: build
 
     env:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
