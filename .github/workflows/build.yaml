@@ -13,22 +13,23 @@ on:
         type: boolean
 
 jobs:
-  node:
+  build-plugin:
     runs-on: ubuntu-latest
-
-    env:
-      node-version: 24.7.0
-      MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
-               || '1' }}
 
     strategy:
       matrix:
-        dir:
-          - ./plugins/rara-maps
+        plugin-name:
+          - rara-maps
+
+    env:
+      MINIFY: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.minify == 'false' && ''
+               || '1' }}
+      node-version: 24.7.0
+      plugin-path: ./plugins/${{ matrix.plugin-name }}
 
     defaults:
       run:
-        working-directory: ${{ matrix.dir }}
+        working-directory: ${{ env.plugin-path }}
     
     steps:
     - uses: actions/checkout@v5
@@ -37,7 +38,7 @@ jobs:
       with:
         node-version: ${{ env.node-version }}
         cache: 'npm'
-        cache-dependency-path: '${{ matrix.dir }}/package-lock.json'
+        cache-dependency-path: '${{ env.plugin-path }}/package-lock.json'
     - run: npm install
     - run: npm ci
     - run: npm run build --if-present
