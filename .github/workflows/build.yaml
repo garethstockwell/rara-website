@@ -30,15 +30,13 @@ jobs:
       with:
         node-version: ${{ env.node-version }}
         cache: 'npm'
-    - run: npm install
     - run: npm ci
     - run: npm run build --workspaces
     - run: npm run lint --workspaces
     - run: ls ./plugins/rara-maps/build/
     - uses: actions/upload-artifact@v4
       with:
-        path: |
-          ./plugins/rara-maps/build/*
+        path: ./plugins/rara-maps/build
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,5 +49,7 @@ jobs:
     - uses: actions/checkout@v5
     - run: ls -R
     - uses: actions/download-artifact@v5
+      with:
+        path: ./plugins/rara-maps/build
     - run: ls -R
     - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
