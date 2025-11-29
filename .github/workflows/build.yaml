@@ -60,10 +60,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
-
     - uses: actions/download-artifact@v4
       with:
         name: rara-maps-build
         path: ./plugins/rara-maps/build
-
     - run: ./scripts/deploy.sh ${{ env.BRANCH_NAME }} ${{ env.COMMIT }}
