@@ -1,5 +1,7 @@
 // Add a map layer which shows locations
 
+import { absUrl } from '../util/url.js';
+
 /**
  * Create the map
  * @param          map
@@ -12,7 +14,7 @@ export function addLocationsLayer( map, args ) {
 		const locations = map.appData.locations;
 
 		const image = await map.loadImage(
-			`/public/assets/icons/pin-${ args.color }.png`
+			absUrl( `%{RARA_MAPS}/assets/icons/pin-${ args.color }.png` )
 		);
 		map.addImage( id, image.data );
 

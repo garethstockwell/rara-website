@@ -1,0 +1,38 @@
+<!-- Fly around boundary -->
+
+<html>
+  <head>
+    <script src='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js'></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css' rel='stylesheet' />
+    <link href='style.css' rel='stylesheet' />
+
+    <!-- Inject base URL into library -->
+    <script src='./src/data.js'></script>
+
+    <script type="module">
+      import { createToolbar } from "./src/control/toolbar.js";
+      createToolbar('boundary_tangent');
+
+      import { createMap } from "../plugins/rara-maps/src/map/boundary_tangent.js";
+      const map = createMap();
+
+      import { Info } from "./src/control/info.js";
+      const info = new Info( {
+        map,
+      } );
+    </script>
+  </head>
+
+  <body>
+    <div id="toolbar" class="toolbar"></div>
+
+    <nav id="menu" hidden=true></nav>
+
+    <div id="content">
+      <div id="map" class="map"></div>
+    </div>
+
+    <pre id="info" style="display: none;"></pre>
+  </body>
+</html>

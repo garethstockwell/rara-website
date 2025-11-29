@@ -1,0 +1,265 @@
+{
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "riverside_boulevard",
+				"imageUrl": "%{RARA_MAPS}/assets/images/boulevard_3.jpg",
+				"title": "Riverside \"boulevard\"",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.141654, 52.211759 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "elizabeth_way_underpass",
+				"imageUrl": "%{RARA_MAPS}/assets/images/elizabeth_way_underpass.png",
+				"title": "Elizabeth Way underpass",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.137664, 52.208478 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "elizabeth_way_bridge",
+				"imageUrl": "%{RARA_MAPS}/assets/images/elizabeth_way_under_bridge.jpg",
+				"title": "Below Elizabeth Way bridge",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.136837, 52.210902 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "stourbridge_common_approach",
+				"imageUrl": "%{RARA_MAPS}/assets/images/stourbridge_common_approach.png",
+				"title": "Stourbridge Common approach",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.144514, 52.214651 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "river_festival",
+				"imageUrl": "%{RARA_MAPS}/assets/images/river_festival_3.png",
+				"title": "River festival",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.145347, 52.216346 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "newmarket_road",
+				"imageUrl": "%{RARA_MAPS}/assets/images/newmarket_road.png",
+				"title": "Newmarket Road",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.14672, 52.210876 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "mercers_row",
+				"imageUrl": "%{RARA_MAPS}/assets/images/mercers_row.png",
+				"title": "Mercer's Row",
+				"tags": [ "improvements" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.150873, 52.215441 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "stourbridge_common",
+				"imageUrl": "%{RARA_MAPS}/assets/images/stourbridge_common.png",
+				"title": "Stourbridge Common",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.150095, 52.217236 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "st_andrew_the_less",
+				"imageUrl": "https://standrewtheless.org/standrewthelesscommunityproject/assets/images/st-andrew-the-less-newmarket-r",
+				"title": "St Andrew the Less",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.139667, 52.208968 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "leper_chapel",
+				"imageUrl": "%{RARA_MAPS}/assets/images/leper_chapel.png",
+				"title": "Leper Chapel",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.152569, 52.21392 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "cellarers_chequer",
+				"imageUrl": "%{RARA_MAPS}/assets/images/cellarers_chequer.png",
+				"title": "Cellarer's Chequer",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.139045, 52.209589 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "abbey_house",
+				"imageUrl": "%{RARA_MAPS}/assets/images/abbey_house.jpg",
+				"title": "Abbey House",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.138523, 52.209092 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "cmot",
+				"imageUrl": "%{RARA_MAPS}/assets/images/cmot.jpg",
+				"title": "Cambridge Museum of Technology",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.14366, 52.212458 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "emailerator",
+				"imageUrl": "%{RARA_MAPS}/assets/images/emailerator.jpg",
+				"title": "Dinky Doors Emailerator",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.138785, 52.210923 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "war_memorial",
+				"imageUrl": "%{RARA_MAPS}/assets/images/war_memorial.png",
+				"title": "Cambridge Gas Company War Memorial",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.144123, 52.210016 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "flying_saucer",
+				"imageUrl": "%{RARA_MAPS}/assets/images/flying_saucer.jpg",
+				"title": "Dinky Doors Flying Saucer",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.142605, 52.212513 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "equiano_bridge",
+				"imageUrl": "%{RARA_MAPS}/assets/images/equiano_bridge.png",
+				"title": "Equiano Bridge",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.142986, 52.213628 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "engineers_house",
+				"imageUrl": "%{RARA_MAPS}/assets/images/engineers_house.webp",
+				"title": "Engineer's House",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.142851, 52.212454 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "kerb_kollective",
+				"imageUrl": "%{RARA_MAPS}/assets/images/kerb_kollective.png",
+				"title": "Kerb Kollective",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.143076, 52.212559 ]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"id": "logans_meadow",
+				"imageUrl": "%{RARA_MAPS}/assets/images/logans_meadow.png",
+				"title": "Logan's Meadow Nature Reserve",
+				"tags": [ "attractions" ]
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [ 0.141562, 52.213629 ]
+			}
+		}
+	]
+}
