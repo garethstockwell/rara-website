@@ -1,6 +1,5 @@
 // Render a map of the heritage trail
 
-import { Commentary } from '../component/commentary.js';
 import { Map } from '../component/map.js';
 import { Route } from '../component/route.js';
 
@@ -34,8 +33,6 @@ export function createMap( args ) {
 		config,
 		zOrder,
 	} );
-
-	const locations = map.appData.locations;
 
 	map.on( 'load', () => {
 		map.addSource( 'point', {
@@ -107,12 +104,14 @@ export function createMap( args ) {
 		visible: true,
 	} );
 
+	const locations = map.appData.locations;
+
 	/**
 	 * Fly from source location to destination location
 	 * @param {string} fromId Source location identifier
 	 * @param {string} toId   Destination location identifier
 	 */
-	function fly( fromId, toId ) {
+	map.appData.fly = function ( fromId, toId ) {
 		console.debug( `Fly from ${ fromId } to ${ toId }` );
 		if ( fromId !== toId ) {
 			const fromCoord =
@@ -126,41 +125,7 @@ export function createMap( args ) {
 				route.fly( fromCoord, toCoord, 2000 );
 			}
 		}
-	}
-
-	const commentary = new Commentary( {
-		callback( oldId, newId ) {
-			let hideIds = [ oldId ];
-			const oldAdditional = document
-				.getElementById( oldId )
-				.getAttribute( 'additionalLocations' );
-			if ( oldAdditional ) {
-				hideIds = hideIds.concat( oldAdditional.split( ' ' ) );
-			}
-
-			let showIds = [ newId ];
-			const newAdditional = document
-				.getElementById( newId )
-				.getAttribute( 'additionalLocations' );
-			if ( newAdditional ) {
-				showIds = showIds.concat( newAdditional.split( ' ' ) );
-			}
-
-			console.debug( `hideIds = ${ hideIds }` );
-			for ( const id of hideIds ) {
-				locations.getLocation( id ).popupVisible = false;
-			}
-
-			console.debug( `showIds = ${ showIds }` );
-			for ( const id of showIds ) {
-				locations.getLocation( id ).popupVisible = true;
-			}
-
-			fly( oldId, newId );
-		},
-	} );
-
-	commentary.setIndex( 0 );
+	};
 
 	return map;
 }
