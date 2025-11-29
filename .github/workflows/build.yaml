@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
       node-version: 24.7.0
       WEBPACK_MINIFY: '1'
     
@@ -22,20 +23,4 @@ jobs:
     - run: npm ci
     - run: npm run build --workspaces
     - run: npm run lint --workspaces
-    - uses: actions/upload-artifact@v4
-      with:
-        path: ./plugins/rara-maps/build
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    env:
-      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-
-    steps:
-    - uses: actions/checkout@v5
-    - uses: actions/download-artifact@v5
-      with:
-        path: ./plugins/rara-maps/build
     - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
