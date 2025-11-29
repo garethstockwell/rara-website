@@ -8,7 +8,7 @@
     <link href='style.css' rel='stylesheet' />
 
     <!-- Inject base URL into library -->
-    <script src='data.js'></script>
+    <script src='./src/data.js'></script>
 
     <script type="module">
       import { createToolbar } from "./src/control/toolbar.js";
@@ -17,7 +17,7 @@
       import { createMap } from "../plugins/rara-maps/src/map/boundary_tangent.js";
       const map = createMap();
 
-      import { Info } from "../plugins/rara-maps/src/component/info.js";
+      import { Info } from "./src/control/info.js";
       const info = new Info( {
         map,
       } );
