@@ -34,10 +34,11 @@ jobs:
     - run: npm ci
     - run: npm run build --workspaces
     - run: npm run lint --workspaces
+    - run: ls ./plugins/rara-maps/build/
     - uses: actions/upload-artifact@v4
       with:
         path: |
-          ./plugins/rara-maps/build/
+          ./plugins/rara-maps/build/*
 
   deploy:
     runs-on: ubuntu-latest
