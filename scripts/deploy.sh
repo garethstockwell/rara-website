@@ -1,44 +1,95 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Deploy a build to the remote git repo
+# Commit the current build, and optionally push it to a remote branch
 
-remote=$1
-branch=$2
+set -euo pipefail
 
-if [[ -z "${branch}" ]]; then
-  echo "Usage: $0 [remote] [branch]" >&2
-  exit 1
+#------------------------------------------------------------------------------
+# Parse arguments
+#------------------------------------------------------------------------------
+
+usage() {
+    echo "Usage: $0 <remote> <branch> [--push]"
+    echo
+    echo "  remote   The remote name (e.g. origin)"
+    echo "  branch   The branch name (e.g. main)"
+    echo "  --push   Optional flag; if provided, the script will push"
+    exit 1
+}
+
+push=
+
+# Need at least 2 args
+if [[ $# -lt 2 ]]; then
+    echo "Error: remote and branch are required."
+    usage
 fi
 
-commit=$(git rev-parse HEAD)
+remote="$1"
+target_branch="$2"
+shift 2
+
+# Process optional flags
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --push)
+            push=true
+            shift
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            usage
+            ;;
+        *)
+            echo "Unexpected argument: $1"
+            usage
+            ;;
+    esac
+done
+
+#------------------------------------------------------------------------------
+# Script logic
+#------------------------------------------------------------------------------
+
+# Get source commit
+source_commit=$(git rev-parse HEAD)
 if [[ -n "$(git status --porcelain)" ]]; then
-  commit="${commit}-dirty"
+  commit="${source_commit}-dirty"
 fi
 
+# Get source branch
+source_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Set git user details
 git config user.name "github-actions[bot]"
 git config user.email "github-actions[bot]@users.noreply.github.com"
 
-# Switch to a branch whose name is unlikely to conflict with any existing local branch
-git branch -D __deploy &>/dev/null || true
-git checkout -b __deploy
+# Switch to a temporary branch
+temp_branch=__deploy-${source_commit}
+git branch -D ${temp_branch} &>/dev/null || true
+git checkout -b ${temp_branch}
 
-# Fetch remote
+# Fetch from remote
 git fetch ${remote}
-git reset ${remote}/${branch}
+git reset ${remote}/${target_branch}
 
 # Store source commit in build directory for each theme and plugin
 for dir in themes/rara plugins/rara-maps; do
   mkdir -p ${dir}/build
   rm -f ${dir}/build/commit
-  echo ${commit} > ${dir}/build/commit
+  echo ${source_commit} > ${dir}/build/commit
 done
 
 # Make sure build directories are not ignored
 ( sed -i.bak '/^build$/d' .gitignore || true ) && rm -f .gitignore.bak
 
-# Create a commit, referencing the source commit in the 
+# Commit the changes
 git add -A
-git commit -m "Deploy build from ${commit} [skip ci]" || echo "No changes to commit"
+git commit -m "Deploy build from ${source_commit} [skip ci]" || echo "No changes to commit"
 
-# Push to remote
-git push ${remote} HEAD:${branch}
+# Push to remote, if the flag was set
+[[ -z "${push}" ]] || git push ${remote} HEAD:${target_branch}
+
+# Return to original branch and remove temporary branch
+git checkout ${source_branch}
+git branch -D ${temp_branch}
