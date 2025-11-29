@@ -2,7 +2,7 @@
 
 # Deploy a build
 
-source_branch=$1
+branch=$1
 commit=$2
 
 if [[ -z "${commit}" ]]; then
@@ -13,8 +13,9 @@ fi
 git config user.name "github-actions[bot]"
 git config user.email "github-actions[bot]@users.noreply.github.com"
 
-deploy_branch=deploy-${source_branch}
-git checkout -B ${deploy_branch}
+git checkout -b deploy
+git fetch origin
+git reset origin/${branch}
 
 # Make sure build directory is not ignored
 ( sed -i.bak '/^build$/d' .gitignore || true ) && rm -f .gitignore.bak
@@ -22,4 +23,4 @@ git checkout -B ${deploy_branch}
 git add -A
 git commit -m "Deploy build from ${commit} [skip ci]" || echo "No changes to commit"
 
-git push origin ${deploy_branch}
+git push origin ${branch}
