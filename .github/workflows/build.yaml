@@ -36,8 +36,8 @@ jobs:
     - run: npm run lint --workspaces
     - uses: actions/upload-artifact@v4
       with:
-        name: rara-maps-build
-        path: ./plugins/rara-maps/build
+        path: |
+          ./plugins/rara-maps/build
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,8 +48,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
-    - uses: actions/download-artifact@v4
-      with:
-        name: rara-maps-build
-        path: ./plugins/rara-maps/build
+    - run: ls -R
+    - uses: actions/download-artifact@v5
+    - run: ls -R
     - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
