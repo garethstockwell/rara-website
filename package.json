@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "open": "concurrently \"http-server ./plugins/rara-maps -a localhost -p 1234\" \"open http://localhost:1234/demo\"",
+    "open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/test\"",
     "start": "npm run -w plugins/rara-maps start"
   },
   "dependencies": {

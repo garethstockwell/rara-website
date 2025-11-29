@@ -1,0 +1,57 @@
+<!-- Flat vector map -->
+
+<html>
+  <head>
+    <script src='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js'></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css' rel='stylesheet' />
+    <link href='style.css' rel='stylesheet' />
+
+    <!-- Inject base URL into library -->
+    <script src='data.js'></script>
+
+    <script src='../node_modules/rara-maps/build/bundle.js'></script>
+
+    <script type="module">
+      import { createToolbar } from "../plugins/rara-maps/src/control/toolbar.js";
+      createToolbar('vector');
+
+      const imageElem = document.getElementById("image");
+      var map = null;
+
+      import { absUrl } from "../plugins/rara-maps/src/util/url.js";
+      function onMouseEnter(id) {
+        const loc = map.appData.locations.getLocation(id);
+        if (loc && loc.data.properties.imageUrl) {
+          imageElem.src = absUrl(loc.data.properties.imageUrl);
+        } else {
+          imageElem.src = "";
+        }
+      }
+
+      map = raraMaps.vectorCreateMap({
+        overlay_opacity: 0.75,
+        locationOnEnter: onMouseEnter,
+        locationVisible: true,
+      });
+
+      import { Info } from "../plugins/rara-maps/src/component/info.js";
+      const info = new Info( {
+        map,
+      } );
+    </script>
+  </head>
+
+  <body>
+    <div id="toolbar" class="toolbar"></div>
+
+    <nav id="menu" hidden=true></nav>
+
+    <div id="content">
+      <div id="map" class="map"></div>
+      <img id="image" class="overlay"></img>
+    </div>
+
+    <pre id="info" style="display: none;"></pre>
+  </body>
+</html>
