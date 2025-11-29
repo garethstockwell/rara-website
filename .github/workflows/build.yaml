@@ -4,24 +4,13 @@ on:
   push:
     branches: [ "dev", "main" ]
 
-  workflow_dispatch:
-    inputs:
-      minify:
-        description: "Minify JavaScript"
-        required: true
-        default: true
-        type: boolean
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
       node-version: 24.7.0
-      WEBPACK_MINIFY: ${{ github.event_name == 'workflow_dispatch'
-                          && github.event.inputs.minify == 'false'
-                          && ''
-                       || '1' }}
+      WEBPACK_MINIFY: '1'
     
     steps:
     - uses: actions/checkout@v5
@@ -33,7 +22,6 @@ jobs:
     - run: npm ci
     - run: npm run build --workspaces
     - run: npm run lint --workspaces
-    - run: ls ./plugins/rara-maps/build/
     - uses: actions/upload-artifact@v4
       with:
         path: ./plugins/rara-maps/build
@@ -47,9 +35,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
-    - run: ls -R
     - uses: actions/download-artifact@v5
       with:
         path: ./plugins/rara-maps/build
-    - run: ls -R
     - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
