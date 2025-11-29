@@ -4,6 +4,8 @@ import { execSync } from 'child_process';
 
 import webpack from 'webpack';
 
+import TerserPlugin from 'terser-webpack-plugin';
+
 const __filename = fileURLToPath( import.meta.url );
 const __dirname = dirname( __filename );
 
@@ -20,6 +22,7 @@ function getCommitHash() {
 
 const minify = process.env.WEBPACK_MINIFY === '1';
 const commit = getCommitHash();
+const banner = `Built from commit: ${ commit }`;
 
 console.log( 'minify:', minify );
 console.log( 'commit:', commit );
@@ -37,10 +40,16 @@ const baseConfig = {
 	experiments: {
 		outputModule: true,
 	},
+	optimization: {
+		minimizer: [
+			new TerserPlugin( {
+				extractComments: false,
+			} ),
+		],
+	},
 	plugins: [
 		new webpack.BannerPlugin( {
-			banner: `Built from commit: ${ commit }`,
-			entryOnly: true,
+			banner,
 		} ),
 	],
 };

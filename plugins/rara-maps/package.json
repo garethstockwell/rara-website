@@ -11,6 +11,7 @@
 	"main": "index.js",
 	"dependencies": {
 		"maplibre-gl": "^5.13.0",
+		"terser-webpack-plugin": "^5.3.14",
 		"webpack": "^5.103.0"
 	},
 	"devDependencies": {
