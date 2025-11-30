@@ -146,8 +146,8 @@ body {
  *---------------------------------------------------------------------------*/
 
 .map {
-	width: 600px;
-	aspect-ratio: 1;
+	width: 100%;
+	height: 400px;
 	margin: 10px auto 10px auto;
 }
 
@@ -157,7 +157,6 @@ body {
 	aspect-ratio: auto;
 	margin: 0;
 }
-
 
 .map .map-nav {
 	position: absolute;
