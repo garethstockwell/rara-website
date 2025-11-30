@@ -15,8 +15,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "all": "npm run --ws --if-present",
+    "build": "npm run all build",
+    "lint": "npm run all lint",
     "open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/test\"",
-    "start": "npm run -w plugins/rara-maps start"
+    "start": "npm run all start",
+    "zip": "npm run all zip"
   },
   "dependencies": {
     "concurrently": "^9.2.1",
@@ -24,6 +28,7 @@
     "rara-maps": "^1.0.0"
   },
   "workspaces": [
-    "plugins/rara-maps"
+    "plugins/rara-maps",
+    "themes/rara"
   ]
 }

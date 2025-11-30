@@ -21,6 +21,6 @@ jobs:
         node-version: ${{ env.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --workspaces
-    - run: npm run lint --workspaces
+    - run: npm run build
+    - run: npm run lint
     - run: ./scripts/deploy.sh origin deploy-${{ env.BRANCH_NAME }} --push
