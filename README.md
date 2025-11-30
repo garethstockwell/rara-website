@@ -85,7 +85,7 @@ Then upload the zip files to the WordPress server.
 
 As described in the [Continuous Integration](#continuous-integration) section below, a GitHub action publishes build artifacts to a "deploy" branch. The [WP Pusher](https://wppusher.com/) plugin can be used to fetch these artifacts from GitHub and install the plugins / themes directly on the WordPress server.
 
-## Continuous Integration
+## Continuous Integration
 
 This repository defines a [GitHub workflow](https://docs.github.com/en/actions) which includes the following steps:
 
