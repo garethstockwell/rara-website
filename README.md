@@ -49,10 +49,10 @@ cp <files> ${RARA_WP_CONTENT}/updraft
 
 This maps the themes and plugins folders from the working directory of this repository into the container.
 
-4. Open Wordpress by browsing to `http://localhost:8000`
+4. Open Wordpress by browsing to http://localhost:8000
 
 5. Create a user.
-The login details don't matter since this will be overwritten, so username "test" and password "test" are fine.
+The login details don't matter since this will be overwritten by the credentials restored via Updraft - so username "test" and password "test" are fine.
 
 6. Log in
 - Activate the "RARA" theme.
@@ -66,6 +66,8 @@ The login details don't matter since this will be overwritten, so username "test
 - Uploads
 - Others
 Restore this backup, ticking all components.
+
+8. Log in with the credential restored from the remote server via Updraft.
 
 ### Deploy local build to remote WordPress instance
 
