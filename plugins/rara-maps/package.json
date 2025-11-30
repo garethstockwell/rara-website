@@ -32,6 +32,7 @@
 		"open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/demo\"",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start",
-		"watch": "npm run build-dev -- --watch"
+		"watch": "npm run build-dev -- --watch",
+		"zip": "npm run plugin-zip"
 	}
 }
