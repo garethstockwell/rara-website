@@ -10,7 +10,7 @@
 				"type": "Feature",
 				"properties": {
 					"id": "barnwell_priory",
-					"url": "%{RARA_MAPS}/assets/overlays/barnwell_priory.png",
+					"url": "%{RARA_MAPS}/app/assets/overlays/barnwell_priory.png",
 					"description": [ "Footprint of Barnwell Priory" ],
 					"attribution": "htt"
 				},
@@ -28,7 +28,7 @@
 				"type": "Feature",
 				"properties": {
 					"id": "camantsoc_1836_1838",
-					"url": "%{RARA_MAPS}/assets/overlays/G5-8-Cam.jpg",
+					"url": "%{RARA_MAPS}/app/assets/overlays/G5-8-Cam.jpg",
 					"description": [
 						"Map of Cambridge.",
 						"Plan of town with arms of colleges etc [1836 or 1838?].",
@@ -50,7 +50,7 @@
 				"type": "Feature",
 				"properties": {
 					"id": "camantsoc_1910",
-					"url": "%{RARA_MAPS}/assets/overlays/G4-Bac-Cam.jpg",
+					"url": "%{RARA_MAPS}/app/assets/overlays/G4-Bac-Cam.jpg",
 					"description": [
 						"Map of Cambridge. Bacon. Sc. 8 ½ in. to 1 mile. c. 1910"
 					],
@@ -70,7 +70,7 @@
 				"type": "Feature",
 				"properties": {
 					"id": "camantsoc_1925",
-					"url": "%{RARA_MAPS}/assets/overlays/G4-Spa2-Cam.jpg",
+					"url": "%{RARA_MAPS}/app/assets/overlays/G4-Spa2-Cam.jpg",
 					"description": [
 						"Map of Cambridge. Spalding. Sc. 9 in. to 1 mile. c. 1925"
 					],

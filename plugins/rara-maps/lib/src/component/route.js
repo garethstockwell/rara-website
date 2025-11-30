@@ -8,11 +8,9 @@ export class Route {
 
 	#startTime;
 	#startCoord;
-	#startPoint;
 	#startDistance;
 
 	#stopCoord;
-	#stopPoint;
 	#stopDistance;
 	#reachedStopDistance;
 

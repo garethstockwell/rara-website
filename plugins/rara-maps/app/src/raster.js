@@ -1,13 +1,13 @@
 // Render a raster map
 
-import { Map } from '../component/map.js';
+import { Map } from '../../lib/src/component/map.js';
 
-import { addBuildingsLayer } from '../layer/buildings.js';
-import { addLineLayer } from '../layer/line.js';
-import { addLocationsLayer } from '../layer/locations.js';
-import { addOverlayLayer } from '../layer/overlay.js';
+import { addBuildingsLayer } from '../../lib/src/layer/buildings.js';
+import { addLineLayer } from '../../lib/src/layer/line.js';
+import { addLocationsLayer } from '../../lib/src/layer/locations.js';
+import { addOverlayLayer } from '../../lib/src/layer/overlay.js';
 
-import { absUrl } from '../util/url.js';
+import { absUrl } from '../../lib/src/util/url.js';
 
 /**
  * Create the map
@@ -69,7 +69,7 @@ export function createMap( args ) {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/assets/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
@@ -77,7 +77,7 @@ export function createMap( args ) {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'heritage_trail',
 		text: 'Heritage trail line',
-		url: absUrl( '%{RARA_MAPS}/assets/data/line_heritage_trail.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/line_heritage_trail.json' ),
 		color: 'green',
 		visible: false,
 	} );
@@ -85,7 +85,7 @@ export function createMap( args ) {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'attractions',
 		text: 'Attractions',
-		url: absUrl( '%{RARA_MAPS}/assets/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/locations.json' ),
 		tags: [ 'attractions' ],
 		color: 'yellow',
 		onclick: args.locationOnClick ?? null,
@@ -95,7 +95,7 @@ export function createMap( args ) {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'improvements',
 		text: 'Improvements',
-		url: absUrl( '%{RARA_MAPS}/assets/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/locations.json' ),
 		tags: [ 'improvements' ],
 		color: 'red',
 		onclick: args.locationOnClick ?? null,

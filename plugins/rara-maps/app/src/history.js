@@ -1,11 +1,11 @@
 // Render history view
 
-import { Map } from '../component/map.js';
+import { Map } from '../../lib/src/component/map.js';
 
-import { addLineLayer } from '../layer/line.js';
-import { addOverlayLayer } from '../layer/overlay.js';
+import { addLineLayer } from '../../lib/src/layer/line.js';
+import { addOverlayLayer } from '../../lib/src/layer/overlay.js';
 
-import { absUrl } from '../util/url.js';
+import { absUrl } from '../../lib/src/util/url.js';
 
 /**
  * Create the map
@@ -13,7 +13,7 @@ import { absUrl } from '../util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/assets/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/app/assets/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -35,7 +35,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/assets/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
