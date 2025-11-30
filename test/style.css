@@ -3,7 +3,14 @@
 	--color-blue: #3887be;
 	--color-green: #0f0;
 	--color-white: #fff;
+
+	--height-header: 50px;
+	--height-footer: 50px;
 }
+
+/*-----------------------------------------------------------------------------
+ * Page
+ *---------------------------------------------------------------------------*/
 
 html,
 body {
@@ -31,18 +38,68 @@ body {
 	height: 100vh; /* Full viewport height */
 }
 
-code {
-	font-family:
-		source-code-pro,
-		Menlo,
-		Monaco,
-		Consolas,
-		"Courier New",
-		monospace;
+/*-----------------------------------------------------------------------------
+ * Header
+ *---------------------------------------------------------------------------*/
+
+.site-header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	transition: transform 0.3s ease;
+	height: var(--height-header);
+	background-color: var(--color-black);
+	z-index: 999;
 }
 
+#toolbar {
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	flex-shrink: 0; /* Prevent shrinking */
+}
 
-/* navigation */
+.toolbar a {
+	font-size: large;
+	background-color: transparent;
+	color: var(--color-white);
+	text-decoration: none;
+	padding-left: 1em;
+	padding-right: 1em;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	overflow: hidden;
+	outline: none;
+}
+
+.toolbar a:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.toolbar a.active {
+	background-color: var(--color-blue);
+	color: #fff;
+}
+
+.site-header.hidden {
+	transform: translateY(-100%);
+}
+
+/*-----------------------------------------------------------------------------
+ * Content
+ *---------------------------------------------------------------------------*/
+
+.site-content {
+	padding-top: var(--height-header);
+	flex-grow: 1;
+}
+
+/*-----------------------------------------------------------------------------
+ * Navigation
+ *---------------------------------------------------------------------------*/
+
 .nav {
 	flex: 0 0 50px; /* fixed height */
 	background-color: var(--color-blue);
@@ -70,20 +127,6 @@ code {
 	padding: 5px 10px;
 }
 
-.toolbar a {
-	font-size: large;
-	background-color: transparent;
-	color: var(--color-white);
-	text-decoration: none;
-	padding-left: 1em;
-	padding-right: 1em;
-	background-repeat: no-repeat;
-	border: none;
-	cursor: pointer;
-	overflow: hidden;
-	outline: none;
-}
-
 .nav a:hover {
 	background-color: #fff;
 	color: #000;
@@ -98,62 +141,21 @@ code {
 	background: var(--color-blue);
 }
 
-/* toolbar */
-
-#toolbar {
-	height: 50px;
-	background: var(--color-black);
-	color: var(--color-white);
-	text-align: center;
-	line-height: 50px;
-	flex-shrink: 0; /* Prevent shrinking */
-}
-
-.toolbar a:hover {
-	background-color: #fff;
-	color: #000;
-}
-
-.toolbar a.active {
-	background-color: var(--color-blue);
-	color: #fff;
-}
-
-/* content */
-
-#content {
-	flex: 1; /* Fill the remaining space */
-	overflow: auto; /* Add scrolling if needed */
-	display: flex;
-}
-
-#content .overlay {
-	position: absolute;
-	bottom: 100px;
-	right: 50px;
-	width: 25%;
-	outline: none;
-	border: 0;
-}
-
-/* columns */
-
-.column {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-/* map */
+/*-----------------------------------------------------------------------------
+ * Map
+ *---------------------------------------------------------------------------*/
 
 .map {
 	width: 100%;
-	height: 100%;
+	height: 400px;
+	margin: 10px auto 10px auto;
 }
 
-.half {
-	width: 50%;
+.map.expand {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: auto;
+	margin: 0;
 }
 
 .map .map-nav {
@@ -187,14 +189,6 @@ code {
 	text-align: center;
 }
 
-.float-left img {
-	width: 100%;
-}
-
-.float-right img {
-	width: 100%;
-}
-
 .map .map-nav img {
 	height: 65%;
 }
@@ -207,7 +201,9 @@ code {
 	right: 5%;
 }
 
-/* menu */
+/*-----------------------------------------------------------------------------
+ * Menu
+ *---------------------------------------------------------------------------*/
 
 #menu {
 	background: #000;
@@ -260,7 +256,43 @@ code {
 	margin-right: 10px;
 }
 
-/* info */
+/*-----------------------------------------------------------------------------
+ * Footer
+ *---------------------------------------------------------------------------*/
+
+.site-footer {
+	height: var(--height-footer);
+	background-color: var(--color-black);
+	color: var(--color-white);
+}
+
+/*-----------------------------------------------------------------------------
+ * Float
+ *---------------------------------------------------------------------------*/
+
+.float-left {
+	float: left;
+	width: 50%;
+	padding: 15px;
+}
+
+.float-left img {
+	width: 100%;
+}
+
+.float-right {
+	float: right;
+	width: 50%;
+	padding: 15px;
+}
+
+.float-right img {
+	width: 100%;
+}
+
+/*-----------------------------------------------------------------------------
+ * Info
+ *---------------------------------------------------------------------------*/
 
 #info {
 	display: block;
@@ -276,37 +308,4 @@ code {
 	text-align: center;
 	color: var(--color-green);
 	background: var(--color-black);
-}
-
-/* popup */
-
-.maplibregl-popup-content {
-	border-radius: 5px;
-	padding: 7px;
-	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* commentary */
-
-#commentary-panel {
-	flex: 1 1 auto; /* take up remaining space */
-	overflow-y: auto; /* scroll when needed */
-	padding: 20px;
-	min-height: 0; /* important for flex scrolling */
-}
-
-.commentary h1 {
-	font-size: 24px;
-}
-
-.float-left {
-	float: left;
-	width: 50%;
-	padding: 15px;
-}
-
-.float-right {
-	float: right;
-	width: 50%;
-	padding: 15px;
 }

@@ -6,6 +6,7 @@
     <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     <link href='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css' rel='stylesheet' />
     <link href='style.css' rel='stylesheet' />
+    <script src='./src/header.js'></script>
 
     <!-- Inject base URL into library -->
     <script src='./src/data.js'></script>
@@ -61,14 +62,16 @@
   </head>
 
   <body>
-    <div id="toolbar" class="toolbar"></div>
+    <header id="foo" class="site-header">
+      <div id="toolbar" class="toolbar"></div>
+    </header>
 
-    <nav id="menu" hidden=true></nav>
-
-    <div id="content">
-      <div id="map" class="map"></div>
-      <img id="image" class="overlay"></img>
+    <div id="content" class="site-content">
+      <div id="map" class="map expand"></div>
+      <nav id="menu" hidden=true></nav>
     </div>
+
+    <footer class="site-footer"></footer>
 
     <pre id="info" style="display: none;"></pre>
   </body>
