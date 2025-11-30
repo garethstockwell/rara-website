@@ -46,7 +46,9 @@ export function createMap( args ) {
 	};
 
 	const zOrder = [
+		'camantsoc_1836_1838',
 		'camantsoc_1910',
+		'camantsoc_1925',
 		'barnwell_priory',
 		'boundary',
 		'heritage_trail',
@@ -102,18 +104,32 @@ export function createMap( args ) {
 		visible: args.locationVisible ?? false,
 	} );
 
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'barnwell_priory',
-		text: 'Barnwell Priory (historical)',
-		color: 'orange',
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1910',
-		text: 'Map circa 1910',
-		opacity: 0.75,
-		visible: false,
+	map.on( 'load', async () => {
+		fetch( absUrl( '%{RARA_MAPS}/app/assets/data/overlays.json' ) )
+			.then( ( res ) => res.json() )
+			.then( ( data ) => {
+				for ( const entry of data.overlays.features ) {
+					console.log(
+						entry.properties.id,
+						entry.properties.id in zOrder
+					);
+					if ( zOrder.includes( entry.properties.id ) ) {
+						map.appData.layers.addLayer( addOverlayLayer, {
+							id: entry.properties.id,
+							text: entry.properties.description[ 0 ],
+							url: absUrl( entry.properties.url ),
+							coordinates: entry.geometry.coordinates,
+							attribution: entry.properties.attribution
+								? data.attributions[
+										entry.properties.attribution
+								  ]
+								: null,
+							opacity: 1.0,
+							visible: false,
+						} );
+					}
+				}
+			} );
 	} );
 
 	return map;

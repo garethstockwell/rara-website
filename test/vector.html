@@ -19,14 +19,32 @@
       const imageElem = document.getElementById("image");
       var map = null;
 
-      import { absUrl } from "../plugins/rara-maps/src/util/url.js";
+      const images = {
+        "riverside_boulevard": "./images/boulevard_3.jpg",
+        "elizabeth_way_underpass": "./images/elizabeth_way_underpass.png",
+        "elizabeth_way_bridge": "./images/elizabeth_way_under_bridge.jpg",
+        "stourbridge_common_approach": "./images/stourbridge_common_approach.png",
+        "river_festival": "./images/river_festival_3.png",
+        "newmarket_road": "./images/newmarket_road.png",
+        "mercers_row": "./images/mercers_row.png",
+        "stourbridge_common": "./images/stourbridge_common.png",
+        "st_andrew_the_less": "https://standrewtheless.org/standrewthelesscommunityproject/test/images/st-andrew-the-less-newmarket-r",
+        "leper_chapel": "./images/leper_chapel.png",
+        "cellarers_chequer": "./images/cellarers_chequer.png",
+        "abbey_house": "./images/abbey_house.jpg",
+        "cmot": "./images/cmot.jpg",
+        "emailerator": "./images/emailerator.jpg",
+        "war_memorial": "./images/war_memorial.png",
+        "flying_saucer": "./images/flying_saucer.jpg",
+        "equiano_bridge": "./images/equiano_bridge.png",
+        "engineers_house": "./images/engineers_house.webp",
+        "kerb_kollective": "./images/kerb_kollective.png",
+        "logans_meadow": "./images/logans_meadow.png"
+      };
+
+      import { absUrl } from "../plugins/rara-maps/lib/src/util/url.js";
       function onMouseEnter(id) {
-        const loc = map.appData.locations.getLocation(id);
-        if (loc && loc.data.properties.imageUrl) {
-          imageElem.src = absUrl(loc.data.properties.imageUrl);
-        } else {
-          imageElem.src = "";
-        }
+        imageElem.src = images[id] ?? null;
       }
 
       map = raraMaps.vectorCreateMap({

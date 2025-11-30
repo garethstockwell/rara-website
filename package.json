@@ -17,6 +17,7 @@
   "scripts": {
     "all": "npm run --ws --if-present",
     "build": "npm run all build",
+    "format": "npm run all format",
     "lint": "npm run all lint",
     "open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/test\"",
     "start": "npm run all start",

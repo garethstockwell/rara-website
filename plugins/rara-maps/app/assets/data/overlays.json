@@ -30,7 +30,7 @@
 					"id": "camantsoc_1836_1838",
 					"url": "%{RARA_MAPS}/app/assets/overlays/G5-8-Cam.jpg",
 					"description": [
-						"Map of Cambridge.",
+						"Map of Cambridge circa 1836-1838.",
 						"Plan of town with arms of colleges etc [1836 or 1838?].",
 						"Inset Trinity College. From Moule’s Eng. Topographer or English Counties ???? .W. Schnoll… engr. 19 x 25 cm. (FORDHAM 188)"
 					],
@@ -52,6 +52,7 @@
 					"id": "camantsoc_1910",
 					"url": "%{RARA_MAPS}/app/assets/overlays/G4-Bac-Cam.jpg",
 					"description": [
+						"Map of Cambridge circa 1910.",
 						"Map of Cambridge. Bacon. Sc. 8 ½ in. to 1 mile. c. 1910"
 					],
 					"attribution": "camantsoc"
@@ -72,6 +73,7 @@
 					"id": "camantsoc_1925",
 					"url": "%{RARA_MAPS}/app/assets/overlays/G4-Spa2-Cam.jpg",
 					"description": [
+						"Map of Cambridge circa 1925.",
 						"Map of Cambridge. Spalding. Sc. 9 in. to 1 mile. c. 1925"
 					],
 					"attribution": "camantsoc"

@@ -5,7 +5,6 @@ import { Map } from '../../lib/src/component/map.js';
 import { addBuildingsLayer } from '../../lib/src/layer/buildings.js';
 import { addLineLayer } from '../../lib/src/layer/line.js';
 import { addLocationsLayer } from '../../lib/src/layer/locations.js';
-import { addOverlayLayer } from '../../lib/src/layer/overlay.js';
 
 import { absUrl } from '../../lib/src/util/url.js';
 
@@ -23,10 +22,6 @@ export function createMap() {
 	};
 
 	const zOrder = [
-		'camantsoc_1836_1838',
-		'camantsoc_1910',
-		'camantsoc_1925',
-		'barnwell_priory',
 		'boundary',
 		'heritage_trail',
 		'attractions',
@@ -141,34 +136,6 @@ export function createMap() {
 		color: 'red',
 		visible: true,
 		staticPopups: true,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'barnwell_priory',
-		text: 'Barnwell Priory (historical)',
-		color: 'orange',
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1836_1838',
-		text: 'Map circa 1836-1838',
-		opacity: 1.0,
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1910',
-		text: 'Map circa 1910',
-		opacity: 1.0,
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1925',
-		text: 'Map circa 1925',
-		opacity: 1.0,
-		visible: false,
 	} );
 
 	return map;
