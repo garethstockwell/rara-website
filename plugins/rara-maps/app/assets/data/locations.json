@@ -5,7 +5,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "riverside_boulevard",
-				"imageUrl": "%{RARA_MAPS}/assets/images/boulevard_3.jpg",
 				"title": "Riverside \"boulevard\"",
 				"tags": [ "improvements" ]
 			},
@@ -18,7 +17,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "elizabeth_way_underpass",
-				"imageUrl": "%{RARA_MAPS}/assets/images/elizabeth_way_underpass.png",
 				"title": "Elizabeth Way underpass",
 				"tags": [ "improvements" ]
 			},
@@ -31,7 +29,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "elizabeth_way_bridge",
-				"imageUrl": "%{RARA_MAPS}/assets/images/elizabeth_way_under_bridge.jpg",
 				"title": "Below Elizabeth Way bridge",
 				"tags": [ "improvements" ]
 			},
@@ -44,7 +41,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "stourbridge_common_approach",
-				"imageUrl": "%{RARA_MAPS}/assets/images/stourbridge_common_approach.png",
 				"title": "Stourbridge Common approach",
 				"tags": [ "improvements" ]
 			},
@@ -57,7 +53,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "river_festival",
-				"imageUrl": "%{RARA_MAPS}/assets/images/river_festival_3.png",
 				"title": "River festival",
 				"tags": [ "improvements" ]
 			},
@@ -70,7 +65,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "newmarket_road",
-				"imageUrl": "%{RARA_MAPS}/assets/images/newmarket_road.png",
 				"title": "Newmarket Road",
 				"tags": [ "improvements" ]
 			},
@@ -83,7 +77,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "mercers_row",
-				"imageUrl": "%{RARA_MAPS}/assets/images/mercers_row.png",
 				"title": "Mercer's Row",
 				"tags": [ "improvements" ]
 			},
@@ -96,7 +89,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "stourbridge_common",
-				"imageUrl": "%{RARA_MAPS}/assets/images/stourbridge_common.png",
 				"title": "Stourbridge Common",
 				"tags": [ "attractions" ]
 			},
@@ -109,7 +101,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "st_andrew_the_less",
-				"imageUrl": "https://standrewtheless.org/standrewthelesscommunityproject/assets/images/st-andrew-the-less-newmarket-r",
 				"title": "St Andrew the Less",
 				"tags": [ "attractions" ]
 			},
@@ -122,7 +113,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "leper_chapel",
-				"imageUrl": "%{RARA_MAPS}/assets/images/leper_chapel.png",
 				"title": "Leper Chapel",
 				"tags": [ "attractions" ]
 			},
@@ -135,7 +125,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "cellarers_chequer",
-				"imageUrl": "%{RARA_MAPS}/assets/images/cellarers_chequer.png",
 				"title": "Cellarer's Chequer",
 				"tags": [ "attractions" ]
 			},
@@ -148,7 +137,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "abbey_house",
-				"imageUrl": "%{RARA_MAPS}/assets/images/abbey_house.jpg",
 				"title": "Abbey House",
 				"tags": [ "attractions" ]
 			},
@@ -161,7 +149,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "cmot",
-				"imageUrl": "%{RARA_MAPS}/assets/images/cmot.jpg",
 				"title": "Cambridge Museum of Technology",
 				"tags": [ "attractions" ]
 			},
@@ -174,7 +161,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "emailerator",
-				"imageUrl": "%{RARA_MAPS}/assets/images/emailerator.jpg",
 				"title": "Dinky Doors Emailerator",
 				"tags": [ "attractions" ]
 			},
@@ -187,7 +173,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "war_memorial",
-				"imageUrl": "%{RARA_MAPS}/assets/images/war_memorial.png",
 				"title": "Cambridge Gas Company War Memorial",
 				"tags": [ "attractions" ]
 			},
@@ -200,7 +185,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "flying_saucer",
-				"imageUrl": "%{RARA_MAPS}/assets/images/flying_saucer.jpg",
 				"title": "Dinky Doors Flying Saucer",
 				"tags": [ "attractions" ]
 			},
@@ -213,7 +197,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "equiano_bridge",
-				"imageUrl": "%{RARA_MAPS}/assets/images/equiano_bridge.png",
 				"title": "Equiano Bridge",
 				"tags": [ "attractions" ]
 			},
@@ -226,7 +209,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "engineers_house",
-				"imageUrl": "%{RARA_MAPS}/assets/images/engineers_house.webp",
 				"title": "Engineer's House",
 				"tags": [ "attractions" ]
 			},
@@ -239,7 +221,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "kerb_kollective",
-				"imageUrl": "%{RARA_MAPS}/assets/images/kerb_kollective.png",
 				"title": "Kerb Kollective",
 				"tags": [ "attractions" ]
 			},
@@ -252,7 +233,6 @@
 			"type": "Feature",
 			"properties": {
 				"id": "logans_meadow",
-				"imageUrl": "%{RARA_MAPS}/assets/images/logans_meadow.png",
 				"title": "Logan's Meadow Nature Reserve",
 				"tags": [ "attractions" ]
 			},

@@ -28,7 +28,7 @@ console.log( 'minify:', minify );
 console.log( 'commit:', commit );
 
 const baseConfig = {
-	entry: resolve( __dirname, 'src/index.js' ),
+	entry: resolve( __dirname, 'index.js' ),
 	output: {
 		filename: 'bundle.js',
 		path: resolve( __dirname, 'build' ),

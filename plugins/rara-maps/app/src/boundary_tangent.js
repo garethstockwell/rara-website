@@ -1,14 +1,13 @@
 // Fly around the boundary, with camera pointing along the boundary
 
-import { Map } from '../component/map.js';
-import { Route } from '../component/route.js';
+import { Map } from '../../lib/src/component/map.js';
+import { Route } from '../../lib/src/component/route.js';
 
-import { addBuildingsLayer } from '../layer/buildings.js';
-import { addLineLayer } from '../layer/line.js';
-import { addLocationsLayer } from '../layer/locations.js';
-import { addOverlayLayer } from '../layer/overlay.js';
+import { addBuildingsLayer } from '../../lib/src/layer/buildings.js';
+import { addLineLayer } from '../../lib/src/layer/line.js';
+import { addLocationsLayer } from '../../lib/src/layer/locations.js';
 
-import { absUrl } from '../util/url.js';
+import { absUrl } from '../../lib/src/util/url.js';
 
 /**
  * Create the map
@@ -16,7 +15,7 @@ import { absUrl } from '../util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/assets/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/app/assets/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -24,10 +23,6 @@ export function createMap() {
 	};
 
 	const zOrder = [
-		'camantsoc_1836_1838',
-		'camantsoc_1910',
-		'camantsoc_1925',
-		'barnwell_priory',
 		'heritage_trail',
 		'boundary',
 		'point',
@@ -79,7 +74,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/assets/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 		callback: ( {} ) => {
@@ -96,7 +91,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'heritage_trail',
 		text: 'Heritage trail line',
-		url: absUrl( '%{RARA_MAPS}/assets/data/line_heritage_trail.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/line_heritage_trail.json' ),
 		color: 'green',
 		visible: false,
 	} );
@@ -104,7 +99,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'attractions',
 		text: 'Attractions',
-		url: absUrl( '%{RARA_MAPS}/assets/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/locations.json' ),
 		tags: [ 'attractions' ],
 		color: 'yellow',
 		visible: true,
@@ -114,39 +109,11 @@ export function createMap() {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'improvements',
 		text: 'Improvements',
-		url: absUrl( '%{RARA_MAPS}/assets/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/app/assets/data/locations.json' ),
 		tags: [ 'improvements' ],
 		color: 'red',
 		visible: true,
 		staticPopups: true,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'barnwell_priory',
-		text: 'Barnwell Priory (historical)',
-		color: 'orange',
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1836_1838',
-		text: 'Map circa 1836-1838',
-		opacity: 1.0,
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1910',
-		text: 'Map circa 1910',
-		opacity: 1.0,
-		visible: false,
-	} );
-
-	map.appData.layers.addLayer( addOverlayLayer, {
-		id: 'camantsoc_1925',
-		text: 'Map circa 1925',
-		opacity: 1.0,
-		visible: false,
 	} );
 
 	return map;
