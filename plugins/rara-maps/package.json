@@ -21,6 +21,11 @@
 		"globals": "^16.5.0",
 		"http-server": "^14.1.1"
 	},
+	  "files": [
+    "app/assets",
+		"build",
+    "lib/assets"
+  ],
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
