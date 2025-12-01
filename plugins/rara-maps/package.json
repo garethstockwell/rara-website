@@ -8,6 +8,11 @@
 	"homepage": "",
 	"repository": "",
 	"bugs": "",
+	"files": [
+		"app/assets",
+		"build",
+		"lib/assets"
+	],
 	"dependencies": {
 		"maplibre-gl": "^5.13.0",
 		"terser-webpack-plugin": "^5.3.14",
@@ -21,11 +26,6 @@
 		"globals": "^16.5.0",
 		"http-server": "^14.1.1"
 	},
-	  "files": [
-    "app/assets",
-		"build",
-    "lib/assets"
-  ],
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",

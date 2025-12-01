@@ -1,7 +1,12 @@
-// header.js
+// page.js
 
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
+
+  setTimeout(() => {
+    header.classList.add('hidden');
+  }, 1000);
+
   let lastScrollY = window.scrollY;
 
   window.addEventListener('scroll', () => {

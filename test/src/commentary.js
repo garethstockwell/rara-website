@@ -17,8 +17,8 @@ export class Commentary {
 	 * @param {Function} args.callback Callback function
 	 */
 	constructor( args ) {
-		this.#elems = document.querySelectorAll( '.commentary' );
-		this.#elems.forEach( ( el ) => ( el.style = 'display: none;' ) );
+		this.#elems = document.querySelectorAll( '.commentary-panel' );
+		this.#elems.forEach( ( el ) => ( el.classList.add( 'hidden' ) ) );
 		this.#elemIds = Array.from( this.#elems ).map( ( el ) => el.id );
 
 		this.#index = 0;
@@ -30,10 +30,16 @@ export class Commentary {
 		this.#nextLabels = document.querySelectorAll( '.next-label' );
 
 		this.#prevButtons.forEach( ( el ) =>
-			el.addEventListener( 'click', ( {} ) => this.#onPrev() )
+			el.addEventListener( 'click', ( event ) => {
+				this.#onPrev();
+				event.stopPropagation();
+			} )
 		);
 		this.#nextButtons.forEach( ( el ) =>
-			el.addEventListener( 'click', ( {} ) => this.#onNext() )
+			el.addEventListener( 'click', ( event ) => {
+				this.#onNext();
+				event.stopPropagation();
+	 		} )
 		);
 
 		this.#callback = args.callback;
@@ -60,10 +66,10 @@ export class Commentary {
 		);
 
 		const oldElem = document.querySelector( '#' + oldId );
-		oldElem.style.display = 'none';
+		oldElem.classList.add( 'hidden' );
 
 		const newElem = document.querySelector( '#' + this.#activeId );
-		newElem.style.display = 'block';
+		newElem.classList.remove( 'hidden' );
 
 		if ( this.#index > 0 ) {
 			this.#prevButtons.forEach(
