@@ -5,6 +5,7 @@ const { execSync } = require('child_process');
 
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // react-refresh plugin is optional (only used in dev). Try to require it.
 let ReactRefreshWebpackPlugin;
@@ -65,7 +66,45 @@ const baseConfig = {
           },
         },
       },
-      // add other loaders (css, images) here if needed
+      
+      // CSS Modules (component-scoped)
+      {
+        test: /\.module\.css$/i,
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]',
+              },
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [['autoprefixer']],
+              },
+            },
+          },
+        ],
+      },
+
+      // Global CSS (regular styles, vendor css)
+      {
+        test: /\.css$/i,
+        exclude: /\.module\.css$/i,
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: { postcssOptions: { plugins: [['autoprefixer']] } },
+          },
+        ],
+      },
     ],
   },
 
@@ -80,7 +119,12 @@ const baseConfig = {
       : [],
   },
 
-  plugins: [new webpack.BannerPlugin({ banner })],
+  plugins: [
+    new webpack.BannerPlugin({ banner }),
+    ...(!isDev
+      ? [new MiniCssExtractPlugin({ filename: 'bundle.css' })]
+      : []),
+  ],
 
   devtool: minify ? false : 'eval-source-map',
   mode: minify ? 'production' : 'development',
