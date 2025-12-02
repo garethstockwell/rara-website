@@ -1,4 +1,7 @@
 import { createRoot } from 'react-dom/client';
+
+import './global.css';
+
 import App from './src/App.jsx';
 
 function mount() {
@@ -7,8 +10,15 @@ function mount() {
 		return;
 	}
 
+	// The footer element is passed into the App so that it can be relocated
+	// within the DOM, using a React effect callback.
+	let footer = document.getElementsByClassName( 'site-footer' );
+	if ( footer ) {
+		footer = footer[ 0 ];
+	}
+
 	const root = createRoot( container );
-	root.render( <App /> );
+	root.render( <App footer={ footer } /> );
 }
 
 // Automatically mount when the page loads

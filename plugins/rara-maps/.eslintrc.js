@@ -8,5 +8,7 @@ module.exports = {
 		'jsdoc/require-param-type': 'warn',
 		'jsdoc/require-returns-type': 'warn',
 		'jsdoc/require-returns-description': 'warn',
+		'jsx-a11y/click-events-have-key-events': 'warn',
+		'jsx-a11y/no-static-element-interactions': 'warn',
 	},
 };

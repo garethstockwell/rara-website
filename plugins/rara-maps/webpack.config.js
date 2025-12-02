@@ -7,12 +7,11 @@ const webpack = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
-// react-refresh plugin is optional (only used in dev). Try to require it.
+// react-refresh plugin is optional (only used in dev)
 let ReactRefreshWebpackPlugin;
 try {
 	ReactRefreshWebpackPlugin = require( '@pmmmwh/react-refresh-webpack-plugin' );
 } catch ( err ) {
-	// not installed — we'll simply not enable fast refresh
 	ReactRefreshWebpackPlugin = null;
 }
 
@@ -22,7 +21,7 @@ function getCommitHash() {
 		.trim();
 	let commit = execSync( 'git rev-parse HEAD' ).toString( 'utf8' ).trim();
 	if ( status !== '' ) {
-		commit = commit + '-dirty';
+		commit += '-dirty';
 	}
 	return commit;
 }
@@ -36,7 +35,7 @@ console.log( 'minify:', minify );
 console.log( 'isDev:', isDev );
 console.log( 'commit:', commit );
 
-// Entry — change to index.js if you prefer
+// Entry file
 const entryFile = path.resolve( __dirname, 'index.jsx' );
 
 const baseConfig = {
@@ -48,6 +47,7 @@ const baseConfig = {
 			name: 'raraMaps',
 			type: 'window',
 		},
+		clean: true,
 	},
 
 	resolve: {
@@ -71,7 +71,7 @@ const baseConfig = {
 				},
 			},
 
-			// CSS Modules (component-scoped)
+			// CSS Modules
 			{
 				test: /\.module\.css$/i,
 				use: [
@@ -90,15 +90,13 @@ const baseConfig = {
 					{
 						loader: 'postcss-loader',
 						options: {
-							postcssOptions: {
-								plugins: [ [ 'autoprefixer' ] ],
-							},
+							postcssOptions: { plugins: [ [ 'autoprefixer' ] ] },
 						},
 					},
 				],
 			},
 
-			// Global CSS (regular styles, vendor css)
+			// Global CSS
 			{
 				test: /\.css$/i,
 				exclude: /\.module\.css$/i,
@@ -119,29 +117,39 @@ const baseConfig = {
 	optimization: {
 		minimize: minify,
 		minimizer: minify
-			? [
-					new TerserPlugin( {
-						extractComments: false,
-					} ),
-			  ]
+			? [ new TerserPlugin( { extractComments: false } ) ]
 			: [],
 	},
 
 	plugins: [
 		new webpack.BannerPlugin( { banner } ),
+		// Extract CSS in production
 		...( ! isDev
 			? [ new MiniCssExtractPlugin( { filename: 'bundle.css' } ) ]
+			: [] ),
+		// React Fast Refresh only in dev with HMR
+		...( isDev && ReactRefreshWebpackPlugin
+			? [ new ReactRefreshWebpackPlugin() ]
 			: [] ),
 	],
 
 	devtool: minify ? false : 'eval-source-map',
 	mode: minify ? 'production' : 'development',
+
+	// Dev server for HMR
+	...( isDev
+		? {
+				devServer: {
+					static: path.resolve( __dirname, 'test' ),
+					hot: true,
+					port: 3000,
+				},
+		  }
+		: {} ),
 };
 
+// Add react-refresh/babel plugin only if HMR is enabled
 if ( isDev && ReactRefreshWebpackPlugin ) {
-	baseConfig.plugins.push( new ReactRefreshWebpackPlugin() );
-
-	// add react-refresh/babel plugin to babel-loader options
 	const babelRule = baseConfig.module.rules.find(
 		( r ) => r.use && r.use.loader === 'babel-loader'
 	);

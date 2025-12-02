@@ -1,0 +1,9 @@
+.dashboard {
+	left: 0;
+	right: 0;
+	bottom: var(--panel-offset);
+	height: var(--dashboard-height);
+	border-radius: var(--dashboard-radius) var(--dashboard-radius) 0 0;
+	border-bottom: 0;
+	display: flex;
+}

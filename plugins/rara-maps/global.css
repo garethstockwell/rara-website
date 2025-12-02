@@ -1,0 +1,22 @@
+:root {
+	--color-dark-blue: #364154;
+	--color-green: #0f0;
+	--color-white: #fff;
+
+	--header-offset: var(--header-height);
+
+	--handle-size: 40px;
+	--handle-radius: 10px;
+
+	--dashboard-height: 70px;
+	--dashboard-radius: 15px;
+
+	--panel-offset: 0px; /* stylelint-disable-line length-zero-no-unit */
+	--panel-height: var(--panel-max-offset);
+	--panel-radius: var(--dashboard-radius);
+	--panel-max-offset: 75vh;
+}
+
+.site-footer.hidden {
+	visibility: hidden;
+}
