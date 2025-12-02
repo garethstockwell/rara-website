@@ -1,0 +1,5 @@
+.card {
+	z-index: 1000;
+	background-color: var(--color-dark-blue);
+	color: var(--color-white);
+}

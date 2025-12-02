@@ -1,6 +1,5 @@
-.root {
-	padding: 8px 12px;
-	border-radius: 6px;
-	background: #1e88e5;
-	color: #fff;
+.app {
+	flex-grow: 1;
+	background: #fff;
+	color: #000;
 }
