@@ -1,4 +1,4 @@
-<!-- Globe map -->
+<!-- Fly around boundary -->
 
 <html>
   <head>
@@ -11,12 +11,13 @@
     <!-- Inject base URL into library -->
     <script src='./src/data.js'></script>
 
+    <script src='../../node_modules/rara-maps/build/bundle.js'></script>
+
     <script type="module">
       import { createToolbar } from "./src/toolbar.js";
-      createToolbar('globe');
+      createToolbar('boundary_radius');
 
-      import { createMap } from "../plugins/rara-maps/app/src/globe.js";
-      const map = createMap();
+      const map = raraMaps.boundaryRadiusCreateMap();
 
       import { Info } from "./src/info.js";
       const info = new Info( {
@@ -31,11 +32,10 @@
     </header>
 
     <div id="content" class="site-content">
-      <div id="map" class="map"></div>
+      <div id="map" class="map expand"></div>
+      <nav id="menu" hidden=true></nav>
     </div>
 
     <footer class="site-footer"></footer>
-
-    <pre id="info" style="display: none;"></pre>
   </body>
 </html>

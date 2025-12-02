@@ -19,7 +19,7 @@
     "build": "npm run all build",
     "format": "npm run all format",
     "lint": "npm run all lint",
-    "open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/test\"",
+    "open": "npm run -w plugins/rara-maps open",
     "start": "npm run all start",
     "zip": "npm run all zip"
   },
