@@ -1,0 +1,326 @@
+:root {
+	--color-black: #000;
+	--color-blue: #3887be;
+	--color-green: #0f0;
+	--color-white: #fff;
+
+	--height-header: 50px;
+	--height-footer: 50px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Page
+ *---------------------------------------------------------------------------*/
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	font-family:
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		"Fira Sans",
+		"Droid Sans",
+		"Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Full viewport height */
+}
+
+/*-----------------------------------------------------------------------------
+ * Page
+ *---------------------------------------------------------------------------*/
+
+.page {
+	display: flex;
+}
+
+/*-----------------------------------------------------------------------------
+ * Header
+ *---------------------------------------------------------------------------*/
+
+.site-header {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	transition: transform 0.3s ease;
+	height: var(--height-header);
+	background-color: var(--color-black);
+	z-index: 999;
+	display: flex;
+}
+
+.site-header.hidden {
+	transform: translateY(-100%);
+}
+
+#toolbar {
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	flex-shrink: 0; /* Prevent shrinking */
+}
+
+.toolbar a {
+	font-size: large;
+	background-color: transparent;
+	color: var(--color-white);
+	text-decoration: none;
+	padding-left: 1em;
+	padding-right: 1em;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	overflow: hidden;
+	outline: none;
+}
+
+.toolbar a:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.toolbar a.active {
+	background-color: var(--color-blue);
+	color: #fff;
+}
+
+/*-----------------------------------------------------------------------------
+ * Content
+ *---------------------------------------------------------------------------*/
+
+.site-content {
+	flex-grow: 1;
+	padding-top: var(--height-header);
+	transition: padding-top 0.3s ease;
+}
+
+header.hidden + .site-content {
+	padding-top: 0;
+}
+
+/*-----------------------------------------------------------------------------
+ * Navigation
+ *---------------------------------------------------------------------------*/
+
+.nav {
+	flex: 0 0 50px; /* fixed height */
+	background-color: var(--color-blue);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.nav :first-child {
+	justify-content: flex-start;
+}
+
+.nav :last-child {
+	justify-content: flex-end;
+}
+
+.nav a {
+	border: 0;
+	background: transparent;
+	font-size: 20px;
+	color: #fff;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	padding: 5px 10px;
+}
+
+.nav a:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.nav a.active {
+	background-color: var(--color-blue);
+	color: #fff;
+}
+
+.nav .active:hover {
+	background: var(--color-blue);
+}
+
+/*-----------------------------------------------------------------------------
+ * Map
+ *---------------------------------------------------------------------------*/
+
+.map {
+	width: 100%;
+	height: 400px;
+	margin: 10px auto 10px auto;
+}
+
+.map.expand {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: auto;
+	margin: 0;
+}
+
+.map .map-nav {
+	position: absolute;
+	z-index: 1;
+	width: 40%;
+	height: 15%;
+	bottom: 20%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.map .map-nav::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.8;
+	z-index: -1;
+	background-color: #384153;
+	border-radius: 20px;
+}
+
+.map .map-nav .label {
+	color: var(--color-white);
+	font-size: x-large;
+	text-align: center;
+}
+
+.map .map-nav img {
+	height: 65%;
+}
+
+.map .left {
+	left: 5%;
+}
+
+.map .right {
+	right: 5%;
+}
+
+/*-----------------------------------------------------------------------------
+ * Menu
+ *---------------------------------------------------------------------------*/
+
+#menu {
+	background: #000;
+	position: absolute;
+	z-index: 1;
+	top: 87px;
+	left: 10px;
+	border-radius: 3px;
+	width: 300px;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+	font-family: "Open Sans", sans-serif;
+}
+
+#menu a {
+	font-size: 20px;
+	color: #fff;
+	display: block;
+	margin: 0;
+	padding: 0;
+	padding: 10px;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	text-align: left;
+}
+
+#menu a:last-child {
+	border: none;
+}
+
+#menu a:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+#menu a.active {
+	background-color: var(--color-blue);
+	color: #fff;
+}
+
+#menu a.active:hover {
+	background: var(--color-blue);
+}
+
+#menu .box {
+	float: left;
+	height: 20px;
+	width: 20px;
+	margin-bottom: 15px;
+	clear: both;
+	margin-right: 10px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Footer
+ *---------------------------------------------------------------------------*/
+
+.site-footer {
+	height: var(--height-footer);
+	background-color: var(--color-black);
+	color: var(--color-white);
+	text-align: center;
+}
+
+/*-----------------------------------------------------------------------------
+ * Float
+ *---------------------------------------------------------------------------*/
+
+.float-left {
+	float: left;
+	width: 50%;
+	padding: 15px;
+}
+
+.float-left img {
+	width: 100%;
+}
+
+.float-right {
+	float: right;
+	width: 50%;
+	padding: 15px;
+}
+
+.float-right img {
+	width: 100%;
+}
+
+/*-----------------------------------------------------------------------------
+ * Info
+ *---------------------------------------------------------------------------*/
+
+#info {
+	display: block;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translate(-50%);
+	width: 50%;
+	padding: 10px;
+	border: none;
+	border-radius: 3px;
+	font-size: 20px;
+	text-align: center;
+	color: var(--color-green);
+	background: var(--color-black);
+}

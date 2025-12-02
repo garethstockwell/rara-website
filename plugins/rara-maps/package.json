@@ -8,6 +8,11 @@
 	"homepage": "",
 	"repository": "",
 	"bugs": "",
+	"files": [
+		"app/assets",
+		"build",
+		"lib/assets"
+	],
 	"dependencies": {
 		"maplibre-gl": "^5.13.0",
 		"terser-webpack-plugin": "^5.3.14",

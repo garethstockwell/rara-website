@@ -109,12 +109,12 @@ export function addLocationsLayer( map, args ) {
 					map.on( 'mouseleave', id, () => {
 						const featureId = currentFeatureId;
 
-						/*
-            map.getCanvas().style.cursor = '';
-            locations.getLocation(currentFeatureId).popupVisible = false;
-            currentFeatureId = undefined;
-            currentFeatureCoordinates = undefined;
-            */
+						map.getCanvas().style.cursor = '';
+						locations.getLocation(
+							currentFeatureId
+						).popupVisible = false;
+						currentFeatureId = undefined;
+						currentFeatureCoordinates = undefined;
 
 						if ( args.onleave ) {
 							args.onleave( featureId );
