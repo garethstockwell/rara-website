@@ -18,7 +18,7 @@ export class Commentary {
 	 */
 	constructor( args ) {
 		this.#elems = document.querySelectorAll( '.commentary-panel' );
-		this.#elems.forEach( ( el ) => ( el.classList.add( 'hidden' ) ) );
+		this.#elems.forEach( ( el ) => el.classList.add( 'hidden' ) );
 		this.#elemIds = Array.from( this.#elems ).map( ( el ) => el.id );
 
 		this.#index = 0;
@@ -39,7 +39,7 @@ export class Commentary {
 			el.addEventListener( 'click', ( event ) => {
 				this.#onNext();
 				event.stopPropagation();
-	 		} )
+			} )
 		);
 
 		this.#callback = args.callback;
