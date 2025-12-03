@@ -4,6 +4,7 @@
 	"features": [
 		{
 			"type": "Feature",
+			"name": "line_heritage_trail",
 			"properties": {
 				"name": "Heritage trail"
 			},

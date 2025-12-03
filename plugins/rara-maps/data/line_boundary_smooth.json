@@ -4,6 +4,7 @@
 	"features": [
 		{
 			"type": "Feature",
+			"name": "line_boundary_smooth",
 			"properties": {
 				"name": "Riverside area boundary (smooth)"
 			},

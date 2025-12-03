@@ -8,6 +8,9 @@ export default function Panel( { activeLocation, footer, onLoad } ) {
 
 	const panelRef = useRef( null );
 	const panelBodyRef = useRef( null );
+	const [ panelOpen, setPanelOpen ] = useState( false );
+	const activeContentElem = useRef();
+	const [ activeContentTitle, setActiveContentTitle ] = useState( '' );
 
 	// After initial render, move content and footer elements to the end of the panel
 	useEffect( () => {
@@ -24,14 +27,9 @@ export default function Panel( { activeLocation, footer, onLoad } ) {
 		}
 	}, [] ); // empty dependency array = runs once after mount
 
-	const [ panelOpen, setPanelOpen ] = useState( false );
-
 	function togglePanel() {
 		setPanelOpen( ( v ) => ! v );
 	}
-
-	const activeContentElem = useRef();
-	const [ activeContentTitle, setActiveContentTitle ] = useState( '' );
 
 	useEffect( () => {
 		if ( activeContentElem.current ) {

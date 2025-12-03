@@ -9,13 +9,14 @@ function mount() {
 	if ( ! container ) {
 		return;
 	}
+	const viewName = container.getAttribute( 'view-name' );
 
 	// The footer element is passed into the App so that it can be relocated
 	// within the DOM, using a React effect callback.
 	const footer = document.querySelector( '.site-footer' );
 
 	const root = createRoot( container );
-	root.render( <App footer={ footer } /> );
+	root.render( <App footer={ footer } viewName={ viewName } /> );
 }
 
 // Automatically mount when the page loads
