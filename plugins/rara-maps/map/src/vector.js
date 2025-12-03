@@ -20,7 +20,7 @@ export default function createMap( args ) {
 	};
 
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/map/assets/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/build/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -56,7 +56,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'boundary',
 			text: 'Riverside area boundary',
-			url: absUrl( '%{RARA_MAPS}/map/assets/data/line_boundary.json' ),
+			url: absUrl( '%{RARA_MAPS}/build/data/line_boundary.json' ),
 			color: 'black',
 			visible: true,
 		} );
@@ -66,9 +66,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'heritage_trail',
 			text: 'Heritage trail line',
-			url: absUrl(
-				'%{RARA_MAPS}/map/assets/data/line_heritage_trail.json'
-			),
+			url: absUrl( '%{RARA_MAPS}/build/data/line_heritage_trail.json' ),
 			color: 'green',
 			visible: false,
 		} );
@@ -78,7 +76,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'attractions',
 			text: 'Attractions',
-			url: absUrl( '%{RARA_MAPS}/map/assets/data/locations.json' ),
+			url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
 			tags: [ 'attractions' ],
 			color: 'yellow',
 			onclick: args.locationOnClick ?? null,
@@ -92,7 +90,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'improvements',
 			text: 'Improvements',
-			url: absUrl( '%{RARA_MAPS}/map/assets/data/locations.json' ),
+			url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
 			tags: [ 'improvements' ],
 			color: 'red',
 			onclick: args.locationOnClick ?? null,
@@ -103,7 +101,7 @@ export default function createMap( args ) {
 	}
 
 	map.on( 'load', async () => {
-		fetch( absUrl( '%{RARA_MAPS}/map/assets/data/overlays.json' ) )
+		fetch( absUrl( '%{RARA_MAPS}/build/data/overlays.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				for ( const entry of data.overlays.features ) {

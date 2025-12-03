@@ -1,7 +1,7 @@
 // webpack.config.js (CommonJS)
 
 const path = require( 'path' );
-const { execSync } = require( 'child_process' );
+const { execFileSync, execSync } = require( 'child_process' );
 
 const webpack = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
@@ -34,6 +34,32 @@ const banner = `Built from commit: ${ commit }`;
 console.log( 'minify:', minify );
 console.log( 'isDev:', isDev );
 console.log( 'commit:', commit );
+
+const dataDir = path.resolve( __dirname, 'data' );
+const script = path.resolve( __dirname, 'scripts/compose.js' );
+const tpl = path.resolve( dataDir, 'compose.hbs' );
+const out = path.resolve( __dirname, 'build/data.json' );
+
+const ComposeJsonPlugin = {
+	apply( compiler ) {
+		// ensure webpack watches the data directory
+		compiler.hooks.thisCompilation.tap(
+			'ComposeJsonPlugin',
+			( compilation ) => {
+				// watch the whole directory (watch for added/removed/changed files)
+				compilation.contextDependencies.add( dataDir );
+			}
+		);
+
+		const runCompose = () => {
+			console.log( 'ComposeJsonPlugin: running compose.js …' );
+			execFileSync( script, [ tpl, out ], { stdio: 'inherit' } );
+		};
+
+		compiler.hooks.beforeRun.tap( 'ComposeJsonPlugin', runCompose );
+		compiler.hooks.watchRun.tap( 'ComposeJsonPlugin', runCompose );
+	},
+};
 
 // Entry file
 const entryFile = path.resolve( __dirname, 'index.jsx' );
@@ -122,6 +148,7 @@ const baseConfig = {
 	},
 
 	plugins: [
+		ComposeJsonPlugin,
 		new webpack.BannerPlugin( { banner } ),
 		// Extract CSS in production
 		...( ! isDev
@@ -142,16 +169,16 @@ const baseConfig = {
 				devServer: {
 					static: [
 						{
+							directory: path.resolve( __dirname, 'assets' ),
+							publicPath: '/assets',
+						},
+						{
+							directory: path.resolve( __dirname, 'build' ),
+							publicPath: '/build',
+						},
+						{
 							directory: path.resolve( __dirname, 'test' ),
 							publicPath: '/',
-						},
-						{
-							directory: path.resolve( __dirname, 'lib' ),
-							publicPath: '/lib',
-						},
-						{
-							directory: path.resolve( __dirname, 'map' ),
-							publicPath: '/map',
 						},
 					],
 					hot: true,

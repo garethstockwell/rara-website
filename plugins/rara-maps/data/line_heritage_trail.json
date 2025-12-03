@@ -1,5 +1,6 @@
 {
 	"type": "FeatureCollection",
+	"name": "line_heritage_trail",
 	"features": [
 		{
 			"type": "Feature",
