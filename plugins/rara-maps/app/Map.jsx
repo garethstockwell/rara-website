@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import styles from './Map.module.css';
-import createMap from '../map/src/vector.js';
+import createMap from '../map/src/flat.js';
 
-export default function Map( { setActiveLocation } ) {
+export default function Map( { data, setActiveLocation } ) {
 	const mapRef = useRef();
 
 	function locationOnClick( id ) {
@@ -16,6 +16,8 @@ export default function Map( { setActiveLocation } ) {
 
 	function loadMap() {
 		mapRef.current = createMap( {
+			container: 'map',
+			data,
 			overlay_opacity: 0.75,
 			locationOnClick,
 			locationVisible: true,

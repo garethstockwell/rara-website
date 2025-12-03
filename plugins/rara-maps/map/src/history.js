@@ -13,7 +13,7 @@ import { absUrl } from '../../lib/src/util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/build/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -35,38 +35,41 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/build/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
 
 	map.on( 'load', async () => {
-		fetch( absUrl( '%{RARA_MAPS}/build/data/overlays.json' ) )
-			.then( ( res ) => res.json() )
-			.then( ( data ) => {
-				for ( const entry of data.overlays.features ) {
-					console.log(
-						entry.properties.id,
-						entry.properties.id in zOrder
-					);
-					if ( zOrder.includes( entry.properties.id ) ) {
-						map.appData.layers.addLayer( addOverlayLayer, {
-							id: entry.properties.id,
-							text: entry.properties.description[ 0 ],
-							url: absUrl( entry.properties.url ),
-							coordinates: entry.geometry.coordinates,
-							attribution: entry.properties.attribution
-								? data.attributions[
-										entry.properties.attribution
-								  ]
-								: null,
-							opacity: 1.0,
-							visible: false,
-							addToMenu: false,
-						} );
-					}
+		Promise.all( [
+			fetch( absUrl( '%{RARA_MAPS}/data/overlays.json' ) ).then( ( r ) =>
+				r.json()
+			),
+			fetch( absUrl( '%{RARA_MAPS}/data/attributions.json' ) ).then(
+				( r ) => r.json()
+			),
+		] ).then( ( [ overlays, attributions ] ) => {
+			for ( const entry of overlays.features ) {
+				console.log(
+					entry.properties.id,
+					entry.properties.id in zOrder
+				);
+				if ( zOrder.includes( entry.properties.id ) ) {
+					map.appData.layers.addLayer( addOverlayLayer, {
+						id: entry.properties.id,
+						text: entry.properties.description[ 0 ],
+						url: absUrl( entry.properties.url ),
+						coordinates: entry.geometry.coordinates,
+						attribution: entry.properties.attribution
+							? attributions[ entry.properties.attribution ]
+							: null,
+						opacity: 1.0,
+						visible: false,
+						addToMenu: false,
+					} );
 				}
-			} );
+			}
+		} );
 	} );
 
 	return map;

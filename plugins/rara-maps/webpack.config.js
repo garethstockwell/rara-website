@@ -40,8 +40,8 @@ console.log( 'commit:', commit );
 
 const dataDir = path.resolve( __dirname, 'data' );
 const script = path.resolve( __dirname, 'scripts/compose.js' );
-const tpl = path.resolve( dataDir, 'compose.hbs' );
-const emittedAssetPath = 'data.json';
+const tpl = path.resolve( dataDir, 'data.json.hbs' );
+const emittedAssetPath = path.posix.join( 'build', 'data.json' );
 
 // ----------------- ComposeJsonPlugin (emit asset during compilation) -----------------
 const ComposeJsonPlugin = {
@@ -91,7 +91,7 @@ const ComposeJsonPlugin = {
 							// read the generated content
 							const content = fs.readFileSync( tmpOut );
 
-							// emit as an asset under build/data/data.json
+							// emit as an asset under data/data.json
 							compilation.emitAsset(
 								emittedAssetPath,
 								new RawSource( content )
@@ -248,6 +248,10 @@ const baseConfig = {
 						{
 							directory: path.resolve( __dirname, 'build' ),
 							publicPath: '/build',
+						},
+						{
+							directory: path.resolve( __dirname, 'build' ),
+							publicPath: '/data',
 						},
 						{
 							directory: path.resolve( __dirname, 'test' ),
