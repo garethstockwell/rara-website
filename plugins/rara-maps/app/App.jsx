@@ -13,26 +13,30 @@ export default function App( { footer, viewName } ) {
 		location: null,
 	} );
 
+	function arrayToMap( arr ) {
+		return arr.reduce( ( acc, obj ) => {
+			acc[ obj.name ] = obj;
+			return acc;
+		}, {} );
+	}
+
 	useEffect( () => {
 		let cancelled = false;
 
 		fetch( absUrl( '%{RARA_MAPS}/build/data.json' ) )
 			.then( ( res ) => {
-				if ( ! res.ok ) throw new Error( 'Network error' );
+				if ( ! res.ok ) {
+					throw new Error( 'Network error' );
+				}
 				return res.json();
 			} )
 			.then( ( json ) => {
 				if ( ! cancelled ) {
 					setData( {
 						...json,
-						featureCollections: json.featureCollections.reduce(
-							( acc, coll ) => {
-								acc[ coll.name ] = coll;
-								return acc;
-							},
-							{}
-						),
-						view: json.views[ viewName ],
+						lines: arrayToMap( json.lines ),
+						overlays: arrayToMap( json.overlays.features ),
+						view: arrayToMap( json.views )[ viewName ],
 					} );
 				}
 			} );

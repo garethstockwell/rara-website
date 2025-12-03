@@ -38,13 +38,13 @@ window.createToolbar = function ( name ) {
 
 	new Map( [
 		[ 'index', 'Attractions' ],
-		[ 'improvements', 'Improvements' ],
-		[ 'history', 'History' ],
-		[ 'heritage_trail', 'Heritage trail' ],
-		[ 'boundary_radius', 'Boundary radius' ],
+		//[ 'improvements', 'Improvements' ],
+		//[ 'history', 'History' ],
+		//[ 'heritage_trail', 'Heritage trail' ],
+		//[ 'boundary_radius', 'Boundary radius' ],
 		[ 'vector', 'Vector' ],
-		[ 'boundary_tangent', 'Boundary tangent' ],
-		[ 'globe', 'Globe' ],
+		//[ 'boundary_tangent', 'Boundary tangent' ],
+		//[ 'globe', 'Globe' ],
 		[ 'raster', 'Raster' ],
 	] ).forEach( function ( value, key ) {
 		addToolbarItem( key, value, key === name );

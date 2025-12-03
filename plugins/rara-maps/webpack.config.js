@@ -40,7 +40,7 @@ console.log( 'commit:', commit );
 
 const dataDir = path.resolve( __dirname, 'data' );
 const script = path.resolve( __dirname, 'scripts/compose.js' );
-const tpl = path.resolve( dataDir, 'compose.hbs' );
+const tpl = path.resolve( dataDir, 'data.json.hbs' );
 const emittedAssetPath = path.posix.join( 'build', 'data.json' );
 
 // ----------------- ComposeJsonPlugin (emit asset during compilation) -----------------

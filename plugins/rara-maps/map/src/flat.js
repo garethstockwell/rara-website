@@ -19,35 +19,28 @@ export default function createMap( args ) {
 		overlay_opacity: 1.0,
 	};
 
+	const view = args.data.view;
+
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/data/style.json' ),
-		center: [ 0.144843, 52.212231 ],
-		zoom: 15,
-		container: 'map',
+		...view.config,
+		style:
+			typeof view.config.style === 'string'
+				? absUrl( view.config.style )
+				: view.config.style,
+		container: args.container,
 		attributionControl: false,
 	};
 
-	const zOrder = args.data.view.layers.map( ( layer ) => layer.name );
-
-	/*
-	[
-		'camantsoc_1836_1838',
-		'camantsoc_1910',
-		'camantsoc_1925',
-		'barnwell_priory',
-		'boundary',
-		'heritage_trail',
-		'attractions',
-		'improvements',
-	];
-	*/
+	const zOrder = view.layers.map( ( layer ) => layer.name );
 
 	const map = new Map( {
 		config,
 		zOrder,
 	} );
 
-	args.data.view.layers.forEach( ( element ) => {
+	const attributions = args.data.attributions;
+
+	view.layers.forEach( ( element ) => {
 		if ( element.type === 'buildings' ) {
 			map.appData.layers.addLayer( addBuildingsLayer, {
 				id: element.name,
@@ -56,9 +49,10 @@ export default function createMap( args ) {
 		}
 
 		if ( element.type === 'line' ) {
+			const line = args.data.lines[ element.name ];
 			map.appData.layers.addLayer( addLineLayer, {
 				id: element.name,
-				data: args.data.featureCollections[ element.featureName ],
+				data: line,
 				color: element.color,
 				visible: element.visible,
 			} );
@@ -67,7 +61,7 @@ export default function createMap( args ) {
 		if ( element.type === 'locations' ) {
 			map.appData.layers.addLayer( addLocationsLayer, {
 				id: element.name,
-				data: args.data.featureCollections[ element.featureName ],
+				data: args.data.locations,
 				tags: element.tags,
 				color: element.color,
 				visible: element.visible,
@@ -77,43 +71,20 @@ export default function createMap( args ) {
 			} );
 		}
 
-		/*
 		if ( element.type === 'overlay' ) {
+			const overlay = args.data.overlays[ element.name ];
 			map.appData.layers.addLayer( addOverlayLayer, {
 				id: element.name,
-				url: absUrl( element.url ),
+				url: absUrl( overlay.properties.url ),
+				coordinates: overlay.geometry.coordinates,
+				attribution: overlay.properties.attribution
+					? attributions[ overlay.properties.attribution ]
+					: null,
+				opacity: 1.0,
+				visible: element.visible,
 			} );
 		}
-		*/
 	} );
-
-	/*
-	map.on( 'load', async () => {
-		const attributions = args.data.attributions;
-		const overlays = args.data.featureCollections.overlays;
-		for ( const entry of overlays.features ) {
-			console.log( entry.properties.id, entry.properties.id in zOrder );
-			if ( zOrder.includes( entry.properties.id ) ) {
-				if (
-					! args.layers ||
-					args.layers.includes( entry.properties.id )
-				) {
-					map.appData.layers.addLayer( addOverlayLayer, {
-						id: entry.properties.id,
-						text: entry.properties.description[ 0 ],
-						url: absUrl( entry.properties.url ),
-						coordinates: entry.geometry.coordinates,
-						attribution: entry.properties.attribution
-							? attributions[ entry.properties.attribution ]
-							: null,
-						opacity: 1.0,
-						visible: false,
-					} );
-				}
-			}
-		}
-	} );
-	*/
 
 	return map;
 }
