@@ -91,7 +91,7 @@ const ComposeJsonPlugin = {
 							// read the generated content
 							const content = fs.readFileSync( tmpOut );
 
-							// emit as an asset under build/data/data.json
+							// emit as an asset under data/data.json
 							compilation.emitAsset(
 								emittedAssetPath,
 								new RawSource( content )
@@ -248,6 +248,10 @@ const baseConfig = {
 						{
 							directory: path.resolve( __dirname, 'build' ),
 							publicPath: '/build',
+						},
+						{
+							directory: path.resolve( __dirname, 'data' ),
+							publicPath: '/data',
 						},
 						{
 							directory: path.resolve( __dirname, 'test' ),

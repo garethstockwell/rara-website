@@ -14,7 +14,7 @@ import { absUrl } from '../../lib/src/util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/build/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -84,7 +84,7 @@ export function createMap() {
 	};
 
 	map.on( 'load', async () => {
-		fetch( absUrl( '%{RARA_MAPS}/build/data/line_boundary_smooth.json' ) )
+		fetch( absUrl( '%{RARA_MAPS}/data/line_boundary_smooth.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				const coordinates = data.features[ 0 ].geometry.coordinates;
@@ -103,7 +103,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/build/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
@@ -111,7 +111,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'heritage_trail',
 		text: 'Heritage trail line',
-		url: absUrl( '%{RARA_MAPS}/build/data/line_heritage_trail.json' ),
+		url: absUrl( '%{RARA_MAPS}/data/line_heritage_trail.json' ),
 		color: 'green',
 		visible: false,
 	} );
@@ -119,7 +119,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'attractions',
 		text: 'Attractions',
-		url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/data/locations.json' ),
 		tags: [ 'attractions' ],
 		color: 'yellow',
 		visible: true,
@@ -129,7 +129,7 @@ export function createMap() {
 	map.appData.layers.addLayer( addLocationsLayer, {
 		id: 'improvements',
 		text: 'Improvements',
-		url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
+		url: absUrl( '%{RARA_MAPS}/data/locations.json' ),
 		tags: [ 'improvements' ],
 		color: 'red',
 		visible: true,

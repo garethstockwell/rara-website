@@ -20,7 +20,7 @@ export default function createMap( args ) {
 	};
 
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/build/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -56,7 +56,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'boundary',
 			text: 'Riverside area boundary',
-			url: absUrl( '%{RARA_MAPS}/build/data/line_boundary.json' ),
+			url: absUrl( '%{RARA_MAPS}/data/line_boundary.json' ),
 			color: 'black',
 			visible: true,
 		} );
@@ -66,7 +66,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLineLayer, {
 			id: 'heritage_trail',
 			text: 'Heritage trail line',
-			url: absUrl( '%{RARA_MAPS}/build/data/line_heritage_trail.json' ),
+			url: absUrl( '%{RARA_MAPS}/data/line_heritage_trail.json' ),
 			color: 'green',
 			visible: false,
 		} );
@@ -76,7 +76,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'attractions',
 			text: 'Attractions',
-			url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
+			url: absUrl( '%{RARA_MAPS}/data/locations.json' ),
 			tags: [ 'attractions' ],
 			color: 'yellow',
 			onclick: args.locationOnClick ?? null,
@@ -90,7 +90,7 @@ export default function createMap( args ) {
 		map.appData.layers.addLayer( addLocationsLayer, {
 			id: 'improvements',
 			text: 'Improvements',
-			url: absUrl( '%{RARA_MAPS}/build/data/locations.json' ),
+			url: absUrl( '%{RARA_MAPS}/data/locations.json' ),
 			tags: [ 'improvements' ],
 			color: 'red',
 			onclick: args.locationOnClick ?? null,
@@ -101,36 +101,39 @@ export default function createMap( args ) {
 	}
 
 	map.on( 'load', async () => {
-		fetch( absUrl( '%{RARA_MAPS}/build/data/overlays.json' ) )
-			.then( ( res ) => res.json() )
-			.then( ( data ) => {
-				for ( const entry of data.overlays.features ) {
-					console.log(
-						entry.properties.id,
-						entry.properties.id in zOrder
-					);
-					if ( zOrder.includes( entry.properties.id ) ) {
-						if (
-							! args.layers ||
-							args.layers.includes( entry.properties.id )
-						) {
-							map.appData.layers.addLayer( addOverlayLayer, {
-								id: entry.properties.id,
-								text: entry.properties.description[ 0 ],
-								url: absUrl( entry.properties.url ),
-								coordinates: entry.geometry.coordinates,
-								attribution: entry.properties.attribution
-									? data.attributions[
-											entry.properties.attribution
-									  ]
-									: null,
-								opacity: 1.0,
-								visible: false,
-							} );
-						}
+		Promise.all( [
+			fetch( absUrl( '%{RARA_MAPS}/data/overlays.json' ) ).then( ( r ) =>
+				r.json()
+			),
+			fetch( absUrl( '%{RARA_MAPS}/data/attributions.json' ) ).then(
+				( r ) => r.json()
+			),
+		] ).then( ( [ overlays, attributions ] ) => {
+			for ( const entry of overlays.features ) {
+				console.log(
+					entry.properties.id,
+					entry.properties.id in zOrder
+				);
+				if ( zOrder.includes( entry.properties.id ) ) {
+					if (
+						! args.layers ||
+						args.layers.includes( entry.properties.id )
+					) {
+						map.appData.layers.addLayer( addOverlayLayer, {
+							id: entry.properties.id,
+							text: entry.properties.description[ 0 ],
+							url: absUrl( entry.properties.url ),
+							coordinates: entry.geometry.coordinates,
+							attribution: entry.properties.attribution
+								? attributions[ entry.properties.attribution ]
+								: null,
+							opacity: 1.0,
+							visible: false,
+						} );
 					}
 				}
-			} );
+			}
+		} );
 	} );
 
 	return map;
