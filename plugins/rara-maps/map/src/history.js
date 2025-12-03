@@ -13,7 +13,7 @@ import { absUrl } from '../../lib/src/util/url.js';
  */
 export function createMap() {
 	const config = {
-		style: absUrl( '%{RARA_MAPS}/map/assets/data/style.json' ),
+		style: absUrl( '%{RARA_MAPS}/assets/data/style.json' ),
 		center: [ 0.144843, 52.212231 ],
 		zoom: 15,
 		container: 'map',
@@ -35,13 +35,13 @@ export function createMap() {
 	map.appData.layers.addLayer( addLineLayer, {
 		id: 'boundary',
 		text: 'Riverside area boundary',
-		url: absUrl( '%{RARA_MAPS}/map/assets/data/line_boundary.json' ),
+		url: absUrl( '%{RARA_MAPS}/assets/data/line_boundary.json' ),
 		color: 'black',
 		visible: true,
 	} );
 
 	map.on( 'load', async () => {
-		fetch( absUrl( '%{RARA_MAPS}/map/assets/data/overlays.json' ) )
+		fetch( absUrl( '%{RARA_MAPS}/assets/data/overlays.json' ) )
 			.then( ( res ) => res.json() )
 			.then( ( data ) => {
 				for ( const entry of data.overlays.features ) {

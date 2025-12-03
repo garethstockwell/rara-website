@@ -146,12 +146,8 @@ const baseConfig = {
 							publicPath: '/',
 						},
 						{
-							directory: path.resolve( __dirname, 'lib' ),
-							publicPath: '/lib',
-						},
-						{
-							directory: path.resolve( __dirname, 'map' ),
-							publicPath: '/map',
+							directory: path.resolve( __dirname, 'assets' ),
+							publicPath: '/assets',
 						},
 					],
 					hot: true,
