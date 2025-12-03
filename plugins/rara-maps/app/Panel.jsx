@@ -3,13 +3,16 @@ import common from './common.module.css';
 import styles from './Panel.module.css';
 import Dashboard from './Dashboard.jsx';
 
-export default function Panel( { footer } ) {
+export default function Panel( { footer, onLoad } ) {
 	const panelRef = useRef( null );
 
 	// After initial render, move footer element to the end of the panel
 	useEffect( () => {
 		if ( panelRef.current && footer ) {
 			panelRef.current.appendChild( footer );
+			if (onLoad) {
+				onLoad();
+			}
 		}
 	}, [] ); // empty dependency array = runs once after mount
 

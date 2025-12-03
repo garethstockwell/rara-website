@@ -50,7 +50,6 @@
 		"lint:css": "wp-scripts lint-style --allow-empty-input",
 		"lint:js": "wp-scripts lint-js --no-error-on-unmatched-pattern",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"open": "concurrently \"http-server . -a localhost -p 1234\" \"open http://localhost:1234/test\"",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "cross-env NODE_ENV=development npx webpack serve --config webpack.config.js",
 		"watch": "cross-env NODE_ENV=development npm run build-dev -- --watch",

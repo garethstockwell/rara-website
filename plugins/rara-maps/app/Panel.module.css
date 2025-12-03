@@ -1,20 +1,17 @@
 .panel {
+	position: fixed;
 	height: var(--panel-height);
 	left: 0;
 	right: 0;
-	top: calc(100vh - var(--panel-offset));
+	top: calc(100vh - var(--dashboard-height));
 	border-top: var(--color-white) 1px solid;
 	overflow-y: auto;
-	position: fixed;
-	transition: top 0.3s ease;
-}
-
-.panel_closed {
-	top: calc(100vh - var(--dashboard-height));
+	transition: transform 0.3s ease;
+	transform: translateY(0);
 }
 
 .panel_open {
-	top: 25vh;
+	transform: translateY(calc(var(--dashboard-height) - 75vh));
 }
 
 .panel-body {

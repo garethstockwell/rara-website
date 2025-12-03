@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 
 import './global.css';
 
-import App from './src/App.jsx';
+import App from './app/App.jsx';
 
 function mount() {
 	const container = document.getElementById( 'rara-maps-react-root' );
@@ -12,10 +12,7 @@ function mount() {
 
 	// The footer element is passed into the App so that it can be relocated
 	// within the DOM, using a React effect callback.
-	let footer = document.getElementsByClassName( 'site-footer' );
-	if ( footer ) {
-		footer = footer[ 0 ];
-	}
+	const footer = document.querySelector( '.site-footer' );
 
 	const root = createRoot( container );
 	root.render( <App footer={ footer } /> );
