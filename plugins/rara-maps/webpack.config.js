@@ -1,13 +1,11 @@
 // webpack.config.js (CommonJS)
 
 const path = require( 'path' );
-const { execSync } = require( 'child_process' );
+const { execFileSync, execSync } = require( 'child_process' );
 
 const webpack = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
-const JsonMinimizerPlugin = require( 'json-minimizer-webpack-plugin' );
 
 // react-refresh plugin is optional (only used in dev)
 let ReactRefreshWebpackPlugin;
@@ -36,6 +34,32 @@ const banner = `Built from commit: ${ commit }`;
 console.log( 'minify:', minify );
 console.log( 'isDev:', isDev );
 console.log( 'commit:', commit );
+
+const dataDir = path.resolve( __dirname, 'data' );
+const script = path.resolve( __dirname, 'scripts/compose.js' );
+const tpl = path.resolve( dataDir, 'compose.hbs' );
+const out = path.resolve( __dirname, 'build/data.json' );
+
+const ComposeJsonPlugin = {
+	apply( compiler ) {
+		// ensure webpack watches the data directory
+		compiler.hooks.thisCompilation.tap(
+			'ComposeJsonPlugin',
+			( compilation ) => {
+				// watch the whole directory (watch for added/removed/changed files)
+				compilation.contextDependencies.add( dataDir );
+			}
+		);
+
+		const runCompose = () => {
+			console.log( 'ComposeJsonPlugin: running compose.js …' );
+			execFileSync( script, [ tpl, out ], { stdio: 'inherit' } );
+		};
+
+		compiler.hooks.beforeRun.tap( 'ComposeJsonPlugin', runCompose );
+		compiler.hooks.watchRun.tap( 'ComposeJsonPlugin', runCompose );
+	},
+};
 
 // Entry file
 const entryFile = path.resolve( __dirname, 'index.jsx' );
@@ -119,14 +143,12 @@ const baseConfig = {
 	optimization: {
 		minimize: minify,
 		minimizer: minify
-			? [
-					new TerserPlugin( { extractComments: false } ),
-					new JsonMinimizerPlugin(),
-			  ]
+			? [ new TerserPlugin( { extractComments: false } ) ]
 			: [],
 	},
 
 	plugins: [
+		ComposeJsonPlugin,
 		new webpack.BannerPlugin( { banner } ),
 		// Extract CSS in production
 		...( ! isDev
@@ -136,14 +158,6 @@ const baseConfig = {
 		...( isDev && ReactRefreshWebpackPlugin
 			? [ new ReactRefreshWebpackPlugin() ]
 			: [] ),
-		new CopyWebpackPlugin( {
-			patterns: [
-				{
-					from: path.resolve( __dirname, 'build/data' ),
-					to: path.resolve( __dirname, 'build/data' ),
-				},
-			],
-		} ),
 	],
 
 	devtool: minify ? false : 'eval-source-map',
