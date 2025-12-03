@@ -3,14 +3,18 @@ import common from './common.module.css';
 import styles from './Panel.module.css';
 import Dashboard from './Dashboard.jsx';
 
-export default function Panel( { activeLocation, footer, onLoad } ) {
+export default function Panel( {
+	activeTabId,
+	activeTabTitle,
+	footer,
+	onLoad,
+} ) {
 	const contentElem = document.querySelector( '.rara-maps-content' );
 
 	const panelRef = useRef( null );
 	const panelBodyRef = useRef( null );
 	const [ panelOpen, setPanelOpen ] = useState( false );
-	const activeContentElem = useRef();
-	const [ activeContentTitle, setActiveContentTitle ] = useState( '' );
+	const activeTabElem = useRef();
 
 	// After initial render, move content and footer elements to the end of the panel
 	useEffect( () => {
@@ -32,23 +36,16 @@ export default function Panel( { activeLocation, footer, onLoad } ) {
 	}
 
 	useEffect( () => {
-		if ( activeContentElem.current ) {
-			activeContentElem.current.classList.add( 'hidden' );
+		if ( activeTabElem.current ) {
+			activeTabElem.current.classList.add( 'hidden' );
 		}
 
-		activeContentElem.current = document.querySelector(
-			'#' + activeLocation.id
-		);
+		activeTabElem.current = document.querySelector( '#' + activeTabId );
 
-		if ( activeContentElem.current ) {
-			activeContentElem.current.classList.remove( 'hidden' );
-			setActiveContentTitle(
-				activeLocation.location.data.properties.title
-			);
-		} else {
-			setActiveContentTitle( '' );
+		if ( activeTabElem.current ) {
+			activeTabElem.current.classList.remove( 'hidden' );
 		}
-	}, [ activeLocation ] );
+	}, [ activeTabId ] );
 
 	return (
 		<div
@@ -57,7 +54,7 @@ export default function Panel( { activeLocation, footer, onLoad } ) {
 				panelOpen ? styles.panel_open : styles.panel_closed
 			}` }
 		>
-			<Dashboard title={ activeContentTitle } onClick={ togglePanel } />
+			<Dashboard title={ activeTabTitle } onClick={ togglePanel } />
 
 			<div ref={ panelBodyRef } className="panel-body"></div>
 		</div>

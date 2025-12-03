@@ -2,15 +2,20 @@ import { useEffect, useRef } from 'react';
 import styles from './Map.module.css';
 import createMap from '../map/src/flat.js';
 
-export default function Map( { data, setActiveLocation } ) {
+export default function Map( {
+	data,
+	setActiveLocationId,
+	setActiveLocationTitle,
+} ) {
 	const mapRef = useRef();
 
 	function locationOnClick( id ) {
+		setActiveLocationId( id );
 		if ( mapRef.current ) {
-			setActiveLocation( {
-				id,
-				location: mapRef.current.appData.locations.getLocation( id ),
-			} );
+			setActiveLocationTitle(
+				mapRef.current.appData.locations.getLocation( id ).data
+					.properties.title
+			);
 		}
 	}
 

@@ -8,10 +8,8 @@ import { absUrl } from '../lib/src/util/url.js';
 export default function App( { footer, viewName } ) {
 	const [ data, setData ] = useState( null );
 	const [ panelLoaded, setPanelLoaded ] = useState( false );
-	const [ activeLocation, setActiveLocation ] = useState( {
-		id: null,
-		location: null,
-	} );
+	const [ activePanelTabId, setActivePanelTabId ] = useState( null );
+	const [ activePanelTitle, setActivePanelTitle ] = useState( null );
 
 	function arrayToMap( arr ) {
 		return arr.reduce( ( acc, obj ) => {
@@ -52,11 +50,16 @@ export default function App( { footer, viewName } ) {
 			<HeaderHandle />
 
 			{ data && panelLoaded && (
-				<Map data={ data } setActiveLocation={ setActiveLocation } />
+				<Map
+					data={ data }
+					setActiveLocationId={ setActivePanelTabId }
+					setActiveLocationTitle={ setActivePanelTitle }
+				/>
 			) }
 
 			<Panel
-				activeLocation={ activeLocation }
+				activeTabId={ activePanelTabId }
+				activeTabTitle={ activePanelTitle }
 				footer={ footer }
 				onLoad={ () => {
 					setPanelLoaded( true );

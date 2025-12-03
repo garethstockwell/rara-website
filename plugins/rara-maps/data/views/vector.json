@@ -14,17 +14,17 @@
 		{
 			"name": "camantsoc_1836_1838",
 			"type": "overlay",
-			"visible": true
+			"visible": false
 		},
 		{
 			"name": "camantsoc_1910",
 			"type": "overlay",
-			"visible": true
+			"visible": false
 		},
 		{
 			"name": "camantsoc_1925",
 			"type": "overlay",
-			"visible": true
+			"visible": false
 		},
 		{
 			"name": "barnwell_priory",

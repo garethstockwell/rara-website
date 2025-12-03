@@ -48,7 +48,7 @@
 		{
 			"name": "barnwell_priory",
 			"type": "overlay",
-			"visible": false
+			"visible": true
 		},
 		{
 			"name": "boundary",
