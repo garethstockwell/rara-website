@@ -14,7 +14,7 @@ import { absUrl } from '../../lib/src/util/url.js';
  * @param {Object} args The arguments
  * @return Map
  */
-export function createMap( args ) {
+export default function createMap( args ) {
 	args = args ?? {
 		overlay_opacity: 1.0,
 	};

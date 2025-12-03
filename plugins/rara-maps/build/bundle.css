@@ -1,4 +1,4 @@
-/*! Built from commit: 31b426d2b5fa3f1739ec5304c359011fd0236c0a */
+/*! Built from commit: 7e671dc861db9dbc5d5fa181ecafcc0ef6b3d36c */
 :root {
 	--color-dark-blue: #364154;
 	--color-green: #0f0;
@@ -22,42 +22,66 @@
 	visibility: hidden;
 }
 
-.UPalDbGJEvAnNeP8DvG9 {
+#rara-maps-react-root {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.aYf6NfcsO8OBQPuoEY0Q {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
 	background: #fff;
 	color: #000;
 }
 
-.uVQ0Q3wi2M_0R2q_qiEo {
+.bYprMWrQAdvoxvJxb2YN {
 	z-index: 1000;
 	background-color: var(--color-dark-blue);
 	color: var(--color-white);
 }
 
-.NxZ0MlObhj0S2qLmhJdy {
+.tTjGJzRwCbLG0rN2yx2O {
+	position: fixed;
+	width: var(--handle-size);
+	left: var(--handle-radius);
+	top: var(--header-height);
+	transition: transform 0.3s ease;
+	height: var(--handle-size);
+	border-radius: 0 0 var(--handle-radius) var(--handle-radius);
+	transform: translateY(0);
+}
+
+.nr7I2eBKJWTybm1QRFtz {
+	transform: translateY(calc(-1 * var(--header-height)));
+}
+
+.lkjSGZh8cnKmKtJiQdtf {
+	flex-grow: 1;
+}
+
+.rlnMHbRvVbb060bMU35P {
+	position: fixed;
 	height: var(--panel-height);
 	left: 0;
 	right: 0;
-	top: calc(100vh - var(--panel-offset));
+	top: calc(100vh - var(--dashboard-height));
 	border-top: var(--color-white) 1px solid;
 	overflow-y: auto;
-	position: fixed;
-	transition: top 0.3s ease;
+	transition: transform 0.3s ease;
+	transform: translateY(0);
 }
 
-.gXkCFQWMkDmXbeQknxhp {
-	top: calc(100vh - var(--dashboard-height));
+.vFOzj8Llt_pXuf3qHomQ {
+	transform: translateY(calc(var(--dashboard-height) - 75vh));
 }
 
-.xOCEUdrfBN5OZv7Obbm3 {
-	top: 25vh;
-}
-
-.lOL8z0BAkyo2QVmhdhaU {
+.LG3841YpKdfuesxZ3UkC {
 	background-color: var(--color-white);
 }
 
-.FQiTbJAaPA9LUinjUeqA {
+.FP3aSbbIYeNuD2BjzPmB {
 	left: 0;
 	right: 0;
 	bottom: var(--panel-offset);

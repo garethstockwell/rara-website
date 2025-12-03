@@ -140,7 +140,20 @@ const baseConfig = {
 	...( isDev
 		? {
 				devServer: {
-					static: path.resolve( __dirname, 'test' ),
+					static: [
+						{
+							directory: path.resolve( __dirname, 'test' ),
+							publicPath: '/',
+						},
+						{
+							directory: path.resolve( __dirname, 'lib' ),
+							publicPath: '/lib',
+						},
+						{
+							directory: path.resolve( __dirname, 'map' ),
+							publicPath: '/map',
+						},
+					],
 					hot: true,
 					port: 3000,
 				},

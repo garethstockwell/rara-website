@@ -71,10 +71,36 @@ body {
 	padding-bottom: 0;
 }
 
-#rara-maps-react-root {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
+
+#toolbar {
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	flex-shrink: 0; /* Prevent shrinking */
+}
+
+.toolbar a {
+	font-size: large;
+	background-color: transparent;
+	color: var(--color-white);
+	text-decoration: none;
+	padding-left: 1em;
+	padding-right: 1em;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	overflow: hidden;
+	outline: none;
+}
+
+.toolbar a:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.toolbar a.active {
+	background-color: var(--color-blue);
+	color: #fff;
 }
 
 .site-footer {
@@ -90,4 +116,12 @@ body {
 .site-footer div {
 	flex-grow: 1;
 	text-align: center;
+}
+
+/*
+  This has to be in the top-level CSS to ensure that content is hidden
+  before the React app (and in particular its global.css) is loaded.
+*/
+.rara-maps-content-panel.hidden {
+	display: none;
 }
