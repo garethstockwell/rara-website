@@ -6,6 +6,8 @@ const { execSync } = require( 'child_process' );
 const webpack = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
+const JsonMinimizerPlugin = require( 'json-minimizer-webpack-plugin' );
 
 // react-refresh plugin is optional (only used in dev)
 let ReactRefreshWebpackPlugin;
@@ -117,7 +119,10 @@ const baseConfig = {
 	optimization: {
 		minimize: minify,
 		minimizer: minify
-			? [ new TerserPlugin( { extractComments: false } ) ]
+			? [
+					new TerserPlugin( { extractComments: false } ),
+					new JsonMinimizerPlugin(),
+			  ]
 			: [],
 	},
 
@@ -131,6 +136,14 @@ const baseConfig = {
 		...( isDev && ReactRefreshWebpackPlugin
 			? [ new ReactRefreshWebpackPlugin() ]
 			: [] ),
+		new CopyWebpackPlugin( {
+			patterns: [
+				{
+					from: path.resolve( __dirname, 'build/data' ),
+					to: path.resolve( __dirname, 'build/data' ),
+				},
+			],
+		} ),
 	],
 
 	devtool: minify ? false : 'eval-source-map',
@@ -142,12 +155,16 @@ const baseConfig = {
 				devServer: {
 					static: [
 						{
-							directory: path.resolve( __dirname, 'test' ),
-							publicPath: '/',
-						},
-						{
 							directory: path.resolve( __dirname, 'assets' ),
 							publicPath: '/assets',
+						},
+						{
+							directory: path.resolve( __dirname, 'build' ),
+							publicPath: '/build',
+						},
+						{
+							directory: path.resolve( __dirname, 'test' ),
+							publicPath: '/',
 						},
 					],
 					hot: true,

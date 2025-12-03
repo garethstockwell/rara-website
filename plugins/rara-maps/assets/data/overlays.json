@@ -5,6 +5,7 @@
 	},
 	"overlays": {
 		"type": "FeatureCollection",
+		"name": "overlays",
 		"features": [
 			{
 				"type": "Feature",
