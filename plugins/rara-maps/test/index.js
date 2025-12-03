@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const raraMapsData = { baseUrl: 'http://localhost:3000' };
+window.raraMapsData = { baseUrl: 'http://localhost:3000' };
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	const header = document.querySelector( '.site-header' );
@@ -25,10 +25,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	} );
 } );
 
-function createToolbar( name ) {
-	function addToolbarItem( name, text, active ) {
+window.createToolbar = function ( name ) {
+	function addToolbarItem( itemName, text, active ) {
 		const link = document.createElement( 'a' );
-		link.href = `${ name }.html`;
+		link.href = `${ itemName }.html`;
 		link.textContent = text;
 		link.className = active ? 'active' : '';
 
@@ -49,4 +49,4 @@ function createToolbar( name ) {
 	] ).forEach( function ( value, key ) {
 		addToolbarItem( key, value, key === name );
 	} );
-}
+};

@@ -1,7 +1,7 @@
 import common from './common.module.css';
 import styles from './Dashboard.module.css';
 
-export default function Dashboard( { onClick } ) {
+export default function Dashboard( { title, onClick } ) {
 	function handleClick() {
 		if ( onClick ) {
 			onClick();
@@ -13,7 +13,7 @@ export default function Dashboard( { onClick } ) {
 			className={ `${ common.card } ${ styles.dashboard }` }
 			onClick={ handleClick }
 		>
-			<p>This is a dashboard.</p>
+			<p>{ title }</p>
 		</div>
 	);
 }
