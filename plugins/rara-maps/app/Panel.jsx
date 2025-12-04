@@ -29,6 +29,7 @@ export default function Panel( {
 
 		if ( panelRef.current && footer ) {
 			panelRef.current.appendChild( footer );
+			footer.classList.remove( 'hidden' );
 		}
 
 		if ( onLoad ) {

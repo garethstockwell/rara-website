@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import HeaderHandle from './HeaderHandle.jsx';
 import Map from './Map.jsx';
 import Panel from './Panel.jsx';
-import { absUrl } from '../lib/src/util/url.js';
+import { absUrl } from '../lib/util/url.js';
 
 export default function App( { footer, viewName } ) {
 	const [ data, setData ] = useState( null );
@@ -12,6 +12,9 @@ export default function App( { footer, viewName } ) {
 	const [ activePanelTabId, setActivePanelTabId ] = useState( null );
 	const [ activePanelTabIndex, setActivePanelTabIndex ] = useState( null );
 	const [ activePanelTitle, setActivePanelTitle ] = useState( null );
+
+	const panelEnabled =
+		document.querySelector( '.rara-maps-content' ) !== null;
 
 	function arrayToMap( arr ) {
 		return arr.reduce( ( acc, obj ) => {
@@ -41,7 +44,7 @@ export default function App( { footer, viewName } ) {
 
 					setData( theData );
 
-					if ( theData.view.binding === 'overlay' ) {
+					if ( theData.view.mode === 'overlay' ) {
 						setActivePanelTabIndex( 0 );
 					}
 				}
@@ -57,30 +60,34 @@ export default function App( { footer, viewName } ) {
 		<div className={ styles.app }>
 			<HeaderHandle />
 
-			{ data && panelLoaded && (
+			{ data && ( ! panelEnabled || panelLoaded ) && (
 				<Map
+					panelEnabled={ panelEnabled }
 					panelOpen={ panelOpen }
 					data={ data }
 					activeObjectId={ activePanelTabId }
 					setActiveObjectId={ setActivePanelTabId }
 					setActiveObjectTitle={ setActivePanelTitle }
+					setActiveObjectIndex={ setActivePanelTabIndex }
 				/>
 			) }
 
-			<Panel
-				panelOpen={ panelOpen }
-				setPanelOpen={ setPanelOpen }
-				activeTabId={ activePanelTabId }
-				setActiveTabId={ setActivePanelTabId }
-				activeTabIndex={ activePanelTabIndex }
-				setActiveTabIndex={ setActivePanelTabIndex }
-				activeTabTitle={ activePanelTitle }
-				setActiveTabTitle={ setActivePanelTitle }
-				footer={ footer }
-				onLoad={ () => {
-					setPanelLoaded( true );
-				} }
-			/>
+			{ panelEnabled && (
+				<Panel
+					panelOpen={ panelOpen }
+					setPanelOpen={ setPanelOpen }
+					activeTabId={ activePanelTabId }
+					setActiveTabId={ setActivePanelTabId }
+					activeTabIndex={ activePanelTabIndex }
+					setActiveTabIndex={ setActivePanelTabIndex }
+					activeTabTitle={ activePanelTitle }
+					setActiveTabTitle={ setActivePanelTitle }
+					footer={ footer }
+					onLoad={ () => {
+						setPanelLoaded( true );
+					} }
+				/>
+			) }
 		</div>
 	);
 }

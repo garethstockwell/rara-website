@@ -18,7 +18,7 @@
 }
 
 .site-footer.hidden {
-	visibility: hidden;
+	display: none;
 }
 
 #rara-maps-react-root {

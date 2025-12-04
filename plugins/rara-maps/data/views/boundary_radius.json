@@ -1,8 +1,8 @@
 {
-	"name": "vector",
+	"name": "boundary_radius",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
-		"center": [ 0.144843, 52.212231 ],
+		"center": [ 0.14547600132800653, 52.212610097321885 ],
 		"zoom": 15
 	},
 	"layers": [
@@ -29,18 +29,12 @@
 		{
 			"name": "barnwell_priory",
 			"type": "overlay",
-			"visible": true
+			"visible": false
 		},
 		{
-			"name": "boundary",
+			"name": "boundary_smooth",
 			"type": "line",
 			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "heritage_trail",
-			"type": "line",
-			"color": "green",
 			"visible": true
 		},
 		{
@@ -58,6 +52,6 @@
 			"visible": true
 		}
 	],
-	"mode": "location",
-	"fly": "direct"
+	"mode": "fly_radius",
+	"route": "boundary_smooth"
 }

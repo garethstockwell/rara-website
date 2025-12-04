@@ -1,9 +1,12 @@
 .map {
 	flex-grow: 1;
+}
+
+.panel_enabled {
 	margin-bottom: var(--dashboard-height);
 	transition: margin-bottom 0.3s ease;
 }
 
-.map_compress {
+.panel_open {
 	margin-bottom: 75vh;
 }
