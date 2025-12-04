@@ -1,28 +1,28 @@
 :root {
-	--color-dark-blue: #364154;
-	--color-green: #0f0;
-	--color-white: #fff;
+  --color-dark-blue: #364154;
+  --color-green: #0f0;
+  --color-white: #fff;
 
-	--header-offset: var(--header-height);
+  --header-offset: var(--header-height);
 
-	--handle-size: 40px;
-	--handle-radius: 10px;
+  --handle-size: 40px;
+  --handle-radius: 10px;
 
-	--dashboard-height: 70px;
-	--dashboard-radius: 15px;
+  --dashboard-height: 70px;
+  --dashboard-radius: 15px;
 
-	--panel-offset: 0px; /* stylelint-disable-line length-zero-no-unit */
-	--panel-height: var(--panel-max-offset);
-	--panel-radius: var(--dashboard-radius);
-	--panel-max-offset: 75vh;
+  --panel-offset: 0px; /* stylelint-disable-line length-zero-no-unit */
+  --panel-height: var(--panel-max-offset);
+  --panel-radius: var(--dashboard-radius);
+  --panel-max-offset: 75vh;
 }
 
 .site-footer.hidden {
-	display: none;
+  display: none;
 }
 
 #rara-maps-react-root {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }

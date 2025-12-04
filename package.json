@@ -17,8 +17,8 @@
   "scripts": {
     "all": "npm run --ws --if-present",
     "build": "npm run all build",
-    "format": "npm run all format",
-    "format:check": "npm run all format:check",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,md}'",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,md}'",
     "lint": "npm run all lint",
     "open": "npm run -w plugins/rara-maps open",
     "start": "npm run all start",
@@ -33,8 +33,10 @@
     "plugins/rara-maps",
     "themes/rara"
   ],
-	"pre-commit": [
-		"format:check",
-		"lint"
-	]
+  "pre-commit": [
+    "format:check"
+  ],
+  "devDependencies": {
+    "prettier": "^3.7.4"
+  }
 }

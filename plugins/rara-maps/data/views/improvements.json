@@ -1,30 +1,30 @@
 {
-	"name": "improvements",
-	"config": {
-		"style": "%{RARA_MAPS}/build/style.json",
-		"center": [ 0.144843, 52.212231 ],
-		"zoom": 15
-	},
-	"layers": [
-		{
-			"name": "3d_buildings",
-			"type": "buildings",
-			"visible": true
-		},
-		{
-			"name": "boundary",
-			"type": "line",
-			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "improvements",
-			"type": "locations",
-			"tags": [ "improvements" ],
-			"color": "yellow",
-			"visible": true
-		}
-	],
-	"mode": "location",
-	"fly": "direct"
+  "name": "improvements",
+  "config": {
+    "style": "%{RARA_MAPS}/build/style.json",
+    "center": [0.144843, 52.212231],
+    "zoom": 15
+  },
+  "layers": [
+    {
+      "name": "3d_buildings",
+      "type": "buildings",
+      "visible": true
+    },
+    {
+      "name": "boundary",
+      "type": "line",
+      "color": "black",
+      "visible": true
+    },
+    {
+      "name": "improvements",
+      "type": "locations",
+      "tags": ["improvements"],
+      "color": "yellow",
+      "visible": true
+    }
+  ],
+  "mode": "location",
+  "fly": "direct"
 }

@@ -1,10 +1,10 @@
 {
-	"name": "globe",
-	"config": {
-		"style": "https://demotiles.maplibre.org/globe.json",
-		"center": [ 0.144843, 52.212231 ],
-		"zoom": 1
-	},
-	"layers": [],
-	"mode": "null"
+  "name": "globe",
+  "config": {
+    "style": "https://demotiles.maplibre.org/globe.json",
+    "center": [0.144843, 52.212231],
+    "zoom": 1
+  },
+  "layers": [],
+  "mode": "null"
 }

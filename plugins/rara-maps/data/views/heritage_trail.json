@@ -1,43 +1,43 @@
 {
-	"name": "heritage_trail",
-	"config": {
-		"style": "%{RARA_MAPS}/build/style.json",
-		"center": [ 0.144843, 52.212231 ],
-		"zoom": 15
-	},
-	"layers": [
-		{
-			"name": "3d_buildings",
-			"type": "buildings",
-			"visible": true
-		},
-		{
-			"name": "boundary",
-			"type": "line",
-			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "heritage_trail",
-			"type": "line",
-			"color": "green",
-			"visible": true
-		},
-		{
-			"name": "attractions",
-			"type": "locations",
-			"tags": [ "attractions" ],
-			"color": "yellow",
-			"visible": true
-		},
-		{
-			"name": "point",
-			"type": "point",
-			"color": "red",
-			"visible": true
-		}
-	],
-	"mode": "location",
-	"fly": "route",
-	"route": "heritage_trail"
+  "name": "heritage_trail",
+  "config": {
+    "style": "%{RARA_MAPS}/build/style.json",
+    "center": [0.144843, 52.212231],
+    "zoom": 15
+  },
+  "layers": [
+    {
+      "name": "3d_buildings",
+      "type": "buildings",
+      "visible": true
+    },
+    {
+      "name": "boundary",
+      "type": "line",
+      "color": "black",
+      "visible": true
+    },
+    {
+      "name": "heritage_trail",
+      "type": "line",
+      "color": "green",
+      "visible": true
+    },
+    {
+      "name": "attractions",
+      "type": "locations",
+      "tags": ["attractions"],
+      "color": "yellow",
+      "visible": true
+    },
+    {
+      "name": "point",
+      "type": "point",
+      "color": "red",
+      "visible": true
+    }
+  ],
+  "mode": "location",
+  "fly": "route",
+  "route": "heritage_trail"
 }

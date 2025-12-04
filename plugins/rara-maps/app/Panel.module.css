@@ -1,19 +1,19 @@
 .panel {
-	position: fixed;
-	height: var(--panel-height);
-	left: 0;
-	right: 0;
-	top: calc(100vh - var(--dashboard-height));
-	border-top: var(--color-white) 1px solid;
-	overflow-y: auto;
-	transition: transform 0.3s ease;
-	transform: translateY(0);
+  position: fixed;
+  height: var(--panel-height);
+  left: 0;
+  right: 0;
+  top: calc(100vh - var(--dashboard-height));
+  border-top: var(--color-white) 1px solid;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateY(0);
 }
 
 .panel_open {
-	transform: translateY(calc(var(--dashboard-height) - 75vh));
+  transform: translateY(calc(var(--dashboard-height) - 75vh));
 }
 
 .panel-body {
-	background-color: var(--color-white);
+  background-color: var(--color-white);
 }

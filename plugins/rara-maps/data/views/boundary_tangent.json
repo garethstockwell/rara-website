@@ -1,63 +1,63 @@
 {
-	"name": "boundary_tangent",
-	"config": {
-		"style": "%{RARA_MAPS}/build/style.json",
-		"center": [ 0.14547600132800653, 52.212610097321885 ],
-		"zoom": 15
-	},
-	"layers": [
-		{
-			"name": "3d_buildings",
-			"type": "buildings",
-			"visible": true
-		},
-		{
-			"name": "camantsoc_1836_1838",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1910",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1925",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "barnwell_priory",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "boundary_smooth",
-			"type": "line",
-			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "attractions",
-			"type": "locations",
-			"tags": [ "attractions" ],
-			"color": "yellow",
-			"visible": true
-		},
-		{
-			"name": "improvements",
-			"type": "locations",
-			"tags": [ "improvements" ],
-			"color": "red",
-			"visible": true
-		},
-		{
-			"name": "point",
-			"type": "point",
-			"color": "red",
-			"visible": true
-		}
-	],
-	"mode": "fly_tangent",
-	"route": "boundary_smooth"
+  "name": "boundary_tangent",
+  "config": {
+    "style": "%{RARA_MAPS}/build/style.json",
+    "center": [0.14547600132800653, 52.212610097321885],
+    "zoom": 15
+  },
+  "layers": [
+    {
+      "name": "3d_buildings",
+      "type": "buildings",
+      "visible": true
+    },
+    {
+      "name": "camantsoc_1836_1838",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "name": "camantsoc_1910",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "name": "camantsoc_1925",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "name": "barnwell_priory",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "name": "boundary_smooth",
+      "type": "line",
+      "color": "black",
+      "visible": true
+    },
+    {
+      "name": "attractions",
+      "type": "locations",
+      "tags": ["attractions"],
+      "color": "yellow",
+      "visible": true
+    },
+    {
+      "name": "improvements",
+      "type": "locations",
+      "tags": ["improvements"],
+      "color": "red",
+      "visible": true
+    },
+    {
+      "name": "point",
+      "type": "point",
+      "color": "red",
+      "visible": true
+    }
+  ],
+  "mode": "fly_tangent",
+  "route": "boundary_smooth"
 }

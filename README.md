@@ -52,20 +52,22 @@ This maps the themes and plugins folders from the working directory of this repo
 4. Open Wordpress by browsing to http://localhost:8000
 
 5. Create a user.
-The login details don't matter since this will be overwritten by the credentials restored via Updraft - so username "test" and password "test" are fine.
+   The login details don't matter since this will be overwritten by the credentials restored via Updraft - so username "test" and password "test" are fine.
 
 6. Log in
+
 - Activate the "RARA" theme.
 - Activate all "RARA" plugins.
 - Install [UpdraftPlus: WP Backup & Migration Plugin](https://teamupdraft.com/updraftplus/).
 
 7. Go to the Updraft settings page. Under "Existing backups" you should see one entry, with the following components:
+
 - Database
 - Plugins
 - Themes
 - Uploads
 - Others
-Restore this backup, ticking all components.
+  Restore this backup, ticking all components.
 
 8. Log in with the credential restored from the remote server via Updraft.
 
