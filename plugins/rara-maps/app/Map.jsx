@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
 import createMap from '../lib/component/map.js';
 import flyRouteRadius from '../lib/component/radius.js';
-import flyRouteTangent from '../lib/component/route.js';
+import { Route, flyRouteTangent } from '../lib/component/route.js';
 
 export default function Map( {
 	panelEnabled,
@@ -11,11 +11,13 @@ export default function Map( {
 	activeObjectId,
 	setActiveObjectId,
 	setActiveObjectTitle,
+	setActiveObjectIndex,
 } ) {
 	const [ mapLoaded, setMapLoaded ] = useState( false );
 	const mapRef = useRef();
 	const mapElemRef = useRef();
 	const oldActiveObject = useRef();
+	const routeRef = useRef();
 
 	function locationOnClick( id ) {
 		setActiveObjectId( id );
@@ -23,25 +25,45 @@ export default function Map( {
 
 	function onLocationChange() {
 		if ( mapRef.current ) {
+			const locations = mapRef.current.appData.locations;
+
 			if ( oldActiveObject.current ) {
 				oldActiveObject.current.popupVisible = false;
 			}
 
 			if ( activeObjectId ) {
-				const loc =
-					mapRef.current.appData.locations.getLocation(
-						activeObjectId
-					);
+				const loc = locations.getLocation( activeObjectId );
 				if ( loc ) {
 					loc.popupVisible = true; // TODO: make this sticky
 
-					mapRef.current.flyTo( {
-						center: loc.data.geometry.coordinates,
-					} );
+					if ( data.view.fly === 'direct' ) {
+						mapRef.current.flyTo( {
+							center: loc.data.geometry.coordinates,
+						} );
+					}
 
-					setActiveObjectTitle(
-						loc ? loc.data.properties.title : ''
-					);
+					if ( loc.data ) {
+						setActiveObjectTitle(
+							loc ? loc.data.properties.title : ''
+						);
+
+						if ( data.view.fly === 'route' ) {
+							const fromCoord =
+								oldActiveObject.current.data.geometry
+									.coordinates;
+							const toCoord = loc.data.geometry.coordinates;
+							console.debug(
+								`Fly from ${ oldActiveObject } ${ fromCoord } to ${ activeObjectId } ${ toCoord }`
+							);
+							routeRef.current.fly( fromCoord, toCoord, 2000 );
+						}
+					}
+
+					if ( loc.data ) {
+						setActiveObjectTitle(
+							loc ? loc.data.properties.title : ''
+						);
+					}
 				}
 
 				oldActiveObject.current = loc;
@@ -95,7 +117,7 @@ export default function Map( {
 		mapRef.current.on( 'load', () => {
 			setMapLoaded( true );
 
-			if ( data.view.mode == 'fly_radius' ) {
+			if ( data.view.mode === 'fly_radius' ) {
 				flyRouteRadius( {
 					center: data.view.config.center,
 					coordinates:
@@ -104,12 +126,22 @@ export default function Map( {
 				} );
 			}
 
-			if ( data.view.mode == 'fly_tangent' ) {
+			if ( data.view.mode === 'fly_tangent' ) {
 				flyRouteTangent( {
 					coordinates:
 						data.lines[ data.view.route ].geometry.coordinates,
 					map: mapRef.current,
 				} );
+			}
+
+			if ( data.view.fly === 'route' ) {
+				routeRef.current = new Route( {
+					coordinates:
+						data.lines[ data.view.route ].geometry.coordinates,
+					map: mapRef.current,
+				} );
+
+				setActiveObjectIndex( 0 );
 			}
 		} );
 	}

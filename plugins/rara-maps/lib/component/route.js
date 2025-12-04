@@ -23,7 +23,7 @@ export class Route {
 	 * @param {boolean}        args.autoStart   Start flight as soon as route is loaded
 	 * @param {int}            args.altitude    Camera altitude in meters
 	 * @param {int}            args.distance    Camera trailing distance in meters
-	 * @param {array}          args.coordinates Coordinates of line to follow
+	 * @param {Array}          args.coordinates Coordinates of line to follow
 	 * @param {maplibregl.Map} args.map         The map
 	 */
 	constructor( args ) {
@@ -36,7 +36,7 @@ export class Route {
 		this.#map = args.map;
 		this.#speed = 0.0001;
 
-		this.#init( args.coordinates, args.autoStart ?? true );
+		this.#init( args.coordinates, args.autoStart ?? false );
 	}
 
 	#init( coordinates, autoStart ) {
@@ -194,6 +194,9 @@ export class Route {
 	}
 }
 
-export default function flyRouteTangent( args ) {
-	const route = new Route( args );
+export function flyRouteTangent( args ) {
+	new Route( {
+		...args,
+		autoStart: true,
+	} );
 }

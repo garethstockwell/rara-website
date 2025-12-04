@@ -1,5 +1,5 @@
 {
-	"name": "vector",
+	"name": "heritage_trail",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.144843, 52.212231 ],
@@ -9,26 +9,6 @@
 		{
 			"name": "3d_buildings",
 			"type": "buildings",
-			"visible": true
-		},
-		{
-			"name": "camantsoc_1836_1838",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1910",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1925",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "barnwell_priory",
-			"type": "overlay",
 			"visible": true
 		},
 		{
@@ -51,13 +31,13 @@
 			"visible": true
 		},
 		{
-			"name": "improvements",
-			"type": "locations",
-			"tags": [ "improvements" ],
+			"name": "point",
+			"type": "point",
 			"color": "red",
 			"visible": true
 		}
 	],
 	"mode": "location",
-	"fly": "direct"
+	"fly": "route",
+	"route": "heritage_trail"
 }

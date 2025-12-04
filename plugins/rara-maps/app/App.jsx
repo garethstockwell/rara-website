@@ -68,6 +68,7 @@ export default function App( { footer, viewName } ) {
 					activeObjectId={ activePanelTabId }
 					setActiveObjectId={ setActivePanelTabId }
 					setActiveObjectTitle={ setActivePanelTitle }
+					setActiveObjectIndex={ setActivePanelTabIndex }
 				/>
 			) }
 

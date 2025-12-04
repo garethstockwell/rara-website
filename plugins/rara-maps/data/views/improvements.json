@@ -1,5 +1,5 @@
 {
-	"name": "attractions",
+	"name": "improvements",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.144843, 52.212231 ],
@@ -18,9 +18,9 @@
 			"visible": true
 		},
 		{
-			"name": "attractions",
+			"name": "improvements",
 			"type": "locations",
-			"tags": [ "attractions" ],
+			"tags": [ "improvements" ],
 			"color": "yellow",
 			"visible": true
 		}

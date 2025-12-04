@@ -77,5 +77,6 @@
 			"visible": true
 		}
 	],
-	"mode": "location"
+	"mode": "location",
+	"fly": "direct"
 }
