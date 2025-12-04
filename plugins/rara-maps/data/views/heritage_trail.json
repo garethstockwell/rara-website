@@ -1,7 +1,7 @@
 {
 	"name": "heritage_trail",
 	"config": {
-		"style": "%{RARA_MAPS}/data/style.json",
+		"style": "%{RARA_MAPS}/build/style.json",
 		"center": [ 0.144843, 52.212231 ],
 		"zoom": 15
 	},

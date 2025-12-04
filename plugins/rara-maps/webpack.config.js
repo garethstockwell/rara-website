@@ -41,7 +41,7 @@ console.log( 'commit:', commit );
 const dataDir = path.resolve( __dirname, 'data' );
 const script = path.resolve( __dirname, 'scripts/compose.js' );
 const tpl = path.resolve( dataDir, 'data.json.hbs' );
-const emittedAssetPath = path.posix.join( 'build', 'data.json' );
+const emittedAssetPath = 'data.json';
 
 // ----------------- ComposeJsonPlugin (emit asset during compilation) -----------------
 const ComposeJsonPlugin = {
@@ -131,6 +131,7 @@ const baseConfig = {
 	output: {
 		filename: 'bundle.js',
 		path: path.resolve( __dirname, 'build' ),
+		publicPath: isDev ? '/build/' : '/',
 		library: {
 			name: 'raraMaps',
 			type: 'window',
@@ -226,8 +227,8 @@ const baseConfig = {
 		new CopyWebpackPlugin( {
 			patterns: [
 				{
-					from: path.resolve( __dirname, 'data/style.json' ),
-					to: path.resolve( __dirname, 'build' ),
+					from: path.resolve(__dirname, 'build/style.json'),
+					to: '.',
 				},
 			],
 		} ),
@@ -240,18 +241,13 @@ const baseConfig = {
 	...( isDev
 		? {
 				devServer: {
+					devMiddleware: {
+						publicPath: '/build/',
+					},
 					static: [
 						{
 							directory: path.resolve( __dirname, 'assets' ),
 							publicPath: '/assets',
-						},
-						{
-							directory: path.resolve( __dirname, 'build' ),
-							publicPath: '/build',
-						},
-						{
-							directory: path.resolve( __dirname, 'build' ),
-							publicPath: '/data',
 						},
 						{
 							directory: path.resolve( __dirname, 'test' ),
