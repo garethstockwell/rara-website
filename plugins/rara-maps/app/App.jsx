@@ -10,6 +10,7 @@ export default function App( { footer, viewName } ) {
 	const [ panelOpen, setPanelOpen ] = useState( false );
 	const [ panelLoaded, setPanelLoaded ] = useState( false );
 	const [ activePanelTabId, setActivePanelTabId ] = useState( null );
+	const [ activePanelTabIndex, setActivePanelTabIndex ] = useState( null );
 	const [ activePanelTitle, setActivePanelTitle ] = useState( null );
 
 	function arrayToMap( arr ) {
@@ -31,12 +32,18 @@ export default function App( { footer, viewName } ) {
 			} )
 			.then( ( json ) => {
 				if ( ! cancelled ) {
-					setData( {
+					const theData = {
 						...json,
 						lines: arrayToMap( json.lines ),
 						overlays: arrayToMap( json.overlays.features ),
 						view: arrayToMap( json.views )[ viewName ],
-					} );
+					};
+
+					setData( theData );
+
+					if ( theData.view.binding === 'overlay' ) {
+						setActivePanelTabIndex( 0 );
+					}
 				}
 			} );
 
@@ -54,9 +61,9 @@ export default function App( { footer, viewName } ) {
 				<Map
 					panelOpen={ panelOpen }
 					data={ data }
-					activeLocationId={ activePanelTabId }
-					setActiveLocationId={ setActivePanelTabId }
-					setActiveLocationTitle={ setActivePanelTitle }
+					activeObjectId={ activePanelTabId }
+					setActiveObjectId={ setActivePanelTabId }
+					setActiveObjectTitle={ setActivePanelTitle }
 				/>
 			) }
 
@@ -65,7 +72,10 @@ export default function App( { footer, viewName } ) {
 				setPanelOpen={ setPanelOpen }
 				activeTabId={ activePanelTabId }
 				setActiveTabId={ setActivePanelTabId }
+				activeTabIndex={ activePanelTabIndex }
+				setActiveTabIndex={ setActivePanelTabIndex }
 				activeTabTitle={ activePanelTitle }
+				setActiveTabTitle={ setActivePanelTitle }
 				footer={ footer }
 				onLoad={ () => {
 					setPanelLoaded( true );

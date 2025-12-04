@@ -39,7 +39,7 @@ window.createToolbar = function ( name ) {
 	new Map( [
 		[ 'index', 'Attractions' ],
 		//[ 'improvements', 'Improvements' ],
-		//[ 'history', 'History' ],
+		[ 'history', 'History' ],
 		//[ 'heritage_trail', 'Heritage trail' ],
 		//[ 'boundary_radius', 'Boundary radius' ],
 		[ 'vector', 'Vector' ],
