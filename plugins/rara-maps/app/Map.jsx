@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
 import createMap from '../lib/component/map.js';
-import flyRadius from '../lib/component/radius.js';
+import flyRouteRadius from '../lib/component/radius.js';
+import flyRouteTangent from '../lib/component/route.js';
 
 export default function Map( {
 	panelEnabled,
@@ -94,13 +95,21 @@ export default function Map( {
 		mapRef.current.on( 'load', () => {
 			setMapLoaded( true );
 
-			if (data.view.mode == 'radius') {
-				console.log(data.lines[data.view.route].geometry.coordinates);
-				flyRadius({
+			if ( data.view.mode == 'fly_radius' ) {
+				flyRouteRadius( {
 					center: data.view.config.center,
-					coordinates: data.lines[data.view.route].geometry.coordinates,
+					coordinates:
+						data.lines[ data.view.route ].geometry.coordinates,
 					map: mapRef.current,
-				});
+				} );
+			}
+
+			if ( data.view.mode == 'fly_tangent' ) {
+				flyRouteTangent( {
+					coordinates:
+						data.lines[ data.view.route ].geometry.coordinates,
+					map: mapRef.current,
+				} );
 			}
 		} );
 	}

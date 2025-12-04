@@ -1,6 +1,6 @@
 // Component which allows camera to fly along a radius
 
-export default function flyRadius( args ) {
+export default function flyRouteRadius( args ) {
 	let start = null;
 	const playtime = 30000;
 	const route = turf.lineString( args.coordinates );

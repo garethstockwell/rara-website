@@ -19,12 +19,12 @@ export class Route {
 
 	/**
 	 * Create a Route
-	 * @param {Object}         args           The arguments
-	 * @param {boolean}        args.autoStart Start flight as soon as route is loaded
-	 * @param {int}            args.altitude  Camera altitude in meters
-	 * @param {int}            args.distance  Camera trailing distance in meters
-	 * @param {string}         args.lineId    Identifier of line to follow
-	 * @param {maplibregl.Map} args.map       The map
+	 * @param {Object}         args             The arguments
+	 * @param {boolean}        args.autoStart   Start flight as soon as route is loaded
+	 * @param {int}            args.altitude    Camera altitude in meters
+	 * @param {int}            args.distance    Camera trailing distance in meters
+	 * @param {array}          args.coordinates Coordinates of line to follow
+	 * @param {maplibregl.Map} args.map         The map
 	 */
 	constructor( args ) {
 		this.#camera = {
@@ -36,49 +36,43 @@ export class Route {
 		this.#map = args.map;
 		this.#speed = 0.0001;
 
-		this.#init( args.lineId, args.autoStart ?? false );
+		this.#init( args.coordinates, args.autoStart ?? true );
 	}
 
-	#init( lineId, autoStart ) {
-		const line = this.#map.getSource( lineId );
-		line.getData().then( ( data ) => {
-			console.debug( 'Route loaded' );
+	#init( coordinates, autoStart ) {
+		console.debug( 'Route loaded' );
 
-			const coordinates = data.features[ 0 ].geometry.coordinates;
-			this.#route = turf.lineString( coordinates );
+		this.#route = turf.lineString( coordinates );
 
-			// calculate camera startpoint
-			//  - compute the direction of the first quater of the route
-			//  - and place the camera in to opposite direction of this point
-			const a = maplibregl.MercatorCoordinate.fromLngLat(
+		// calculate camera startpoint
+		//  - compute the direction of the first quater of the route
+		//  - and place the camera in to opposite direction of this point
+		const a = maplibregl.MercatorCoordinate.fromLngLat( coordinates[ 0 ] );
+		const b = maplibregl.MercatorCoordinate.fromLngLat(
+			turf.along( this.#route, turf.lineDistance( this.#route ) / 4 )
+				.geometry.coordinates
+		);
+		const dx = b.x - a.x,
+			dy = b.y - a.y;
+		this.#camera.distance = this.#distance ?? Math.hypot( dx, dy );
+		this.#camera.coord = new maplibregl.MercatorCoordinate(
+			a.x - dx,
+			a.y - dy
+		);
+
+		// FIXME! when using flyTo the positioning is not correct
+		this.#map.jumpTo(
+			this.#map.calculateCameraOptionsFromTo(
+				this.#camera.coord.toLngLat(),
+				this.#camera.altitude,
 				coordinates[ 0 ]
-			);
-			const b = maplibregl.MercatorCoordinate.fromLngLat(
-				turf.along( this.#route, turf.lineDistance( this.#route ) / 4 )
-					.geometry.coordinates
-			);
-			const dx = b.x - a.x,
-				dy = b.y - a.y;
-			this.#camera.distance = this.#distance ?? Math.hypot( dx, dy );
-			this.#camera.coord = new maplibregl.MercatorCoordinate(
-				a.x - dx,
-				a.y - dy
-			);
+			)
+		);
 
-			// FIXME! when using flyTo the positioning is not correct
-			this.#map.jumpTo(
-				this.#map.calculateCameraOptionsFromTo(
-					this.#camera.coord.toLngLat(),
-					this.#camera.altitude,
-					coordinates[ 0 ]
-				)
-			);
-
-			if ( autoStart ) {
-				console.debug( 'Automatically starting' );
-				this.#start();
-			}
-		} );
+		if ( autoStart ) {
+			console.debug( 'Automatically starting' );
+			this.#start();
+		}
 	}
 
 	#start() {
@@ -198,4 +192,8 @@ export class Route {
 			this.#start();
 		}
 	}
+}
+
+export default function flyRouteTangent( args ) {
+	const route = new Route( args );
 }

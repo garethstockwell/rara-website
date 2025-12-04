@@ -1,5 +1,5 @@
 {
-	"name": "boundary_radius",
+	"name": "boundary_tangent",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.14547600132800653, 52.212610097321885 ],
@@ -50,8 +50,14 @@
 			"tags": [ "improvements" ],
 			"color": "red",
 			"visible": true
+		},
+		{
+			"name": "point",
+			"type": "point",
+			"color": "red",
+			"visible": true
 		}
 	],
-	"mode": "fly_radius",
+	"mode": "fly_tangent",
 	"route": "boundary_smooth"
 }

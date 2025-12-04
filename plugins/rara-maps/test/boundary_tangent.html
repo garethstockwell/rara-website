@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>rara-maps example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load dependencies -->
+    <script src='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.js'></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@5.13.0/dist/maplibre-gl.css' rel='stylesheet' />
+
+    <!-- Load test style and logic -->
+    <link href="index.css" rel="stylesheet" />
+    <script src="index.js" defer></script>
+    
+    <!-- No need to manually link App.module.css -->
+    <!-- In dev: style-loader injects CSS -->
+    <!-- In prod: you need to link bundle.css -->
+    <script>
+      // Optional: fallback message if JS fails
+      window.addEventListener('DOMContentLoaded', () => {
+        if (!document.getElementById('rara-maps-react-root')) {
+          console.warn('React mount point not found');
+        }
+
+        createToolbar('attractions');
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="site" id="page">
+      <header class="site-header">
+        <div id="toolbar" class="toolbar"></div>
+      </header>
+
+      <div class="site-content">
+        <!-- React mount point -->
+        <div id="rara-maps-react-root" view-name="boundary_tangent" panel="false"></div>
+      </div>
+
+      <footer class="site-footer">
+        <p>FOOTER</p>
+      </footer>
+    </div>
+
+    <!-- Webpack bundle -->
+    <script src="bundle.js" defer></script>
+
+    <!-- In production, also include extracted CSS -->
+    <!-- <link rel="stylesheet" href="../build/bundle.css"> -->
+  </body>
+</html>

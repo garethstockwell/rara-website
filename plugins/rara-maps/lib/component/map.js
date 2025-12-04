@@ -134,6 +134,37 @@ export default function createMap( args ) {
 				visible: element.visible,
 			} );
 		}
+
+		if ( element.type === 'point' ) {
+			map.on( 'load', () => {
+				map.addSource( element.name, {
+					type: 'geojson',
+					data: {
+						type: 'Feature',
+						properties: {},
+						geometry: {
+							type: 'Point',
+							coordinates: [ 0.0, 0.0 ],
+						},
+					},
+				} );
+
+				map.addLayer(
+					{
+						id: element.name,
+						source: element.name,
+						type: 'circle',
+						paint: {
+							'circle-radius': 10,
+							'circle-color': '#ff0000',
+							'circle-stroke-width': 2,
+							'circle-stroke-color': 'white',
+						},
+					},
+					map.appData.layers.zOrder.getPosition( element.name )
+				);
+			} );
+		}
 	} );
 
 	return map;
