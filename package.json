@@ -18,6 +18,7 @@
     "all": "npm run --ws --if-present",
     "build": "npm run all build",
     "format": "npm run all format",
+    "format:check": "npm run all format:check",
     "lint": "npm run all lint",
     "open": "npm run -w plugins/rara-maps open",
     "start": "npm run all start",
@@ -31,5 +32,9 @@
   "workspaces": [
     "plugins/rara-maps",
     "themes/rara"
-  ]
+  ],
+	"pre-commit": [
+		"format:check",
+		"lint"
+	]
 }

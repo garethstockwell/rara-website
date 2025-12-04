@@ -227,7 +227,7 @@ const baseConfig = {
 		new CopyWebpackPlugin( {
 			patterns: [
 				{
-					from: path.resolve(__dirname, 'build/style.json'),
+					from: path.resolve( __dirname, 'build/style.json' ),
 					to: '.',
 				},
 			],

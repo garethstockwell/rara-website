@@ -38,6 +38,7 @@
 		"mini-css-extract-plugin": "^2.9.4",
 		"postcss": "^8.5.6",
 		"postcss-loader": "^6.2.1",
+		"pre-commit": "^1.2.2",
 		"react-refresh": "^0.14.2",
 		"style-loader": "^4.0.0",
 		"terser-webpack-plugin": "^5.3.14",
@@ -47,7 +48,8 @@
 	},
 	"scripts": {
 		"build": "cross-env NODE_ENV=production npx webpack --config webpack.config.js",
-		"format": "wp-scripts format",
+		"format": "prettier '**/*.{js,jsx,ts,tsx,json,css,md}'",
+		"format:check": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,md}'",
 		"lint": "npm run lint:css && npm run lint:js && npm run lint:pkg-json",
 		"lint:css": "wp-scripts lint-style --allow-empty-input",
 		"lint:js": "wp-scripts lint-js --no-error-on-unmatched-pattern",
