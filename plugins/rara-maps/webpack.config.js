@@ -146,6 +146,7 @@ const baseConfig = {
           {
             loader: 'css-loader',
             options: {
+              esModule: false,
               modules: {
                 localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]',
               },
@@ -196,7 +197,7 @@ const baseConfig = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'build/style.json'),
+          from: path.resolve(__dirname, 'data/style.json'),
           to: '.',
         },
       ],

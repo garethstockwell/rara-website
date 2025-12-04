@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 window.raraMapsData = { baseUrl: 'http://localhost:3000' };
 
 document.addEventListener('DOMContentLoaded', () => {
