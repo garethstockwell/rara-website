@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import styles from "./Map.module.css";
-import createMap from "../lib/component/map.js";
-import flyRouteRadius from "../lib/component/radius.js";
-import { Route, flyRouteTangent } from "../lib/component/route.js";
+import { useEffect, useRef, useState } from 'react';
+import styles from './Map.module.css';
+import createMap from '../lib/component/map.js';
+import flyRouteRadius from '../lib/component/radius.js';
+import { Route, flyRouteTangent } from '../lib/component/route.js';
 
 export default function Map({
   panelEnabled,
@@ -36,28 +36,27 @@ export default function Map({
         if (loc) {
           loc.popupVisible = true; // TODO: make this sticky
 
-          if (data.view.fly === "direct") {
+          if (data.view.fly === 'direct') {
             mapRef.current.flyTo({
               center: loc.data.geometry.coordinates,
             });
           }
 
           if (loc.data) {
-            setActiveObjectTitle(loc ? loc.data.properties.title : "");
+            setActiveObjectTitle(loc ? loc.data.properties.title : '');
 
-            if (data.view.fly === "route") {
-              const fromCoord =
-                oldActiveObject.current.data.geometry.coordinates;
+            if (data.view.fly === 'route') {
+              const fromCoord = oldActiveObject.current.data.geometry.coordinates;
               const toCoord = loc.data.geometry.coordinates;
               console.debug(
-                `Fly from ${oldActiveObject} ${fromCoord} to ${activeObjectId} ${toCoord}`,
+                `Fly from ${oldActiveObject} ${fromCoord} to ${activeObjectId} ${toCoord}`
               );
               routeRef.current.fly(fromCoord, toCoord, 2000);
             }
           }
 
           if (loc.data) {
-            setActiveObjectTitle(loc ? loc.data.properties.title : "");
+            setActiveObjectTitle(loc ? loc.data.properties.title : '');
           }
         }
 
@@ -82,11 +81,11 @@ export default function Map({
 
   function onActiveObjectChange() {
     if (mapLoaded) {
-      if (data.view.mode === "location") {
+      if (data.view.mode === 'location') {
         onLocationChange();
       }
 
-      if (data.view.mode === "overlay") {
+      if (data.view.mode === 'overlay') {
         onOverlayChange();
       }
     }
@@ -102,17 +101,17 @@ export default function Map({
 
   function loadMap() {
     mapRef.current = createMap({
-      container: "map",
+      container: 'map',
       data,
       overlay_opacity: 0.75,
       locationOnClick,
       locationVisible: true,
     });
 
-    mapRef.current.on("load", () => {
+    mapRef.current.on('load', () => {
       setMapLoaded(true);
 
-      if (data.view.mode === "fly_radius") {
+      if (data.view.mode === 'fly_radius') {
         flyRouteRadius({
           center: data.view.config.center,
           coordinates: data.lines[data.view.route].geometry.coordinates,
@@ -120,14 +119,14 @@ export default function Map({
         });
       }
 
-      if (data.view.mode === "fly_tangent") {
+      if (data.view.mode === 'fly_tangent') {
         flyRouteTangent({
           coordinates: data.lines[data.view.route].geometry.coordinates,
           map: mapRef.current,
         });
       }
 
-      if (data.view.fly === "route") {
+      if (data.view.fly === 'route') {
         routeRef.current = new Route({
           coordinates: data.lines[data.view.route].geometry.coordinates,
           map: mapRef.current,
@@ -149,8 +148,8 @@ export default function Map({
       id="map"
       className={`
 			${styles.map}
-			${panelEnabled ? styles.panel_enabled : ""}
-			${panelOpen ? styles.panel_open : ""}
+			${panelEnabled ? styles.panel_enabled : ''}
+			${panelOpen ? styles.panel_open : ''}
 			`}
     ></div>
   );

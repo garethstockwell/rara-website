@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import styles from "./App.module.css";
-import HeaderHandle from "./HeaderHandle.jsx";
-import Map from "./Map.jsx";
-import Panel from "./Panel.jsx";
-import { absUrl } from "../lib/util/url.js";
+import { useEffect, useState } from 'react';
+import styles from './App.module.css';
+import HeaderHandle from './HeaderHandle.jsx';
+import Map from './Map.jsx';
+import Panel from './Panel.jsx';
+import { absUrl } from '../lib/util/url.js';
 
 export default function App({ footer, viewName }) {
   const [data, setData] = useState(null);
@@ -13,7 +13,7 @@ export default function App({ footer, viewName }) {
   const [activePanelTabIndex, setActivePanelTabIndex] = useState(null);
   const [activePanelTitle, setActivePanelTitle] = useState(null);
 
-  const panelEnabled = document.querySelector(".rara-maps-content") !== null;
+  const panelEnabled = document.querySelector('.rara-maps-content') !== null;
 
   function arrayToMap(arr) {
     return arr.reduce((acc, obj) => {
@@ -25,10 +25,10 @@ export default function App({ footer, viewName }) {
   useEffect(() => {
     let cancelled = false;
 
-    fetch(absUrl("%{RARA_MAPS}/build/data.json"))
+    fetch(absUrl('%{RARA_MAPS}/build/data.json'))
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Network error");
+          throw new Error('Network error');
         }
         return res.json();
       })
@@ -43,7 +43,7 @@ export default function App({ footer, viewName }) {
 
           setData(theData);
 
-          if (theData.view.mode === "overlay") {
+          if (theData.view.mode === 'overlay') {
             setActivePanelTabIndex(0);
           }
         }

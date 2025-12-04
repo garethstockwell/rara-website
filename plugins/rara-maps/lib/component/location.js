@@ -55,12 +55,10 @@ class Location {
     console.debug(
       `Location.onPopupVisibleChange id=${this.#id} visible=${
         this.popupVisible
-      } popup=${this.#popup}`,
+      } popup=${this.#popup}`
     );
     if (this.#popup) {
-      this.#popup.getElement().style.visibility = this.popupVisible
-        ? "visible"
-        : "hidden";
+      this.#popup.getElement().style.visibility = this.popupVisible ? 'visible' : 'hidden';
     }
   }
 }
@@ -103,7 +101,7 @@ export class LocationManager {
   }
 
   #addLocation(id) {
-    console.debug("LocationManager.addLocation", id);
+    console.debug('LocationManager.addLocation', id);
     const popup = new Location(this, id);
     this.#locations[id] = popup;
     return popup;

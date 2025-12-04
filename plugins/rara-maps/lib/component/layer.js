@@ -15,20 +15,20 @@ class ZOrder {
   constructor(map, order) {
     this.#order = order;
 
-    map.on("load", () => {
-      map.addSource("empty", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
+    map.on('load', () => {
+      map.addSource('empty', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
       });
 
       for (let i = this.#order.length - 1; i >= 0; i--) {
         map.addLayer(
           {
             id: `z-${i}`,
-            type: "symbol",
-            source: "empty",
+            type: 'symbol',
+            source: 'empty',
           },
-          i === this.#order.length - 1 ? undefined : `z-${i + 1}`,
+          i === this.#order.length - 1 ? undefined : `z-${i + 1}`
         );
       }
     });
@@ -87,9 +87,7 @@ class Layer {
    */
   onLoaded() {
     console.debug(
-      `Layer.onLoaded id=${this.#id} visible=${this.visible} callback=${
-        this.#callback
-      }`,
+      `Layer.onLoaded id=${this.#id} visible=${this.visible} callback=${this.#callback}`
     );
     this.#onVisibleChange();
     if (this.#callback) {
@@ -104,21 +102,14 @@ class Layer {
   toggleVisible() {
     console.debug(`Layer.toggleVisible id=${this.#id} visible=${this.visible}`);
 
-    this.visible =
-      this.#manager.map.getLayoutProperty(this.#id, "visibility") !== "visible";
+    this.visible = this.#manager.map.getLayoutProperty(this.#id, 'visibility') !== 'visible';
 
     return this.visible;
   }
 
   #onVisibleChange() {
-    console.debug(
-      `Layer.onVisibleChange id=${this.#id} visible=${this.visible}`,
-    );
-    this.#manager.map.setLayoutProperty(
-      this.#id,
-      "visibility",
-      this.visible ? "visible" : "none",
-    );
+    console.debug(`Layer.onVisibleChange id=${this.#id} visible=${this.visible}`);
+    this.#manager.map.setLayoutProperty(this.#id, 'visibility', this.visible ? 'visible' : 'none');
   }
 }
 

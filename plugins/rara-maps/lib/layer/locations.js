@@ -1,6 +1,6 @@
 // Add a map layer which shows locations
 
-import { absUrl } from "../util/url.js";
+import { absUrl } from '../util/url.js';
 
 /**
  * Create the map
@@ -8,22 +8,20 @@ import { absUrl } from "../util/url.js";
  * @param {Object} args The arguments
  */
 export function addLocationsLayer(map, args) {
-  map.on("load", async () => {
+  map.on('load', async () => {
     const id = args.id;
     const data = {
       ...args.data,
       features: args.tags
         ? args.data.features.filter((feature) =>
-            args.tags.every((x) => feature.properties.tags.includes(x)),
+            args.tags.every((x) => feature.properties.tags.includes(x))
           )
         : args.features,
     };
 
     const locations = map.appData.locations;
 
-    const image = await map.loadImage(
-      absUrl(`%{RARA_MAPS}/assets/icons/pin-${args.color}.png`),
-    );
+    const image = await map.loadImage(absUrl(`%{RARA_MAPS}/assets/icons/pin-${args.color}.png`));
     map.addImage(id, image.data);
 
     data.features.forEach((feature) => {
@@ -35,23 +33,23 @@ export function addLocationsLayer(map, args) {
     });
 
     map.addSource(id, {
-      type: "geojson",
+      type: 'geojson',
       data,
     });
 
     map.addLayer(
       {
         id,
-        type: "symbol",
+        type: 'symbol',
         source: id,
         layout: {
-          "icon-image": id,
-          "icon-size": 1.0,
-          "icon-allow-overlap": true,
-          visibility: args.visible ? "visible" : "none",
+          'icon-image': id,
+          'icon-size': 1.0,
+          'icon-allow-overlap': true,
+          visibility: args.visible ? 'visible' : 'none',
         },
       },
-      args.zOrder ? args.zOrder.getPosition(id) : null,
+      args.zOrder ? args.zOrder.getPosition(id) : null
     );
 
     if (!args.staticPopups) {
@@ -59,14 +57,13 @@ export function addLocationsLayer(map, args) {
       // and use mousemove instead of mouseenter event
       let currentFeatureId;
       let currentFeatureCoordinates;
-      map.on("mousemove", id, (e) => {
-        const featureCoordinates =
-          e.features[0].geometry.coordinates.toString();
+      map.on('mousemove', id, (e) => {
+        const featureCoordinates = e.features[0].geometry.coordinates.toString();
         if (currentFeatureCoordinates !== featureCoordinates) {
           currentFeatureCoordinates = featureCoordinates;
 
           // Change the cursor style as a UI indicator.
-          map.getCanvas().style.cursor = "pointer";
+          map.getCanvas().style.cursor = 'pointer';
 
           const coordinates = e.features[0].geometry.coordinates.slice();
 
@@ -90,10 +87,10 @@ export function addLocationsLayer(map, args) {
         }
       });
 
-      map.on("mouseleave", id, () => {
+      map.on('mouseleave', id, () => {
         const featureId = currentFeatureId;
 
-        map.getCanvas().style.cursor = "";
+        map.getCanvas().style.cursor = '';
         locations.getLocation(currentFeatureId).popupVisible = false;
         currentFeatureId = undefined;
         currentFeatureCoordinates = undefined;
@@ -105,7 +102,7 @@ export function addLocationsLayer(map, args) {
     }
 
     if (args.onclick) {
-      map.on("click", id, (e) => {
+      map.on('click', id, (e) => {
         args.onclick(e.features[0].properties.id);
       });
     }

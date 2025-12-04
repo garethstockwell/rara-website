@@ -13,13 +13,11 @@ export default function flyRouteRadius(args) {
   const animate = () => {
     start = start || Date.now();
     const progress = (Date.now() - start) % playtime;
-    const boundaryPt = turf.along(
-      route,
-      (turf.lineDistance(route) * progress) / playtime,
-    ).geometry.coordinates;
+    const boundaryPt = turf.along(route, (turf.lineDistance(route) * progress) / playtime).geometry
+      .coordinates;
 
     // Compute distance (in km) and bearing between them
-    const dist = turf.distance(centerPt, boundaryPt, { units: "meters" });
+    const dist = turf.distance(centerPt, boundaryPt, { units: 'meters' });
     const bearing = turf.bearing(centerPt, boundaryPt);
 
     // Extend the line
@@ -27,7 +25,7 @@ export default function flyRouteRadius(args) {
 
     // Compute the new point 200 m beyond 'boundary' along the same bearing
     const extendedPt = turf.destination(centerPt, extendedDist, bearing, {
-      units: "meters",
+      units: 'meters',
     });
 
     // Extract as [lng, lat]
@@ -37,8 +35,8 @@ export default function flyRouteRadius(args) {
       args.map.calculateCameraOptionsFromTo(
         new maplibregl.LngLat(extendedLngLat[0], extendedLngLat[1]),
         altitude,
-        args.center,
-      ),
+        args.center
+      )
     );
 
     requestAnimationFrame(animate);

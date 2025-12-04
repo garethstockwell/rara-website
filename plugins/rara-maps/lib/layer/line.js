@@ -4,32 +4,32 @@ export function addLineLayer(map, options) {
   const id = options.id;
   const data = options.data;
 
-  map.on("load", () => {
+  map.on('load', () => {
     map.addSource(id, {
-      type: "geojson",
+      type: 'geojson',
       data,
     });
 
     map.addLayer(
       {
         id,
-        type: "line",
+        type: 'line',
         source: id,
         layout: {
-          "line-join": "round",
-          "line-cap": "round",
-          visibility: options.visible ? "visible" : "none",
+          'line-join': 'round',
+          'line-cap': 'round',
+          visibility: options.visible ? 'visible' : 'none',
         },
         paint: {
-          "line-color": options.color,
-          "line-width": 6,
+          'line-color': options.color,
+          'line-width': 6,
         },
       },
-      options.zOrder ? options.zOrder.getPosition(id) : null,
+      options.zOrder ? options.zOrder.getPosition(id) : null
     );
 
     if (options.callback) {
-      options.callback(["line", id]);
+      options.callback(['line', id]);
     }
   });
 }

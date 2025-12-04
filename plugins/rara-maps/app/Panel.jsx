@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import common from "./common.module.css";
-import styles from "./Panel.module.css";
-import Dashboard from "./Dashboard.jsx";
+import { useEffect, useRef } from 'react';
+import common from './common.module.css';
+import styles from './Panel.module.css';
+import Dashboard from './Dashboard.jsx';
 
 export default function Panel({
   panelOpen,
@@ -15,8 +15,8 @@ export default function Panel({
   footer,
   onLoad,
 }) {
-  const contentElem = document.querySelector(".rara-maps-content");
-  const tabElems = contentElem.querySelectorAll(".rara-maps-content-tab");
+  const contentElem = document.querySelector('.rara-maps-content');
+  const tabElems = contentElem.querySelectorAll('.rara-maps-content-tab');
   const panelRef = useRef(null);
   const panelBodyRef = useRef(null);
   const activeTabElem = useRef();
@@ -29,7 +29,7 @@ export default function Panel({
 
     if (panelRef.current && footer) {
       panelRef.current.appendChild(footer);
-      footer.classList.remove("hidden");
+      footer.classList.remove('hidden');
     }
 
     if (onLoad) {
@@ -43,15 +43,15 @@ export default function Panel({
 
   useEffect(() => {
     if (activeTabElem.current) {
-      activeTabElem.current.classList.add("hidden");
+      activeTabElem.current.classList.add('hidden');
     }
 
-    activeTabElem.current = document.querySelector("#" + activeTabId);
+    activeTabElem.current = document.querySelector('#' + activeTabId);
 
     if (activeTabElem.current) {
-      activeTabElem.current.classList.remove("hidden");
+      activeTabElem.current.classList.remove('hidden');
 
-      const title = activeTabElem.current.getAttribute("title");
+      const title = activeTabElem.current.getAttribute('title');
       if (title) {
         setActiveTabTitle(title);
       }

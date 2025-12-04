@@ -1,52 +1,52 @@
 // webpack.config.js (CommonJS)
 
-const path = require("path");
-const fs = require("fs");
-const { execFileSync, execSync } = require("child_process");
+const path = require('path');
+const fs = require('fs');
+const { execFileSync, execSync } = require('child_process');
 
-const webpack = require("webpack");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const JsonMinimizerPlugin = require("json-minimizer-webpack-plugin");
+const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 
 // react-refresh plugin is optional (only used in dev)
 let ReactRefreshWebpackPlugin;
 try {
-  ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+  ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 } catch (err) {
   ReactRefreshWebpackPlugin = null;
 }
 
 function getCommitHash() {
-  const status = execSync("git status --porcelain").toString("utf8").trim();
-  let commit = execSync("git rev-parse HEAD").toString("utf8").trim();
-  if (status !== "") {
-    commit += "-dirty";
+  const status = execSync('git status --porcelain').toString('utf8').trim();
+  let commit = execSync('git rev-parse HEAD').toString('utf8').trim();
+  if (status !== '') {
+    commit += '-dirty';
   }
   return commit;
 }
 
-const minify = process.env.WEBPACK_MINIFY === "1";
-const isDev = process.env.NODE_ENV === "development" && !minify;
+const minify = process.env.WEBPACK_MINIFY === '1';
+const isDev = process.env.NODE_ENV === 'development' && !minify;
 const commit = getCommitHash();
 const banner = `Built from commit: ${commit}`;
 
-console.log("minify:", minify);
-console.log("isDev:", isDev);
-console.log("commit:", commit);
+console.log('minify:', minify);
+console.log('isDev:', isDev);
+console.log('commit:', commit);
 
-const dataDir = path.resolve(__dirname, "data");
-const script = path.resolve(__dirname, "scripts/compose.js");
-const tpl = path.resolve(dataDir, "data.json.hbs");
-const emittedAssetPath = "data.json";
+const dataDir = path.resolve(__dirname, 'data');
+const script = path.resolve(__dirname, 'scripts/compose.js');
+const tpl = path.resolve(dataDir, 'data.json.hbs');
+const emittedAssetPath = 'data.json';
 
 // ----------------- ComposeJsonPlugin (emit asset during compilation) -----------------
 const ComposeJsonPlugin = {
   apply(compiler) {
     const projectRoot = __dirname;
 
-    compiler.hooks.thisCompilation.tap("ComposeJsonPlugin", (compilation) => {
+    compiler.hooks.thisCompilation.tap('ComposeJsonPlugin', (compilation) => {
       // ensure webpack watches the data directory (added to compilation context deps)
       compilation.contextDependencies.add(dataDir);
 
@@ -55,19 +55,15 @@ const ComposeJsonPlugin = {
 
       compilation.hooks.processAssets.tapPromise(
         {
-          name: "ComposeJsonPlugin",
+          name: 'ComposeJsonPlugin',
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
         },
         async () => {
           // temporary output file inside the build dir
-          const tmpOut = path.resolve(
-            projectRoot,
-            "build",
-            ".__data_temp.json",
-          );
+          const tmpOut = path.resolve(projectRoot, 'build', '.__data_temp.json');
 
           try {
-            console.log("ComposeJsonPlugin: running compose.js …");
+            console.log('ComposeJsonPlugin: running compose.js …');
 
             // ensure build dir exists so compose can write to tmpOut
             fs.mkdirSync(path.dirname(tmpOut), {
@@ -76,7 +72,7 @@ const ComposeJsonPlugin = {
 
             // Run compose.js with Node explicitly (avoids relying on shebang)
             execFileSync(process.execPath, [script, tpl, tmpOut], {
-              stdio: "inherit",
+              stdio: 'inherit',
             });
 
             // read the generated content
@@ -95,10 +91,10 @@ const ComposeJsonPlugin = {
             console.log(`ComposeJsonPlugin: emitted ${emittedAssetPath}`);
           } catch (err) {
             // propagate the error so compilation fails visibly
-            console.error("ComposeJsonPlugin: failed to run compose.js", err);
+            console.error('ComposeJsonPlugin: failed to run compose.js', err);
             throw err;
           }
-        },
+        }
       );
     });
   },
@@ -106,23 +102,23 @@ const ComposeJsonPlugin = {
 // -------------------------------------------------------------------------------------
 
 // Entry file
-const entryFile = path.resolve(__dirname, "index.jsx");
+const entryFile = path.resolve(__dirname, 'index.jsx');
 
 const baseConfig = {
   entry: entryFile,
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "build"),
-    publicPath: isDev ? "/build/" : "/",
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: isDev ? '/build/' : '/',
     library: {
-      name: "raraMaps",
-      type: "window",
+      name: 'raraMaps',
+      type: 'window',
     },
     clean: true,
   },
 
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
   },
 
   module: {
@@ -131,11 +127,11 @@ const baseConfig = {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
-              ["@babel/preset-env", { targets: "defaults" }],
-              ["@babel/preset-react", { runtime: "automatic" }],
+              ['@babel/preset-env', { targets: 'defaults' }],
+              ['@babel/preset-react', { runtime: 'automatic' }],
             ],
             plugins: [],
           },
@@ -146,22 +142,20 @@ const baseConfig = {
       {
         test: /\.module\.css$/i,
         use: [
-          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: isDev
-                  ? "[path][name]__[local]"
-                  : "[hash:base64]",
+                localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64]',
               },
               importLoaders: 1,
             },
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
-              postcssOptions: { plugins: [["autoprefixer"]] },
+              postcssOptions: { plugins: [['autoprefixer']] },
             },
           },
         ],
@@ -172,12 +166,12 @@ const baseConfig = {
         test: /\.css$/i,
         exclude: /\.module\.css$/i,
         use: [
-          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
-              postcssOptions: { plugins: [["autoprefixer"]] },
+              postcssOptions: { plugins: [['autoprefixer']] },
             },
           },
         ],
@@ -188,10 +182,7 @@ const baseConfig = {
   optimization: {
     minimize: minify,
     minimizer: minify
-      ? [
-          new TerserPlugin({ extractComments: false }),
-          new JsonMinimizerPlugin(),
-        ]
+      ? [new TerserPlugin({ extractComments: false }), new JsonMinimizerPlugin()]
       : [],
   },
 
@@ -199,39 +190,37 @@ const baseConfig = {
     ComposeJsonPlugin,
     new webpack.BannerPlugin({ banner }),
     // Extract CSS in production
-    ...(!isDev ? [new MiniCssExtractPlugin({ filename: "bundle.css" })] : []),
+    ...(!isDev ? [new MiniCssExtractPlugin({ filename: 'bundle.css' })] : []),
     // React Fast Refresh only in dev with HMR
-    ...(isDev && ReactRefreshWebpackPlugin
-      ? [new ReactRefreshWebpackPlugin()]
-      : []),
+    ...(isDev && ReactRefreshWebpackPlugin ? [new ReactRefreshWebpackPlugin()] : []),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "build/style.json"),
-          to: ".",
+          from: path.resolve(__dirname, 'build/style.json'),
+          to: '.',
         },
       ],
     }),
   ],
 
-  devtool: minify ? false : "eval-source-map",
-  mode: minify ? "production" : "development",
+  devtool: minify ? false : 'eval-source-map',
+  mode: minify ? 'production' : 'development',
 
   // Dev server for HMR
   ...(isDev
     ? {
         devServer: {
           devMiddleware: {
-            publicPath: "/build/",
+            publicPath: '/build/',
           },
           static: [
             {
-              directory: path.resolve(__dirname, "assets"),
-              publicPath: "/assets",
+              directory: path.resolve(__dirname, 'assets'),
+              publicPath: '/assets',
             },
             {
-              directory: path.resolve(__dirname, "test"),
-              publicPath: "/",
+              directory: path.resolve(__dirname, 'test'),
+              publicPath: '/',
             },
           ],
           hot: true,
@@ -243,13 +232,11 @@ const baseConfig = {
 
 // Add react-refresh/babel plugin only if HMR is enabled
 if (isDev && ReactRefreshWebpackPlugin) {
-  const babelRule = baseConfig.module.rules.find(
-    (r) => r.use && r.use.loader === "babel-loader",
-  );
+  const babelRule = baseConfig.module.rules.find((r) => r.use && r.use.loader === 'babel-loader');
   if (babelRule) {
-    babelRule.use.options.plugins = (
-      babelRule.use.options.plugins || []
-    ).concat([require.resolve("react-refresh/babel")]);
+    babelRule.use.options.plugins = (babelRule.use.options.plugins || []).concat([
+      require.resolve('react-refresh/babel'),
+    ]);
   }
 }
 

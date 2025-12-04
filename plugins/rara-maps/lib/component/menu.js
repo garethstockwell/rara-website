@@ -7,16 +7,16 @@ export class Menu {
    * Create a Menu
    */
   constructor() {
-    this.#elem = document.getElementById("menu");
+    this.#elem = document.getElementById('menu');
 
     if (this.#elem) {
       const handleKeyDown = (e) => {
-        if (e.key === "m") {
+        if (e.key === 'm') {
           this.#toggleVisible();
         }
       };
 
-      document.addEventListener("keydown", handleKeyDown, true);
+      document.addEventListener('keydown', handleKeyDown, true);
     }
   }
 
@@ -31,21 +31,21 @@ export class Menu {
    */
   addItem(args) {
     if (this.#elem) {
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.id = `menu_${args.id}`;
       link.layerId = args.id;
-      link.href = "#";
+      link.href = '#';
       link.textContent = args.text;
-      link.className = args.active ? "active" : "";
+      link.className = args.active ? 'active' : '';
       link.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        link.className = args.onclick() ? "active" : "";
+        link.className = args.onclick() ? 'active' : '';
       };
 
-      const box = document.createElement("div");
-      box.className = "box";
-      box.style.backgroundColor = args.color ?? "transparent";
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.style.backgroundColor = args.color ?? 'transparent';
       link.appendChild(box);
 
       this.#elem.appendChild(link);
@@ -58,7 +58,7 @@ export class Menu {
   }
 
   #toggleVisible() {
-    console.debug("Menu.toggleVisible");
+    console.debug('Menu.toggleVisible');
     this.#elem.hidden = !this.#elem.hidden;
   }
 }

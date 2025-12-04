@@ -1,15 +1,15 @@
 // Map component
 
-import { LayerManager } from "../component/layer.js";
-import { Menu } from "../component/menu.js";
-import { LocationManager } from "../component/location.js";
+import { LayerManager } from '../component/layer.js';
+import { Menu } from '../component/menu.js';
+import { LocationManager } from '../component/location.js';
 
-import { addBuildingsLayer } from "../layer/buildings.js";
-import { addLineLayer } from "../layer/line.js";
-import { addLocationsLayer } from "../layer/locations.js";
-import { addOverlayLayer } from "../layer/overlay.js";
+import { addBuildingsLayer } from '../layer/buildings.js';
+import { addLineLayer } from '../layer/line.js';
+import { addLocationsLayer } from '../layer/locations.js';
+import { addOverlayLayer } from '../layer/overlay.js';
 
-import { absUrl } from "../util/url.js";
+import { absUrl } from '../util/url.js';
 
 function addNavigationControl(map) {
   map.addControl(
@@ -18,12 +18,12 @@ function addNavigationControl(map) {
       visualizeRoll: true,
       showZoom: true,
       showCompass: true,
-    }),
+    })
   );
 
   map.addControl(new maplibregl.FullscreenControl());
 
-  map.addControl(new maplibregl.ScaleControl(), "bottom-right");
+  map.addControl(new maplibregl.ScaleControl(), 'bottom-right');
 }
 
 /**
@@ -33,7 +33,7 @@ function addNavigationControl(map) {
  * @param {Array<string>} args.zOrder List of layer IDs, lowest to highest
  */
 function Map(args) {
-  console.debug("Map", args);
+  console.debug('Map', args);
 
   const map = new maplibregl.Map(args.config);
 
@@ -73,10 +73,7 @@ export default function createMap(args) {
 
   const config = {
     ...view.config,
-    style:
-      typeof view.config.style === "string"
-        ? absUrl(view.config.style)
-        : view.config.style,
+    style: typeof view.config.style === 'string' ? absUrl(view.config.style) : view.config.style,
     container: args.container,
     attributionControl: false,
   };
@@ -91,14 +88,14 @@ export default function createMap(args) {
   const attributions = args.data.attributions;
 
   view.layers.forEach((element) => {
-    if (element.type === "buildings") {
+    if (element.type === 'buildings') {
       map.appData.layers.addLayer(addBuildingsLayer, {
         id: element.name,
         visible: element.visible,
       });
     }
 
-    if (element.type === "line") {
+    if (element.type === 'line') {
       const line = args.data.lines[element.name];
       map.appData.layers.addLayer(addLineLayer, {
         id: element.name,
@@ -108,7 +105,7 @@ export default function createMap(args) {
       });
     }
 
-    if (element.type === "locations") {
+    if (element.type === 'locations') {
       map.appData.layers.addLayer(addLocationsLayer, {
         id: element.name,
         data: args.data.locations,
@@ -121,7 +118,7 @@ export default function createMap(args) {
       });
     }
 
-    if (element.type === "overlay") {
+    if (element.type === 'overlay') {
       const overlay = args.data.overlays[element.name];
       map.appData.layers.addLayer(addOverlayLayer, {
         id: element.name,
@@ -135,15 +132,15 @@ export default function createMap(args) {
       });
     }
 
-    if (element.type === "point") {
-      map.on("load", () => {
+    if (element.type === 'point') {
+      map.on('load', () => {
         map.addSource(element.name, {
-          type: "geojson",
+          type: 'geojson',
           data: {
-            type: "Feature",
+            type: 'Feature',
             properties: {},
             geometry: {
-              type: "Point",
+              type: 'Point',
               coordinates: [0.0, 0.0],
             },
           },
@@ -153,15 +150,15 @@ export default function createMap(args) {
           {
             id: element.name,
             source: element.name,
-            type: "circle",
+            type: 'circle',
             paint: {
-              "circle-radius": 10,
-              "circle-color": "#ff0000",
-              "circle-stroke-width": 2,
-              "circle-stroke-color": "white",
+              'circle-radius': 10,
+              'circle-color': '#ff0000',
+              'circle-stroke-width': 2,
+              'circle-stroke-color': 'white',
             },
           },
-          map.appData.layers.zOrder.getPosition(element.name),
+          map.appData.layers.zOrder.getPosition(element.name)
         );
       });
     }

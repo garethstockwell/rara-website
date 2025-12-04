@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import common from "./common.module.css";
-import styles from "./HeaderHandle.module.css";
+import { useEffect, useRef, useState } from 'react';
+import common from './common.module.css';
+import styles from './HeaderHandle.module.css';
 
 export default function HeaderHandle() {
-  const headerElem = document.querySelector(".site-header");
+  const headerElem = document.querySelector('.site-header');
   const observerRef = useRef(null);
   const [headerHidden, setHeaderHidden] = useState(false);
 
@@ -11,12 +11,9 @@ export default function HeaderHandle() {
     // Create a MutationObserver to watch for changes to classList of headerElem
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class"
-        ) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
           // Set local state, which triggers change in handle element's classList
-          setHeaderHidden(headerElem.classList.contains("hidden"));
+          setHeaderHidden(headerElem.classList.contains('hidden'));
         }
       }
     });
@@ -34,14 +31,12 @@ export default function HeaderHandle() {
   }, []);
 
   function handleClick() {
-    headerElem.classList.toggle("hidden");
+    headerElem.classList.toggle('hidden');
   }
 
   return (
     <div
-      className={`${common.card} ${styles.handle} ${
-        headerHidden ? styles.header_closed : ""
-      }`}
+      className={`${common.card} ${styles.handle} ${headerHidden ? styles.header_closed : ''}`}
       onClick={handleClick}
     ></div>
   );

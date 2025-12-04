@@ -40,7 +40,7 @@ export class Route {
   }
 
   #init(coordinates, autoStart) {
-    console.debug("Route loaded");
+    console.debug('Route loaded');
 
     this.#route = turf.lineString(coordinates);
 
@@ -49,8 +49,7 @@ export class Route {
     //  - and place the camera in to opposite direction of this point
     const a = maplibregl.MercatorCoordinate.fromLngLat(coordinates[0]);
     const b = maplibregl.MercatorCoordinate.fromLngLat(
-      turf.along(this.#route, turf.lineDistance(this.#route) / 4).geometry
-        .coordinates,
+      turf.along(this.#route, turf.lineDistance(this.#route) / 4).geometry.coordinates
     );
     const dx = b.x - a.x,
       dy = b.y - a.y;
@@ -62,18 +61,18 @@ export class Route {
       this.#map.calculateCameraOptionsFromTo(
         this.#camera.coord.toLngLat(),
         this.#camera.altitude,
-        coordinates[0],
-      ),
+        coordinates[0]
+      )
     );
 
     if (autoStart) {
-      console.debug("Automatically starting");
+      console.debug('Automatically starting');
       this.#start();
     }
   }
 
   #start() {
-    console.debug("Route.start");
+    console.debug('Route.start');
 
     this.#startDistance = 0;
     this.#stopDistance = null;
@@ -81,22 +80,19 @@ export class Route {
     this.#direction = 1;
 
     if (this.#startCoord) {
-      console.debug("Start coordinates:", this.#startCoord);
+      console.debug('Start coordinates:', this.#startCoord);
       const startPoint = turf.point(this.#startCoord);
-      const snappedStartPoint = turf.nearestPointOnLine(
-        this.#route,
-        startPoint,
-      );
+      const snappedStartPoint = turf.nearestPointOnLine(this.#route, startPoint);
       this.#startDistance = snappedStartPoint.properties.location;
-      console.debug("Start distance (km):", this.#startDistance);
+      console.debug('Start distance (km):', this.#startDistance);
     }
 
     if (this.#stopCoord) {
-      console.debug("Stop coordinates:", this.#stopCoord);
+      console.debug('Stop coordinates:', this.#stopCoord);
       const stopPoint = turf.point(this.#stopCoord);
       const snappedStopPoint = turf.nearestPointOnLine(this.#route, stopPoint);
       this.#stopDistance = snappedStopPoint.properties.location;
-      console.debug("Stop distance (km):", this.#stopDistance);
+      console.debug('Stop distance (km):', this.#stopDistance);
     }
 
     if (this.#stopDistance && this.#stopDistance < this.#startDistance) {
@@ -116,8 +112,7 @@ export class Route {
     const now = Date.now();
 
     const elapsedTime = now - this.#startTime;
-    let currentDistance =
-      this.#startDistance + elapsedTime * this.#speed * this.#direction;
+    let currentDistance = this.#startDistance + elapsedTime * this.#speed * this.#direction;
 
     if (!this.#stopDistance) {
       const totalDistance = turf.lineDistance(this.#route);
@@ -126,11 +121,8 @@ export class Route {
 
     //console.debug('advance currentDistance=', currentDistance, 'stopDistance=', stopDistance);
 
-    const lngLat = turf.along(this.#route, currentDistance).geometry
-      .coordinates;
-    this.#map
-      .getSource("point")
-      .setData({ type: "Point", coordinates: lngLat });
+    const lngLat = turf.along(this.#route, currentDistance).geometry.coordinates;
+    this.#map.getSource('point').setData({ type: 'Point', coordinates: lngLat });
 
     // Let the camera follow the route
     const coord = maplibregl.MercatorCoordinate.fromLngLat(lngLat);
@@ -147,8 +139,8 @@ export class Route {
       this.#map.calculateCameraOptionsFromTo(
         this.#camera.coord.toLngLat(),
         this.#camera.altitude,
-        lngLat,
-      ),
+        lngLat
+      )
     );
 
     // Determine whether stop point has been reached
@@ -158,7 +150,7 @@ export class Route {
         (this.#direction < 0 && currentDistance <= this.#stopDistance))
     ) {
       this.#reachedStopDistance = true;
-      console.debug("Stopped at distance:", this.#stopDistance);
+      console.debug('Stopped at distance:', this.#stopDistance);
       return;
     }
 
@@ -173,7 +165,7 @@ export class Route {
    * @param {[float, float]} stopPos  Stop position, expressed as [lat, lng]
    */
   fly(startPos, stopPos) {
-    console.debug("Fly from", startPos, "to", stopPos);
+    console.debug('Fly from', startPos, 'to', stopPos);
 
     this.#startCoord = startPos;
     this.#stopCoord = stopPos;
