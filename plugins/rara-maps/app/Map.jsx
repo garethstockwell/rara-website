@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
-import createMap from '../lib/component/map.js';
-import flyRouteRadius from '../lib/component/radius.js';
-import { Route, flyRouteTangent } from '../lib/component/route.js';
+import createMap from '../lib/map.js';
+import flyRouteRadius from '../lib/radius.js';
+import { Route, flyRouteTangent } from '../lib/route.js';
 
 export default function Map({
   panelEnabled,

@@ -1,15 +1,15 @@
 // Map component
 
-import { LayerManager } from '../component/layer.js';
-import { Menu } from '../component/menu.js';
-import { LocationManager } from '../component/location.js';
+import { LayerManager } from './layer.js';
+import { Menu } from './menu.js';
+import { LocationManager } from './location.js';
 
-import { addBuildingsLayer } from '../layer/buildings.js';
-import { addLineLayer } from '../layer/line.js';
-import { addLocationsLayer } from '../layer/locations.js';
-import { addOverlayLayer } from '../layer/overlay.js';
+import { addBuildingsLayer } from './buildings.js';
+import { addLineLayer } from './line.js';
+import { addLocationsLayer } from './locations.js';
+import { addOverlayLayer } from './overlay.js';
 
-import { absUrl } from '../util/url.js';
+import { absUrl } from './url.js';
 
 function addNavigationControl(map) {
   map.addControl(
