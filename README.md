@@ -93,3 +93,5 @@ This repository defines a [GitHub workflow](https://docs.github.com/en/actions) 
 
 - Build plugins.
 - Push the build outputs to a branch called `deploy-<source branch>`. For example, when a commit is pushed to `main` the build outputs are pushed to `deploy-main`.
+
+TEST
