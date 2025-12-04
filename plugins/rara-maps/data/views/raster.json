@@ -1,5 +1,6 @@
 {
 	"name": "raster",
+	"binding": "location",
 	"config": {
 		"style": {
 			"version": 8,

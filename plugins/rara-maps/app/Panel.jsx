@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import common from './common.module.css';
 import styles from './Panel.module.css';
 import Dashboard from './Dashboard.jsx';
@@ -9,6 +9,9 @@ export default function Panel( {
 	activeTabId,
 	setActiveTabId,
 	activeTabTitle,
+	setActiveTabTitle,
+	activeTabIndex,
+	setActiveTabIndex,
 	footer,
 	onLoad,
 } ) {
@@ -17,7 +20,6 @@ export default function Panel( {
 	const panelRef = useRef( null );
 	const panelBodyRef = useRef( null );
 	const activeTabElem = useRef();
-	const [ activeTabIndex, setActiveTabIndex ] = useState( null );
 
 	// After initial render, move content and footer elements to the end of the panel
 	useEffect( () => {
@@ -47,6 +49,11 @@ export default function Panel( {
 
 		if ( activeTabElem.current ) {
 			activeTabElem.current.classList.remove( 'hidden' );
+
+			const title = activeTabElem.current.getAttribute( 'title' );
+			if ( title ) {
+				setActiveTabTitle( title );
+			}
 		}
 
 		const index = Array.prototype.indexOf.call(

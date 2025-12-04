@@ -1,17 +1,12 @@
 {
-	"name": "vector",
-	"binding": "location",
+	"name": "history",
+	"binding": "overlay",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.144843, 52.212231 ],
 		"zoom": 15
 	},
 	"layers": [
-		{
-			"name": "3d_buildings",
-			"type": "buildings",
-			"visible": true
-		},
 		{
 			"name": "camantsoc_1836_1838",
 			"type": "overlay",
@@ -30,32 +25,12 @@
 		{
 			"name": "barnwell_priory",
 			"type": "overlay",
-			"visible": true
+			"visible": false
 		},
 		{
 			"name": "boundary",
 			"type": "line",
 			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "heritage_trail",
-			"type": "line",
-			"color": "green",
-			"visible": true
-		},
-		{
-			"name": "attractions",
-			"type": "locations",
-			"tags": [ "attractions" ],
-			"color": "yellow",
-			"visible": true
-		},
-		{
-			"name": "improvements",
-			"type": "locations",
-			"tags": [ "improvements" ],
-			"color": "red",
 			"visible": true
 		}
 	]

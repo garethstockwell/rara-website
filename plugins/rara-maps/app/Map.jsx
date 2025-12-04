@@ -1,55 +1,84 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
 import createMap from '../map/src/flat.js';
 
 export default function Map( {
 	panelOpen,
 	data,
-	activeLocationId,
-	setActiveLocationId,
-	setActiveLocationTitle,
+	activeObjectId,
+	setActiveObjectId,
+	setActiveObjectTitle,
 } ) {
+	const [ mapLoaded, setMapLoaded ] = useState( false );
 	const mapRef = useRef();
 	const mapElemRef = useRef();
-	const oldActiveLocation = useRef();
+	const oldActiveObject = useRef();
 
-	function updateActiveLocationTitle() {
+	function locationOnClick( id ) {
+		setActiveObjectId( id );
+	}
+
+	function onLocationChange() {
 		if ( mapRef.current ) {
-			const loc =
-				mapRef.current.appData.locations.getLocation(
-					activeLocationId
-				);
-			setActiveLocationTitle( loc ? loc.data.properties.title : '' );
+			if ( oldActiveObject.current ) {
+				oldActiveObject.current.popupVisible = false;
+			}
+
+			if ( activeObjectId ) {
+				const loc =
+					mapRef.current.appData.locations.getLocation(
+						activeObjectId
+					);
+				if ( loc ) {
+					loc.popupVisible = true; // TODO: make this sticky
+
+					mapRef.current.flyTo( {
+						center: loc.data.geometry.coordinates,
+					} );
+
+					setActiveObjectTitle(
+						loc ? loc.data.properties.title : ''
+					);
+				}
+
+				oldActiveObject.current = loc;
+			}
 		}
 	}
 
-	function locationOnClick( id ) {
-		setActiveLocationId( id );
+	function onOverlayChange() {
+		if ( mapRef.current ) {
+			const layers = mapRef.current.appData.layers;
+
+			if ( oldActiveObject.current ) {
+				layers.getLayer( oldActiveObject.current ).visible = false;
+			}
+
+			layers.getLayer( activeObjectId ).visible = true;
+
+			oldActiveObject.current = activeObjectId;
+		}
+	}
+
+	function onActiveObjectChange() {
+		if ( mapLoaded ) {
+			if ( data.view.binding === 'location' ) {
+				onLocationChange();
+			}
+
+			if ( data.view.binding === 'overlay' ) {
+				onOverlayChange();
+			}
+		}
 	}
 
 	useEffect( () => {
-		updateActiveLocationTitle();
+		onActiveObjectChange();
+	}, [ activeObjectId ] );
 
-		if ( mapRef.current ) {
-			if ( oldActiveLocation.current ) {
-				oldActiveLocation.current.popupVisible = false;
-			}
-
-			const loc =
-				mapRef.current.appData.locations.getLocation(
-					activeLocationId
-				);
-			if ( loc ) {
-				loc.popupVisible = true; // TODO: make this sticky
-
-				mapRef.current.flyTo( {
-					center: loc.data.geometry.coordinates,
-				} );
-			}
-
-			oldActiveLocation.current = loc;
-		}
-	}, [ activeLocationId ] );
+	useEffect( () => {
+		onActiveObjectChange();
+	}, [ mapLoaded ] );
 
 	function loadMap() {
 		mapRef.current = createMap( {
@@ -58,6 +87,10 @@ export default function Map( {
 			overlay_opacity: 0.75,
 			locationOnClick,
 			locationVisible: true,
+		} );
+
+		mapRef.current.on( 'load', () => {
+			setMapLoaded( true );
 		} );
 	}
 
