@@ -1,4 +1,4 @@
-/*! Built from commit: b6f92da0f0b8d4ab327de941d48bce7d05a82dbd */
+/*! Built from commit: 86e83f779e8e312bf0e12c6724039e6a55460869 */
 :root {
 	--color-dark-blue: #364154;
 	--color-green: #0f0;
@@ -59,6 +59,12 @@
 
 .lkjSGZh8cnKmKtJiQdtf {
 	flex-grow: 1;
+	margin-bottom: var(--dashboard-height);
+	transition: margin-bottom 0.3s ease;
+}
+
+.EuThHRj5HhKL8GYf5c0v {
+	margin-bottom: 75vh;
 }
 
 .rlnMHbRvVbb060bMU35P {
@@ -89,5 +95,21 @@
 	border-radius: var(--dashboard-radius) var(--dashboard-radius) 0 0;
 	border-bottom: 0;
 	display: flex;
+}
+
+.hDDjVtwIf4ZJ6kC5uca7 {
+	height: calc(var(--dashboard-height) - 2 * var(--dashboard-radius));
+	margin: calc(1 * var(--dashboard-radius));
+}
+
+.KLdMXEaJ9bJpKIe4ba13 {
+	aspect-ratio: 1;
+	border: var(--color-white) 1px solid;
+	border-radius: var(--handle-radius);
+}
+
+.OFOr0kYJVIVGSaec8l9I {
+	flex-grow: 1;
+	text-align: center;
 }
 

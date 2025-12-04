@@ -4,17 +4,20 @@ import styles from './Panel.module.css';
 import Dashboard from './Dashboard.jsx';
 
 export default function Panel( {
+	panelOpen,
+	setPanelOpen,
 	activeTabId,
+	setActiveTabId,
 	activeTabTitle,
 	footer,
 	onLoad,
 } ) {
 	const contentElem = document.querySelector( '.rara-maps-content' );
-
+	const tabElems = contentElem.querySelectorAll( '.rara-maps-content-tab' );
 	const panelRef = useRef( null );
 	const panelBodyRef = useRef( null );
-	const [ panelOpen, setPanelOpen ] = useState( false );
 	const activeTabElem = useRef();
+	const [ activeTabIndex, setActiveTabIndex ] = useState( null );
 
 	// After initial render, move content and footer elements to the end of the panel
 	useEffect( () => {
@@ -45,7 +48,27 @@ export default function Panel( {
 		if ( activeTabElem.current ) {
 			activeTabElem.current.classList.remove( 'hidden' );
 		}
+
+		const index = Array.prototype.indexOf.call(
+			tabElems,
+			activeTabElem.current
+		);
+		setActiveTabIndex( index >= 0 ? index : null );
 	}, [ activeTabId ] );
+
+	useEffect( () => {
+		if ( activeTabIndex !== null ) {
+			setActiveTabId( tabElems[ activeTabIndex ].id );
+		}
+	}, [ activeTabIndex ] );
+
+	function onPrev() {
+		setActiveTabIndex( activeTabIndex - 1 );
+	}
+
+	function onNext() {
+		setActiveTabIndex( activeTabIndex + 1 );
+	}
 
 	return (
 		<div
@@ -54,7 +77,14 @@ export default function Panel( {
 				panelOpen ? styles.panel_open : styles.panel_closed
 			}` }
 		>
-			<Dashboard title={ activeTabTitle } onClick={ togglePanel } />
+			<Dashboard
+				title={ activeTabTitle }
+				showPrev={ activeTabIndex > 0 }
+				onPrev={ onPrev }
+				onToggle={ togglePanel }
+				showNext={ activeTabIndex + 1 < tabElems.length }
+				onNext={ onNext }
+			/>
 
 			<div ref={ panelBodyRef } className="panel-body"></div>
 		</div>
