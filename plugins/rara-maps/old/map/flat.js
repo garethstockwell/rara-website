@@ -1,13 +1,13 @@
 // Render a vector map
 
-import { Map } from '../../lib/src/component/map.js';
+import { Map } from '../../lib/component/map.js';
 
-import { addBuildingsLayer } from '../../lib/src/layer/buildings.js';
-import { addLineLayer } from '../../lib/src/layer/line.js';
-import { addLocationsLayer } from '../../lib/src/layer/locations.js';
-import { addOverlayLayer } from '../../lib/src/layer/overlay.js';
+import { addBuildingsLayer } from '../../lib/layer/buildings.js';
+import { addLineLayer } from '../../lib/layer/line.js';
+import { addLocationsLayer } from '../../lib/layer/locations.js';
+import { addOverlayLayer } from '../../lib/layer/overlay.js';
 
-import { absUrl } from '../../lib/src/util/url.js';
+import { absUrl } from '../../lib/util/url.js';
 
 /**
  * Create the map

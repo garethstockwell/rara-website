@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import HeaderHandle from './HeaderHandle.jsx';
 import Map from './Map.jsx';
 import Panel from './Panel.jsx';
-import { absUrl } from '../lib/src/util/url.js';
+import { absUrl } from '../lib/util/url.js';
 
 export default function App( { footer, viewName } ) {
 	const [ data, setData ] = useState( null );

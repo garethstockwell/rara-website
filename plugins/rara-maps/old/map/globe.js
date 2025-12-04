@@ -1,6 +1,6 @@
 // Render a globe map
 
-import { Map } from '../../lib/src/component/map.js';
+import { Map } from '../../lib/component/map.js';
 
 /**
  * Create the map

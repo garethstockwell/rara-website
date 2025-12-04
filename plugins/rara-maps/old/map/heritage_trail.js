@@ -1,13 +1,13 @@
 // Render a map of the heritage trail
 
-import { Map } from '../../lib/src/component/map.js';
-import { Route } from '../../lib/src/component/route.js';
+import { Map } from '../../lib/component/map.js';
+import { Route } from '../../lib/component/route.js';
 
-import { addBuildingsLayer } from '../../lib/src/layer/buildings.js';
-import { addLineLayer } from '../../lib/src/layer/line.js';
-import { addLocationsLayer } from '../../lib/src/layer/locations.js';
+import { addBuildingsLayer } from '../../lib/layer/buildings.js';
+import { addLineLayer } from '../../lib/layer/line.js';
+import { addLocationsLayer } from '../../lib/layer/locations.js';
 
-import { absUrl } from '../../lib/src/util/url.js';
+import { absUrl } from '../../lib/util/url.js';
 
 let route = null;
 

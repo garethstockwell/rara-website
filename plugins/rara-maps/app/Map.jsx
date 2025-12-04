@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
-import createMap from '../map/src/flat.js';
+import createMap from '../lib/component/map.js';
 
 export default function Map( {
 	panelOpen,
