@@ -10,10 +10,9 @@
   transform: translateY(0);
 }
 
-.panel_open {
+.panelOpen {
   transform: translateY(calc(var(--dashboard-height) - 75vh));
 }
 
-.panel-body {
-  background-color: var(--color-white);
+.panelBody {
 }

@@ -36,7 +36,7 @@ export default function HeaderHandle() {
 
   return (
     <div
-      className={`${common.card} ${styles.handle} ${headerHidden ? styles.header_closed : ''}`}
+      className={`${common.card} ${styles.handle} ${headerHidden ? styles.headerClosed : ''}`}
       onClick={handleClick}
     ></div>
   );

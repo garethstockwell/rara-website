@@ -78,9 +78,7 @@ export default function Panel({
   return (
     <div
       ref={panelRef}
-      className={`${common.card} ${styles.panel} ${
-        panelOpen ? styles.panel_open : styles.panel_closed
-      }`}
+      className={`${common.card} ${styles.panel} ${panelOpen ? styles.panelOpen : ''}`}
     >
       <Dashboard
         title={activeTabTitle}
@@ -91,7 +89,7 @@ export default function Panel({
         onNext={onNext}
       />
 
-      <div ref={panelBodyRef} className="panel-body"></div>
+      <div ref={panelBodyRef} className={`${styles.panelBody}`}></div>
     </div>
   );
 }

@@ -33,6 +33,7 @@ export default function Map({
 
       if (activeObjectId) {
         const loc = locations.getLocation(activeObjectId);
+        console.log('loc=', loc);
         if (loc) {
           loc.popupVisible = true; // TODO: make this sticky
 
@@ -148,8 +149,8 @@ export default function Map({
       id="map"
       className={`
 			${styles.map}
-			${panelEnabled ? styles.panel_enabled : ''}
-			${panelOpen ? styles.panel_open : ''}
+			${panelEnabled ? styles.panelEnabled : ''}
+			${panelOpen ? styles.panelOpen : ''}
 			`}
     ></div>
   );

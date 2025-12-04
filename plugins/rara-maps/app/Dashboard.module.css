@@ -8,18 +8,18 @@
   display: flex;
 }
 
-.dashboard-div {
+.dashboardDiv {
   height: calc(var(--dashboard-height) - 2 * var(--dashboard-radius));
   margin: calc(1 * var(--dashboard-radius));
 }
 
-.dashboard_button {
+.dashboardButton {
   aspect-ratio: 1;
   border: var(--color-white) 1px solid;
   border-radius: var(--handle-radius);
 }
 
-.dashboard_container {
+.dashboardContainer {
   flex-grow: 1;
   text-align: center;
 }

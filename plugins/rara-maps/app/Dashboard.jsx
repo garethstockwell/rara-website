@@ -25,19 +25,13 @@ export default function Dashboard({ title, showPrev, onPrev, onToggle, showNext,
   return (
     <div className={`${common.card} ${styles.dashboard}`} onClick={handleClick}>
       {showPrev && (
-        <div
-          className={`${common.card} ${styles.dashboard_button}`}
-          onClick={handleClickPrev}
-        ></div>
+        <div className={`${common.card} ${styles.dashboardButton}`} onClick={handleClickPrev}></div>
       )}
-      <div className={`${common.card} ${styles.dashboard_container}`}>
+      <div className={`${common.card} ${styles.dashboardContainer}`}>
         <p>{title}</p>
       </div>
       {showNext && (
-        <div
-          className={`${common.card} ${styles.dashboard_button}`}
-          onClick={handleClickNext}
-        ></div>
+        <div className={`${common.card} ${styles.dashboardButton}`} onClick={handleClickNext}></div>
       )}
     </div>
   );

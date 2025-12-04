@@ -52,6 +52,6 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "cross-env NODE_ENV=development npx webpack serve --config webpack.config.js",
-    "watch": "cross-env NODE_ENV=development npm run build-dev -- --watch"
+    "watch": "cross-env NODE_ENV=development npm run build -- --watch"
   }
 }

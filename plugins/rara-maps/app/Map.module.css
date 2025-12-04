@@ -2,11 +2,11 @@
   flex-grow: 1;
 }
 
-.panel_enabled {
+.panelEnabled {
   margin-bottom: var(--dashboard-height);
   transition: margin-bottom 0.3s ease;
 }
 
-.panel_open {
+.panelOpen {
   margin-bottom: 75vh;
 }

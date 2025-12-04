@@ -12,6 +12,12 @@ function mount() {
 
   const viewName = container.getAttribute('view-name');
 
+  // HACK: get the WordPress header out of the way
+  const header = document.querySelector('#masthead');
+  if (header) {
+    header.style.top = '-80px';
+  }
+
   // The footer element is passed into the App so that it can be relocated
   // within the DOM, using a React effect callback.
   const footer = document.querySelector('.site-footer');
