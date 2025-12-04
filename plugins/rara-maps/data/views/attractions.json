@@ -1,6 +1,5 @@
 {
 	"name": "attractions",
-	"binding": "location",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.144843, 52.212231 ],
@@ -25,5 +24,6 @@
 			"color": "yellow",
 			"visible": true
 		}
-	]
+	],
+	"mode": "location"
 }

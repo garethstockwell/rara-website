@@ -11,7 +11,6 @@ import { addOverlayLayer } from '../layer/overlay.js';
 
 import { absUrl } from '../util/url.js';
 
-
 function addNavigationControl( map ) {
 	map.addControl(
 		new maplibregl.NavigationControl( {
@@ -59,8 +58,6 @@ function Map( args ) {
 
 	return map;
 }
-
-
 
 /**
  * Create the map

@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
 import createMap from '../lib/component/map.js';
+import flyRadius from '../lib/component/radius.js';
 
 export default function Map( {
+	panelEnabled,
 	panelOpen,
 	data,
 	activeObjectId,
@@ -62,11 +64,11 @@ export default function Map( {
 
 	function onActiveObjectChange() {
 		if ( mapLoaded ) {
-			if ( data.view.binding === 'location' ) {
+			if ( data.view.mode === 'location' ) {
 				onLocationChange();
 			}
 
-			if ( data.view.binding === 'overlay' ) {
+			if ( data.view.mode === 'overlay' ) {
 				onOverlayChange();
 			}
 		}
@@ -91,6 +93,15 @@ export default function Map( {
 
 		mapRef.current.on( 'load', () => {
 			setMapLoaded( true );
+
+			if (data.view.mode == 'radius') {
+				console.log(data.lines[data.view.route].geometry.coordinates);
+				flyRadius({
+					center: data.view.config.center,
+					coordinates: data.lines[data.view.route].geometry.coordinates,
+					map: mapRef.current,
+				});
+			}
 		} );
 	}
 
@@ -103,9 +114,11 @@ export default function Map( {
 		<div
 			ref={ mapElemRef }
 			id="map"
-			className={ `${ styles.map } ${
-				panelOpen ? styles.map_compress : ''
-			}` }
+			className={ `
+			${ styles.map }
+			${ panelEnabled ? styles.panel_enabled : '' }
+			${ panelOpen ? styles.panel_open : '' }
+			` }
 		></div>
 	);
 }

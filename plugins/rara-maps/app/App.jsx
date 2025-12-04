@@ -13,6 +13,9 @@ export default function App( { footer, viewName } ) {
 	const [ activePanelTabIndex, setActivePanelTabIndex ] = useState( null );
 	const [ activePanelTitle, setActivePanelTitle ] = useState( null );
 
+	const panelEnabled =
+		document.querySelector( '.rara-maps-content' ) !== null;
+
 	function arrayToMap( arr ) {
 		return arr.reduce( ( acc, obj ) => {
 			acc[ obj.name ] = obj;
@@ -41,7 +44,7 @@ export default function App( { footer, viewName } ) {
 
 					setData( theData );
 
-					if ( theData.view.binding === 'overlay' ) {
+					if ( theData.view.mode === 'overlay' ) {
 						setActivePanelTabIndex( 0 );
 					}
 				}
@@ -57,8 +60,9 @@ export default function App( { footer, viewName } ) {
 		<div className={ styles.app }>
 			<HeaderHandle />
 
-			{ data && panelLoaded && (
+			{ data && ( ! panelEnabled || panelLoaded ) && (
 				<Map
+					panelEnabled={ panelEnabled }
 					panelOpen={ panelOpen }
 					data={ data }
 					activeObjectId={ activePanelTabId }
@@ -67,20 +71,22 @@ export default function App( { footer, viewName } ) {
 				/>
 			) }
 
-			<Panel
-				panelOpen={ panelOpen }
-				setPanelOpen={ setPanelOpen }
-				activeTabId={ activePanelTabId }
-				setActiveTabId={ setActivePanelTabId }
-				activeTabIndex={ activePanelTabIndex }
-				setActiveTabIndex={ setActivePanelTabIndex }
-				activeTabTitle={ activePanelTitle }
-				setActiveTabTitle={ setActivePanelTitle }
-				footer={ footer }
-				onLoad={ () => {
-					setPanelLoaded( true );
-				} }
-			/>
+			{ panelEnabled && (
+				<Panel
+					panelOpen={ panelOpen }
+					setPanelOpen={ setPanelOpen }
+					activeTabId={ activePanelTabId }
+					setActiveTabId={ setActivePanelTabId }
+					activeTabIndex={ activePanelTabIndex }
+					setActiveTabIndex={ setActivePanelTabIndex }
+					activeTabTitle={ activePanelTitle }
+					setActiveTabTitle={ setActivePanelTitle }
+					footer={ footer }
+					onLoad={ () => {
+						setPanelLoaded( true );
+					} }
+				/>
+			) }
 		</div>
 	);
 }

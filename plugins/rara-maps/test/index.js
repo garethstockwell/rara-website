@@ -41,7 +41,7 @@ window.createToolbar = function ( name ) {
 		//[ 'improvements', 'Improvements' ],
 		[ 'history', 'History' ],
 		//[ 'heritage_trail', 'Heritage trail' ],
-		//[ 'boundary_radius', 'Boundary radius' ],
+		[ 'boundary_radius', 'Boundary radius' ],
 		[ 'vector', 'Vector' ],
 		//[ 'boundary_tangent', 'Boundary tangent' ],
 		//[ 'globe', 'Globe' ],

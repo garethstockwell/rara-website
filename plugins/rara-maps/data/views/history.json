@@ -1,6 +1,5 @@
 {
 	"name": "history",
-	"binding": "overlay",
 	"config": {
 		"style": "%{RARA_MAPS}/data/style.json",
 		"center": [ 0.144843, 52.212231 ],
@@ -33,5 +32,6 @@
 			"color": "black",
 			"visible": true
 		}
-	]
+	],
+	"mode": "overlay"
 }
