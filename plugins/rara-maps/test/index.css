@@ -122,6 +122,6 @@ body {
   This has to be in the top-level CSS to ensure that content is hidden
   before the React app (and in particular its global.css) is loaded.
 */
-.rara-maps-content-panel.hidden {
+.rara-maps-content-tab.hidden {
 	display: none;
 }

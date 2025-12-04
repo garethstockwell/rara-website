@@ -4,20 +4,40 @@ import createMap from '../map/src/flat.js';
 
 export default function Map( {
 	data,
+	activeLocationId,
 	setActiveLocationId,
 	setActiveLocationTitle,
 } ) {
 	const mapRef = useRef();
+	const oldActiveLocation = useRef();
+
+	function updateActiveLocationTitle() {
+		if ( mapRef.current ) {
+			const loc = mapRef.current.appData.locations.getLocation( activeLocationId );
+			setActiveLocationTitle(loc ? loc.data.properties.title : "");
+		}
+	}
 
 	function locationOnClick( id ) {
 		setActiveLocationId( id );
-		if ( mapRef.current ) {
-			setActiveLocationTitle(
-				mapRef.current.appData.locations.getLocation( id ).data
-					.properties.title
-			);
-		}
 	}
+
+	useEffect( () => {
+		updateActiveLocationTitle();
+
+		if (mapRef.current) {
+			if (oldActiveLocation.current) {
+				oldActiveLocation.current.popupVisible = false;
+			}
+
+			const loc = mapRef.current.appData.locations.getLocation( activeLocationId );
+			if (loc) {
+				loc.popupVisible = true; // TODO: make this sticky
+			}
+
+			oldActiveLocation.current = loc;
+		}
+	}, [ activeLocationId ] );
 
 	function loadMap() {
 		mapRef.current = createMap( {

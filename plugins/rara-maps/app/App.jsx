@@ -52,6 +52,7 @@ export default function App( { footer, viewName } ) {
 			{ data && panelLoaded && (
 				<Map
 					data={ data }
+					activeLocationId={ activePanelTabId }
 					setActiveLocationId={ setActivePanelTabId }
 					setActiveLocationTitle={ setActivePanelTitle }
 				/>
@@ -59,6 +60,7 @@ export default function App( { footer, viewName } ) {
 
 			<Panel
 				activeTabId={ activePanelTabId }
+				setActiveTabId={ setActivePanelTabId }
 				activeTabTitle={ activePanelTitle }
 				footer={ footer }
 				onLoad={ () => {
