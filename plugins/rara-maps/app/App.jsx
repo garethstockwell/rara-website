@@ -7,6 +7,7 @@ import { absUrl } from '../lib/src/util/url.js';
 
 export default function App( { footer, viewName } ) {
 	const [ data, setData ] = useState( null );
+	const [ panelOpen, setPanelOpen ] = useState( false );
 	const [ panelLoaded, setPanelLoaded ] = useState( false );
 	const [ activePanelTabId, setActivePanelTabId ] = useState( null );
 	const [ activePanelTitle, setActivePanelTitle ] = useState( null );
@@ -51,6 +52,7 @@ export default function App( { footer, viewName } ) {
 
 			{ data && panelLoaded && (
 				<Map
+					panelOpen={ panelOpen }
 					data={ data }
 					activeLocationId={ activePanelTabId }
 					setActiveLocationId={ setActivePanelTabId }
@@ -59,6 +61,8 @@ export default function App( { footer, viewName } ) {
 			) }
 
 			<Panel
+				panelOpen={ panelOpen }
+				setPanelOpen={ setPanelOpen }
 				activeTabId={ activePanelTabId }
 				setActiveTabId={ setActivePanelTabId }
 				activeTabTitle={ activePanelTitle }

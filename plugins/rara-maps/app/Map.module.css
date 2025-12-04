@@ -1,3 +1,9 @@
 .map {
 	flex-grow: 1;
+	margin-bottom: var(--dashboard-height);
+	transition: margin-bottom 0.3s ease;
+}
+
+.map_compress {
+	margin-bottom: 75vh;
 }
