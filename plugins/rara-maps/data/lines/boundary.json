@@ -1,6 +1,6 @@
 {
   "type": "Feature",
-  "name": "boundary",
+  "id": "boundary",
   "properties": {
     "name": "Riverside area boundary"
   },

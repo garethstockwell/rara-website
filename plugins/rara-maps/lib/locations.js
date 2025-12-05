@@ -10,25 +10,27 @@ import { absUrl } from './url.js';
 export function addLocationsLayer(map, args) {
   map.on('load', async () => {
     const id = args.id;
+
     const data = {
       ...args.data,
       features: args.tags
         ? args.data.features.filter((feature) =>
             args.tags.every((x) => feature.properties.tags.includes(x))
           )
-        : args.features,
+        : args.data.features,
     };
-
-    const locations = map.appData.locations;
 
     const image = await map.loadImage(absUrl(`%{RARA_MAPS}/assets/icons/pin-${args.color}.png`));
     map.addImage(id, image.data);
 
+    const popups = map.appData.popups;
+
     data.features.forEach((feature) => {
-      const loc = locations.getLocation(feature.properties.id);
-      loc.setData(feature);
+      feature.properties.id = feature.id;
+      const popup = popups.getPopup(feature.id);
+      //loc.setData(feature);
       if (args.staticPopups) {
-        loc.popupVisible = true;
+        popup.popupVisible = true;
       }
     });
 
@@ -58,14 +60,16 @@ export function addLocationsLayer(map, args) {
       let currentFeatureId;
       let currentFeatureCoordinates;
       map.on('mousemove', id, (e) => {
-        const featureCoordinates = e.features[0].geometry.coordinates.toString();
+        const feature = e.features[0];
+
+        const featureCoordinates = feature.geometry.coordinates.toString();
         if (currentFeatureCoordinates !== featureCoordinates) {
           currentFeatureCoordinates = featureCoordinates;
 
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = 'pointer';
 
-          const coordinates = e.features[0].geometry.coordinates.slice();
+          const coordinates = feature.geometry.coordinates.slice();
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -75,11 +79,11 @@ export function addLocationsLayer(map, args) {
           }
 
           if (currentFeatureId) {
-            locations.getLocation(currentFeatureId).popupVisible = false;
+            popups.getPopup(currentFeatureId).popupVisible = false;
           }
 
-          currentFeatureId = e.features[0].properties.id;
-          locations.getLocation(currentFeatureId).popupVisible = true;
+          currentFeatureId = feature.properties.id;
+          popups.getPopup(currentFeatureId).popupVisible = true;
 
           if (args.onenter) {
             args.onenter(currentFeatureId);
@@ -91,7 +95,7 @@ export function addLocationsLayer(map, args) {
         const featureId = currentFeatureId;
 
         map.getCanvas().style.cursor = '';
-        locations.getLocation(currentFeatureId).popupVisible = false;
+        popups.getPopup(currentFeatureId).popupVisible = false;
         currentFeatureId = undefined;
         currentFeatureCoordinates = undefined;
 

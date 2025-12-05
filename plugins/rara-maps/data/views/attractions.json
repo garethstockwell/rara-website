@@ -1,5 +1,5 @@
 {
-  "name": "attractions",
+  "id": "attractions",
   "config": {
     "style": "%{RARA_MAPS}/build/style.json",
     "center": [0.144843, 52.212231],
@@ -7,18 +7,18 @@
   },
   "layers": [
     {
-      "name": "3d_buildings",
+      "id": "3d_buildings",
       "type": "buildings",
       "visible": true
     },
     {
-      "name": "boundary",
+      "id": "boundary",
       "type": "line",
       "color": "black",
       "visible": true
     },
     {
-      "name": "attractions",
+      "id": "attractions",
       "type": "locations",
       "tags": ["attractions"],
       "color": "yellow",

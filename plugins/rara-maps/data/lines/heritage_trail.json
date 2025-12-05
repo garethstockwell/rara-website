@@ -1,6 +1,6 @@
 {
   "type": "Feature",
-  "name": "heritage_trail",
+  "id": "heritage_trail",
   "properties": {
     "name": "Heritage trail"
   },

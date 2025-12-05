@@ -1,6 +1,6 @@
 {
   "type": "Feature",
-  "name": "boundary_smooth",
+  "id": "boundary_smooth",
   "properties": {
     "name": "Riverside area boundary (smooth)"
   },

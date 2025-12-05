@@ -16,7 +16,9 @@ export default function Map({
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef();
   const mapElemRef = useRef();
-  const oldActiveObject = useRef();
+  const oldActiveLocation = useRef();
+  const oldActiveOverlay = useRef();
+  const oldActivePopup = useRef();
   const routeRef = useRef();
 
   function locationOnClick(id) {
@@ -25,43 +27,42 @@ export default function Map({
 
   function onLocationChange() {
     if (mapRef.current) {
-      const locations = mapRef.current.appData.locations;
+      const popups = mapRef.current.appData.popups;
 
-      if (oldActiveObject.current) {
-        oldActiveObject.current.popupVisible = false;
+      if (oldActivePopup.current) {
+        oldActivePopup.current.popupVisible = false;
       }
 
       if (activeObjectId) {
-        const loc = locations.getLocation(activeObjectId);
-        console.log('loc=', loc);
-        if (loc) {
-          loc.popupVisible = true; // TODO: make this sticky
-
-          if (data.view.fly === 'direct') {
-            mapRef.current.flyTo({
-              center: loc.data.geometry.coordinates,
-            });
-          }
-
-          if (loc.data) {
-            setActiveObjectTitle(loc ? loc.data.properties.title : '');
-
-            if (data.view.fly === 'route') {
-              const fromCoord = oldActiveObject.current.data.geometry.coordinates;
-              const toCoord = loc.data.geometry.coordinates;
-              console.debug(
-                `Fly from ${oldActiveObject} ${fromCoord} to ${activeObjectId} ${toCoord}`
-              );
-              routeRef.current.fly(fromCoord, toCoord, 2000);
-            }
-          }
-
-          if (loc.data) {
-            setActiveObjectTitle(loc ? loc.data.properties.title : '');
-          }
+        const popup = popups.getPopup(activeObjectId);
+        if (popup) {
+          popup.popupVisible = true; // TODO: make this sticky
         }
 
-        oldActiveObject.current = loc;
+        oldActivePopup.current = popup;
+
+        const loc = data.locations.features.find((el) => el.properties.id === activeObjectId);
+        if (loc) {
+          if (data.view.fly === 'direct') {
+            mapRef.current.flyTo({
+              center: loc.geometry.coordinates,
+            });
+          }
+          setActiveObjectTitle(loc ? loc.properties.title : '');
+
+          if (data.view.fly === 'route' && oldActiveLocation.current) {
+            const fromCoord = oldActiveLocation.current.geometry.coordinates;
+            const toCoord = loc.geometry.coordinates;
+            console.debug(
+              `Fly from ${oldActiveLocation} ${fromCoord} to ${activeObjectId} ${toCoord}`
+            );
+            routeRef.current.fly(fromCoord, toCoord, 2000);
+          }
+
+          setActiveObjectTitle(loc ? loc.properties.title : '');
+        }
+
+        oldActiveLocation.current = loc;
       }
     }
   }
@@ -70,13 +71,13 @@ export default function Map({
     if (mapRef.current) {
       const layers = mapRef.current.appData.layers;
 
-      if (oldActiveObject.current) {
-        layers.getLayer(oldActiveObject.current).visible = false;
+      if (oldActiveOverlay.current) {
+        layers.getLayer(oldActiveOverlay.current).visible = false;
       }
 
       layers.getLayer(activeObjectId).visible = true;
 
-      oldActiveObject.current = activeObjectId;
+      oldActiveOverlay.current = activeObjectId;
     }
   }
 

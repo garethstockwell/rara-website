@@ -2,7 +2,7 @@
 
 import { LayerManager } from './layer.js';
 import { Menu } from './menu.js';
-import { LocationManager } from './location.js';
+import { PopupManager } from './popup.js';
 
 import { addBuildingsLayer } from './buildings.js';
 import { addLineLayer } from './line.js';
@@ -45,13 +45,13 @@ function Map(args) {
     zOrder: args.zOrder ?? [],
   });
 
-  const locationManager = new LocationManager({
+  const popupManager = new PopupManager({
     map,
   });
 
   map.appData = {
     layers: layerManager,
-    locations: locationManager,
+    popups: popupManager,
   };
 
   addNavigationControl(map);
@@ -78,7 +78,7 @@ export default function createMap(args) {
     attributionControl: false,
   };
 
-  const zOrder = view.layers.map((layer) => layer.name);
+  const zOrder = view.layers.map((layer) => layer.id);
 
   const map = new Map({
     config,
@@ -90,15 +90,15 @@ export default function createMap(args) {
   view.layers.forEach((element) => {
     if (element.type === 'buildings') {
       map.appData.layers.addLayer(addBuildingsLayer, {
-        id: element.name,
+        id: element.id,
         visible: element.visible,
       });
     }
 
     if (element.type === 'line') {
-      const line = args.data.lines[element.name];
+      const line = args.data.lines[element.id];
       map.appData.layers.addLayer(addLineLayer, {
-        id: element.name,
+        id: element.id,
         data: line,
         color: element.color,
         visible: element.visible,
@@ -107,7 +107,7 @@ export default function createMap(args) {
 
     if (element.type === 'locations') {
       map.appData.layers.addLayer(addLocationsLayer, {
-        id: element.name,
+        id: element.id,
         data: args.data.locations,
         tags: element.tags,
         color: element.color,
@@ -119,9 +119,9 @@ export default function createMap(args) {
     }
 
     if (element.type === 'overlay') {
-      const overlay = args.data.overlays[element.name];
+      const overlay = args.data.overlays[element.id];
       map.appData.layers.addLayer(addOverlayLayer, {
-        id: element.name,
+        id: element.id,
         url: absUrl(overlay.properties.url),
         coordinates: overlay.geometry.coordinates,
         attribution: overlay.properties.attribution
@@ -134,7 +134,7 @@ export default function createMap(args) {
 
     if (element.type === 'point') {
       map.on('load', () => {
-        map.addSource(element.name, {
+        map.addSource(element.id, {
           type: 'geojson',
           data: {
             type: 'Feature',
@@ -148,8 +148,8 @@ export default function createMap(args) {
 
         map.addLayer(
           {
-            id: element.name,
-            source: element.name,
+            id: element.id,
+            source: element.id,
             type: 'circle',
             paint: {
               'circle-radius': 10,
@@ -158,7 +158,7 @@ export default function createMap(args) {
               'circle-stroke-color': 'white',
             },
           },
-          map.appData.layers.zOrder.getPosition(element.name)
+          map.appData.layers.zOrder.getPosition(element.id)
         );
       });
     }

@@ -1,5 +1,5 @@
 {
-  "name": "raster",
+  "id": "raster",
   "config": {
     "style": {
       "version": 8,
@@ -24,51 +24,51 @@
   },
   "layers": [
     {
-      "name": "3d_buildings",
+      "id": "3d_buildings",
       "type": "buildings",
       "visible": true
     },
     {
-      "name": "camantsoc_1836_1838",
+      "id": "camantsoc_1836_1838",
       "type": "overlay",
       "visible": false
     },
     {
-      "name": "camantsoc_1910",
+      "id": "camantsoc_1910",
       "type": "overlay",
       "visible": false
     },
     {
-      "name": "camantsoc_1925",
+      "id": "camantsoc_1925",
       "type": "overlay",
       "visible": false
     },
     {
-      "name": "barnwell_priory",
+      "id": "barnwell_priory",
       "type": "overlay",
       "visible": true
     },
     {
-      "name": "boundary",
+      "id": "boundary",
       "type": "line",
       "color": "black",
       "visible": true
     },
     {
-      "name": "heritage_trail",
+      "id": "heritage_trail",
       "type": "line",
       "color": "green",
       "visible": true
     },
     {
-      "name": "attractions",
+      "id": "attractions",
       "type": "locations",
       "tags": ["attractions"],
       "color": "yellow",
       "visible": true
     },
     {
-      "name": "improvements",
+      "id": "improvements",
       "type": "locations",
       "tags": ["improvements"],
       "color": "red",
