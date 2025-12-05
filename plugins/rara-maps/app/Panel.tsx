@@ -14,6 +14,8 @@ export default function Panel({
   setActiveTabIndex,
   footer,
   onLoad,
+  panelHeight,
+  setPanelHeight,
 }) {
   const contentElem = document.querySelector('.rara-maps-content');
   const tabElems = contentElem.querySelectorAll('.rara-maps-content-tab');
@@ -90,7 +92,6 @@ export default function Panel({
   const draggingRef = useRef(false);
 
   const onPointerMove = useCallback((ev: PointerEvent) => {
-    console.log('onPointerMove', ev, 'draggingRef', draggingRef.current);
     if (!draggingRef.current) return;
     const vh = window.innerHeight;
     // convert pointerY to translateY in vh
@@ -122,13 +123,18 @@ export default function Panel({
     [onPointerMove, onPointerUp]
   );
 
+  function vhToPx(vh: string) {
+    const n = parseFloat(vh.replace('vh', ''));
+    return window.innerHeight * (n / 100);
+  }
+
   return (
     <div
       ref={panelElemRef}
       className={`${common.card} ${styles.panel} ${panelOpen ? styles.panelOpen : ''}`}
       style={{
-        transform: `translateY(${translateY}vh)`,
-        transition: draggingRef.current ? 'none' : 'transform 0.3s ease',
+        transform: `translateY(-${panelHeight}px)`,
+        transition: draggingRef.current ? 'none' : 'transform 0.s ease',
       }}
     >
       <div className={styles.panelHandle} onPointerDown={onHandlePointerDown}>

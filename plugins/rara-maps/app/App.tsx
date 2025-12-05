@@ -21,6 +21,16 @@ export default function App({ footer, viewName }) {
   const [activePanelTabIndex, setActivePanelTabIndex] = useState(null);
   const [activePanelTitle, setActivePanelTitle] = useState(null);
 
+  function parsePx(value: string) {
+    return parseFloat(value.replace('px', ''));
+  }
+
+  const dashboardHeight = getComputedStyle(document.documentElement)
+    .getPropertyValue('--dashboard-height')
+    .trim();
+
+  const [panelHeight, setPanelHeight] = useState(parsePx(dashboardHeight));
+
   const panelEnabled = document.querySelector('.rara-maps-content') !== null;
 
   useEffect(() => {
@@ -125,6 +135,8 @@ export default function App({ footer, viewName }) {
           setActiveTabIndex={setActivePanelTabIndex}
           activeTabTitle={activePanelTitle}
           setActiveTabTitle={setActivePanelTitle}
+          panelHeight={panelHeight}
+          setPanelHeight={setPanelHeight}
           footer={footer}
           onLoad={() => {
             setPanelLoaded(true);

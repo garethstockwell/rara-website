@@ -1,4 +1,4 @@
-/*! Built from commit: f0f0d41d661fb3437eb13a5e235322664675bbde */
+/*! Built from commit: 0f87b007940198ff4ab7f21a1c3302062316efe0 */
 :root {
   --color-dark-blue: #364154;
   --color-green: #0f0;
@@ -88,11 +88,11 @@
   border-top: var(--color-white) 1px solid;
   overflow-y: auto;
   transition: transform 0.3s ease;
-  transform: translateY(0);
+  /*transform: translateY(0);*/
 }
 
 .eNpBO2g5d8CrV9AkYVz7 {
-  transform: translateY(calc(var(--dashboard-height) - 75vh));
+  /*transform: translateY(calc(var(--dashboard-height) - 75vh));*/
 }
 
 .GNSCbaxl5vsev9Y_dkYJ {
