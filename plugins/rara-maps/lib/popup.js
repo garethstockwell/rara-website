@@ -57,10 +57,10 @@ class Popup {
   }
 
   #onPopupVisibleChange() {
-    console.debug(
-      `Popup.onPopupVisibleChange id=${this.#id} dynamic=${this.visibleDynamic} static=${this.visibleStatic} popup=${this.#popup}`
-    );
     const visible = this.visibleDynamic || this.visibleStatic;
+    console.debug(
+      `Popup.onPopupVisibleChange id=${this.#id} dynamic=${this.visibleDynamic} static=${this.visibleStatic} visible=${visible} popup=${this.#popup}`
+    );
     if (this.#popup) {
       this.#popup.getElement().style.visibility = visible ? 'visible' : 'hidden';
     }

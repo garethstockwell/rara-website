@@ -26,8 +26,7 @@ export function addLocationsLayer(map, args) {
     const popups = map.appData.popups;
 
     data.features.forEach((feature) => {
-      feature.properties.id = feature.id;
-      const popup = popups.getPopup(feature.id);
+      const popup = popups.getPopup(feature.properties.id);
       popup.setData(feature);
       if (args.staticPopups) {
         popup.visibleStatic = true;
