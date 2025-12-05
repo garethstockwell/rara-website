@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './App.module.css';
-import HeaderHandle from './HeaderHandle.jsx';
-import Map from './Map.jsx';
-import Panel from './Panel.jsx';
+import HeaderHandle from './HeaderHandle';
+import Map from './Map';
+import Panel from './Panel';
 import { absUrl } from '../lib/url';
 
 export default function App({ footer, viewName }) {

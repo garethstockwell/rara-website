@@ -116,7 +116,7 @@ const tryEntry = (names) => {
     if (fs.existsSync(p)) return p;
   }
   // fallback to original index.jsx
-  return path.resolve(__dirname, 'index.jsx');
+  return path.resolve(__dirname, 'index.tsx');
 };
 
 const entryFile = tryEntry(['index.tsx', 'index.ts', 'index.jsx', 'index.js']);

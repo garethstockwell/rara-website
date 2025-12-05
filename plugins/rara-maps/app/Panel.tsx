@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import common from './common.module.css';
 import styles from './Panel.module.css';
-import Dashboard from './Dashboard.jsx';
+import Dashboard from './Dashboard';
 
 export default function Panel({
   panelOpen,

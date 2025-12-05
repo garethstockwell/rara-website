@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
 import { getAppData } from '../lib/appdata';
-import createMap from '../lib/map.ts';
+import createMap from '../lib/map';
 import flyRouteRadius from '../lib/fly_radius';
 import { Route, flyRouteTangent } from '../lib/fly_tangent';
 
