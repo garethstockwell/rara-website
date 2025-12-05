@@ -1,6 +1,6 @@
 // Add a map layer which shows locations
 
-import { absUrl } from './url.js';
+import { absUrl } from './url.ts';
 
 /**
  * Create the map

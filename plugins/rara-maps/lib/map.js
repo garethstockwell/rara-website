@@ -9,7 +9,7 @@ import { addLineLayer } from './line.js';
 import { addLocationsLayer } from './locations.js';
 import { addOverlayLayer } from './overlay.js';
 
-import { absUrl } from './url.js';
+import { absUrl } from './url.ts';
 
 function addNavigationControl(map) {
   map.addControl(
