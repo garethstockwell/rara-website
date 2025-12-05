@@ -90,7 +90,6 @@ export default function Panel({
   const draggingRef = useRef(false);
 
   const onPointerMove = useCallback((ev: PointerEvent) => {
-    console.log('onPointerMove', ev, 'draggingRef', draggingRef.current);
     if (!draggingRef.current) return;
     const vh = window.innerHeight;
     // convert pointerY to translateY in vh

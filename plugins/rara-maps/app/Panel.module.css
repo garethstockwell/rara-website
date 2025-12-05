@@ -7,11 +7,11 @@
   border-top: var(--color-white) 1px solid;
   overflow-y: auto;
   transition: transform 0.3s ease;
-  transform: translateY(0);
+  /*transform: translateY(0);*/
 }
 
 .panelOpen {
-  transform: translateY(calc(var(--dashboard-height) - 75vh));
+  /*transform: translateY(calc(var(--dashboard-height) - 75vh));*/
 }
 
 .panelBody {
