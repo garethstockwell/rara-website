@@ -4,8 +4,8 @@
   "features": [
     {
       "type": "Feature",
-      "id": "barnwell_priory",
       "properties": {
+        "id": "barnwell_priory",
         "url": "%{RARA_MAPS}/assets/overlays/barnwell_priory.png",
         "description": ["Footprint of Barnwell Priory"],
         "attribution": "htt"
@@ -22,8 +22,8 @@
     },
     {
       "type": "Feature",
-      "id": "camantsoc_1836_1838",
       "properties": {
+        "id": "camantsoc_1836_1838",
         "url": "%{RARA_MAPS}/assets/overlays/G5-8-Cam.jpg",
         "description": [
           "Map of Cambridge circa 1836-1838.",
@@ -44,8 +44,8 @@
     },
     {
       "type": "Feature",
-      "id": "camantsoc_1910",
       "properties": {
+        "id": "camantsoc_1910",
         "url": "%{RARA_MAPS}/assets/overlays/G4-Bac-Cam.jpg",
         "description": [
           "Map of Cambridge circa 1910.",
@@ -65,8 +65,8 @@
     },
     {
       "type": "Feature",
-      "id": "camantsoc_1925",
       "properties": {
+        "id": "camantsoc_1925",
         "url": "%{RARA_MAPS}/assets/overlays/G4-Spa2-Cam.jpg",
         "description": [
           "Map of Cambridge circa 1925.",

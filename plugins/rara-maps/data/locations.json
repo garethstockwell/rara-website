@@ -3,9 +3,9 @@
   "id": "locations",
   "features": [
     {
-      "id": "riverside_boulevard",
       "type": "Feature",
       "properties": {
+        "id": "riverside_boulevard",
         "title": "Riverside \"boulevard\"",
         "tags": ["improvements"]
       },
@@ -15,9 +15,9 @@
       }
     },
     {
-      "id": "elizabeth_way_underpass",
       "type": "Feature",
       "properties": {
+        "id": "elizabeth_way_underpass",
         "title": "Elizabeth Way underpass",
         "tags": ["improvements"]
       },
@@ -27,9 +27,9 @@
       }
     },
     {
-      "id": "elizabeth_way_bridge",
       "type": "Feature",
       "properties": {
+        "id": "elizabeth_way_bridge",
         "title": "Below Elizabeth Way bridge",
         "tags": ["improvements"]
       },
@@ -39,9 +39,9 @@
       }
     },
     {
-      "id": "stourbridge_common_approach",
       "type": "Feature",
       "properties": {
+        "id": "stourbridge_common_approach",
         "title": "Stourbridge Common approach",
         "tags": ["improvements"]
       },
@@ -51,9 +51,9 @@
       }
     },
     {
-      "id": "river_festival",
       "type": "Feature",
       "properties": {
+        "id": "river_festival",
         "title": "River festival",
         "tags": ["improvements"]
       },
@@ -63,9 +63,9 @@
       }
     },
     {
-      "id": "newmarket_road",
       "type": "Feature",
       "properties": {
+        "id": "newmarket_road",
         "title": "Newmarket Road",
         "tags": ["improvements"]
       },
@@ -75,9 +75,9 @@
       }
     },
     {
-      "id": "mercers_row",
       "type": "Feature",
       "properties": {
+        "id": "mercers_row",
         "title": "Mercer's Row",
         "tags": ["improvements"]
       },
@@ -87,9 +87,9 @@
       }
     },
     {
-      "id": "stourbridge_common",
       "type": "Feature",
       "properties": {
+        "id": "stourbridge_common",
         "title": "Stourbridge Common",
         "tags": ["attractions"]
       },
@@ -99,9 +99,9 @@
       }
     },
     {
-      "id": "st_andrew_the_less",
       "type": "Feature",
       "properties": {
+        "id": "st_andrew_the_less",
         "title": "St Andrew the Less",
         "tags": ["attractions"]
       },
@@ -111,9 +111,9 @@
       }
     },
     {
-      "id": "leper_chapel",
       "type": "Feature",
       "properties": {
+        "id": "leper_chapel",
         "title": "Leper Chapel",
         "tags": ["attractions"]
       },
@@ -123,9 +123,9 @@
       }
     },
     {
-      "id": "cellarers_chequer",
       "type": "Feature",
       "properties": {
+        "id": "cellarers_chequer",
         "title": "Cellarer's Chequer",
         "tags": ["attractions"]
       },
@@ -135,9 +135,9 @@
       }
     },
     {
-      "id": "abbey_house",
       "type": "Feature",
       "properties": {
+        "id": "abbey_house",
         "title": "Abbey House",
         "tags": ["attractions"]
       },
@@ -147,9 +147,9 @@
       }
     },
     {
-      "id": "cmot",
       "type": "Feature",
       "properties": {
+        "id": "cmot",
         "title": "Cambridge Museum of Technology",
         "tags": ["attractions"]
       },
@@ -159,9 +159,9 @@
       }
     },
     {
-      "id": "emailerator",
       "type": "Feature",
       "properties": {
+        "id": "emailerator",
         "title": "Dinky Doors Emailerator",
         "tags": ["attractions"]
       },
@@ -171,9 +171,9 @@
       }
     },
     {
-      "id": "war_memorial",
       "type": "Feature",
       "properties": {
+        "id": "war_memorial",
         "title": "Cambridge Gas Company War Memorial",
         "tags": ["attractions"]
       },
@@ -183,9 +183,9 @@
       }
     },
     {
-      "id": "flying_saucer",
       "type": "Feature",
       "properties": {
+        "id": "flying_saucer",
         "title": "Dinky Doors Flying Saucer",
         "tags": ["attractions"]
       },
@@ -195,9 +195,9 @@
       }
     },
     {
-      "id": "equiano_bridge",
       "type": "Feature",
       "properties": {
+        "id": "equiano_bridge",
         "title": "Equiano Bridge",
         "tags": ["attractions"]
       },
@@ -207,9 +207,9 @@
       }
     },
     {
-      "id": "engineers_house",
       "type": "Feature",
       "properties": {
+        "id": "engineers_house",
         "title": "Engineer's House",
         "tags": ["attractions"]
       },
@@ -219,9 +219,9 @@
       }
     },
     {
-      "id": "kerb_kollective",
       "type": "Feature",
       "properties": {
+        "id": "kerb_kollective",
         "title": "Kerb Kollective",
         "tags": ["attractions"]
       },
@@ -231,9 +231,9 @@
       }
     },
     {
-      "id": "logans_meadow",
       "type": "Feature",
       "properties": {
+        "id": "logans_meadow",
         "title": "Logan's Meadow Nature Reserve",
         "tags": ["attractions"]
       },

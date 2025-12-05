@@ -113,24 +113,26 @@ export default function Map({
     mapRef.current.on('load', () => {
       setMapLoaded(true);
 
+      const line = data.lines.find((line) => line.properties.id === data.view.route);
+
       if (data.view.mode === 'fly_radius') {
         flyRouteRadius({
           center: data.view.config.center,
-          coordinates: data.lines[data.view.route].geometry.coordinates,
+          coordinates: line.geometry.coordinates,
           map: mapRef.current,
         });
       }
 
       if (data.view.mode === 'fly_tangent') {
         flyRouteTangent({
-          coordinates: data.lines[data.view.route].geometry.coordinates,
+          coordinates: line.geometry.coordinates,
           map: mapRef.current,
         });
       }
 
       if (data.view.fly === 'route') {
         routeRef.current = new Route({
-          coordinates: data.lines[data.view.route].geometry.coordinates,
+          coordinates: line.geometry.coordinates,
           map: mapRef.current,
         });
 

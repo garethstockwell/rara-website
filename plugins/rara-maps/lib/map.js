@@ -96,7 +96,7 @@ export default function createMap(args) {
     }
 
     if (element.type === 'line') {
-      const line = args.data.lines[element.id];
+      const line = args.data.lines.find((line) => line.properties.id === element.id);
       map.appData.layers.addLayer(addLineLayer, {
         id: element.id,
         data: line,
@@ -119,7 +119,7 @@ export default function createMap(args) {
     }
 
     if (element.type === 'overlay') {
-      const overlay = args.data.overlays[element.id];
+      const overlay = args.data.overlays.features.find((o) => o.properties.id === element.id);
       map.appData.layers.addLayer(addOverlayLayer, {
         id: element.id,
         url: absUrl(overlay.properties.url),

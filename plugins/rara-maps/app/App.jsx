@@ -34,12 +34,8 @@ export default function App({ footer, viewName }) {
       })
       .then((json) => {
         if (!cancelled) {
-          console.log('locations', json.locations);
           const theData = {
             ...json,
-            lines: arrayToMap(json.lines),
-            locations: json.locations,
-            overlays: arrayToMap(json.overlays.features),
             view: arrayToMap(json.views)[viewName],
           };
 
