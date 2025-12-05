@@ -1,5 +1,8 @@
 {
   "id": "raster",
+  "app": {
+    "binding": "location"
+  },
   "config": {
     "style": {
       "version": 8,
@@ -74,7 +77,5 @@
       "color": "red",
       "visible": true
     }
-  ],
-  "mode": "location",
-  "fly": "direct"
+  ]
 }

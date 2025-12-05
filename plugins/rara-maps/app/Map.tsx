@@ -56,12 +56,7 @@ export default function Map({
   }, [routeCoords, mapRef]);
 
   useEffect(() => {
-    console.log(
-      'Map.activeLocation',
-      activeLocation,
-      routeRef.current,
-      oldActiveLocationRef.current
-    );
+    console.debug(`Map activeLocation=${activeLocation} routeRef=${routeRef.current}`);
 
     if (oldActivePopupRef.current) {
       oldActivePopupRef.current.visibleStatic = false;
@@ -103,7 +98,7 @@ export default function Map({
   }, [activeLocation, mapRef, mapLoaded]);
 
   useEffect(() => {
-    console.log('Map.activeOverlayId', activeOverlayId);
+    console.debug(`Map activeOverlayId=${activeOverlayId}`);
 
     if (mapRef.current && mapLoaded) {
       const layers = getAppData(mapRef.current).layers;
@@ -121,7 +116,7 @@ export default function Map({
   }, [activeOverlayId, mapLoaded]);
 
   useEffect(() => {
-    console.log('flyRadiusEnabled', flyRadiusEnabled);
+    console.debug(`Map flyRadiusEnabled=${flyRadiusEnabled}`);
     if (flyRadiusEnabled && routeCoords) {
       flyRouteRadius({
         center: data.view.config.center,
@@ -132,7 +127,7 @@ export default function Map({
   }, [flyRadiusEnabled, routeCoords]);
 
   useEffect(() => {
-    console.log('flyTangentEnabled', flyTangentEnabled);
+    console.debug(`flyTangentEnabled=${flyTangentEnabled}`);
     if (flyTangentEnabled && routeCoords) {
       flyRouteTangent({
         coordinates: routeCoords,

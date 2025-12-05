@@ -1,5 +1,9 @@
 {
   "id": "heritage_trail",
+  "app": {
+    "binding": "location",
+    "route": "heritage_trail"
+  },
   "config": {
     "style": "%{RARA_MAPS}/build/style.json",
     "center": [0.144843, 52.212231],
@@ -36,8 +40,5 @@
       "color": "red",
       "visible": true
     }
-  ],
-  "mode": "location",
-  "fly": "route",
-  "route": "heritage_trail"
+  ]
 }
