@@ -2,10 +2,10 @@ import { createRoot } from 'react-dom/client';
 
 import './global.css';
 
-import App from './app/App.jsx';
+import App from './app/App';
 
 function mount() {
-  const container = document.getElementById('rara-maps-react-root');
+  const container = document.getElementById('rara-maps-react-root') as HTMLElement;
   if (!container) {
     return;
   }
@@ -13,14 +13,14 @@ function mount() {
   const viewName = container.getAttribute('view-name');
 
   // HACK: get the WordPress header out of the way
-  const header = document.querySelector('#masthead');
+  const header = document.querySelector('#masthead') as HTMLElement;
   if (header) {
     header.style.top = '-80px';
   }
 
   // The footer element is passed into the App so that it can be relocated
   // within the DOM, using a React effect callback.
-  const footer = document.querySelector('.site-footer');
+  const footer = document.querySelector('.site-footer') as HTMLElement;
 
   if (footer) {
     footer.classList.add('hidden');
