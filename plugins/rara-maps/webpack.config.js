@@ -1,4 +1,4 @@
-// webpack.config.js (CommonJS)
+// webpack.config.js (CommonJS) — TypeScript-enabled
 
 const path = require('path');
 const fs = require('fs');
@@ -10,12 +10,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const JsonMinimizerPlugin = require('json-minimizer-webpack-plugin');
 
-// react-refresh plugin is optional (only used in dev)
+// React refresh plugin (optional)
 let ReactRefreshWebpackPlugin;
 try {
   ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 } catch (err) {
   ReactRefreshWebpackPlugin = null;
+}
+
+// Fork type checker plugin (optional, used when tsconfig.json exists)
+let ForkTsCheckerWebpackPlugin;
+try {
+  ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+} catch (err) {
+  ForkTsCheckerWebpackPlugin = null;
 }
 
 function getCommitHash() {
@@ -101,8 +109,35 @@ const ComposeJsonPlugin = {
 };
 // -------------------------------------------------------------------------------------
 
-// Entry file
-const entryFile = path.resolve(__dirname, 'index.jsx');
+// Choose entry file by preference: types first if present, otherwise fallback to index.jsx
+const tryEntry = (names) => {
+  for (const n of names) {
+    const p = path.resolve(__dirname, n);
+    if (fs.existsSync(p)) return p;
+  }
+  // fallback to original index.jsx
+  return path.resolve(__dirname, 'index.jsx');
+};
+
+const entryFile = tryEntry(['index.tsx', 'index.ts', 'index.jsx', 'index.js']);
+
+// detect whether TS is in the project (presence of tsconfig.json or any .ts/.tsx)
+const hasTsConfig = fs.existsSync(path.resolve(__dirname, 'tsconfig.json'));
+const hasAnyTsFile = !!['src', '.'].some((dir) => {
+  try {
+    const files = fs.readdirSync(path.resolve(__dirname, dir));
+    return files.some((f) => f.endsWith('.ts') || f.endsWith('.tsx'));
+  } catch (e) {
+    return false;
+  }
+});
+const useTypeScript = hasTsConfig || hasAnyTsFile;
+
+if (useTypeScript) {
+  console.log('TypeScript: enabled (tsconfig.json present or .ts/.tsx files detected)');
+} else {
+  console.log('TypeScript: not detected (no tsconfig.json and no .ts/.tsx files found)');
+}
 
 const baseConfig = {
   entry: entryFile,
@@ -118,11 +153,13 @@ const baseConfig = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    // keep .ts/.tsx before .js/.jsx so these are preferred
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 
   module: {
     rules: [
+      // Use Babel for JS/TS/JSX/TSX so we don't run two transpilers.
       {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
@@ -132,6 +169,8 @@ const baseConfig = {
             presets: [
               ['@babel/preset-env', { targets: 'defaults' }],
               ['@babel/preset-react', { runtime: 'automatic' }],
+              // add TypeScript preset only when TS is present (safe to include always if you want)
+              ...(useTypeScript ? [['@babel/preset-typescript']] : []),
             ],
             plugins: [],
           },
@@ -177,6 +216,13 @@ const baseConfig = {
           },
         ],
       },
+
+      // optional: source-map loader for upstream source maps (pre)
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        use: ['source-map-loader'],
+      },
     ],
   },
 
@@ -202,6 +248,18 @@ const baseConfig = {
         },
       ],
     }),
+    // Add ForkTsCheckerWebpackPlugin if TS is used and plugin is available.
+    ...(useTypeScript && ForkTsCheckerWebpackPlugin
+      ? [
+          new ForkTsCheckerWebpackPlugin({
+            async: isDev, // run async in dev (don't block compilation)
+            typescript: {
+              // Use your project's tsconfig.json if present
+              configFile: path.resolve(__dirname, hasTsConfig ? 'tsconfig.json' : undefined),
+            },
+          }),
+        ]
+      : []),
   ],
 
   devtool: minify ? false : 'eval-source-map',
