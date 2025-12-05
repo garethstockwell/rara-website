@@ -93,7 +93,7 @@ done
 
 # Commit the changes
 git add -A
-git commit -m "Deploy build from ${source_commit} [skip ci]" || echo "No changes to commit"
+git commit --no-verify -m "Deploy build from ${source_commit} [skip ci]" || echo "No changes to commit"
 
 # Push to remote, if the flag was set
 [[ -z "${push}" ]] || git push ${remote} HEAD:${target_branch}
