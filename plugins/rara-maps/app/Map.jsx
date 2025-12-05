@@ -41,7 +41,9 @@ export default function Map({
 
         oldActivePopup.current = popup;
 
-        const loc = data.locations.features.find((el) => el.properties.id === activeObjectId);
+        const loc = data.locations.features.find(
+          (el) => (el?.properties?.id ?? null) === activeObjectId
+        );
         if (loc) {
           if (data.view.fly === 'direct') {
             mapRef.current.flyTo({
@@ -113,7 +115,7 @@ export default function Map({
     mapRef.current.on('load', () => {
       setMapLoaded(true);
 
-      const line = data.lines.find((line) => line.properties.id === data.view.route);
+      const line = data.lines.find((line) => (line?.properties?.id ?? null) === data.view.route);
 
       if (data.view.mode === 'fly_radius') {
         flyRouteRadius({
