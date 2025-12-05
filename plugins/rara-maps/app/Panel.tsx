@@ -17,18 +17,19 @@ export default function Panel({
 }) {
   const contentElem = document.querySelector('.rara-maps-content');
   const tabElems = contentElem.querySelectorAll('.rara-maps-content-tab');
-  const panelRef = useRef(null);
-  const panelBodyRef = useRef(null);
-  const activeTabElem = useRef();
+
+  const panelElemRef = useRef(null);
+  const panelBodyElemRefRef = useRef(null);
+  const activeTabElemRef = useRef();
 
   // After initial render, move content and footer elements to the end of the panel
   useEffect(() => {
-    if (panelBodyRef.current && contentElem) {
-      panelBodyRef.current.appendChild(contentElem);
+    if (panelBodyElemRefRef.current && contentElem) {
+      panelBodyElemRefRef.current.appendChild(contentElem);
     }
 
-    if (panelRef.current && footer) {
-      panelRef.current.appendChild(footer);
+    if (panelElemRef.current && footer) {
+      panelElemRef.current.appendChild(footer);
       footer.classList.remove('hidden');
     }
 
@@ -42,22 +43,22 @@ export default function Panel({
   }
 
   useEffect(() => {
-    if (activeTabElem.current) {
-      activeTabElem.current.classList.add('hidden');
+    if (activeTabElemRef.current) {
+      activeTabElemRef.current.classList.add('hidden');
     }
 
-    activeTabElem.current = document.querySelector('#' + activeTabId);
+    activeTabElemRef.current = document.querySelector('#' + activeTabId);
 
-    if (activeTabElem.current) {
-      activeTabElem.current.classList.remove('hidden');
+    if (activeTabElemRef.current) {
+      activeTabElemRef.current.classList.remove('hidden');
 
-      const title = activeTabElem.current.getAttribute('title');
+      const title = activeTabElemRef.current.getAttribute('title');
       if (title) {
         setActiveTabTitle(title);
       }
     }
 
-    const index = Array.prototype.indexOf.call(tabElems, activeTabElem.current);
+    const index = Array.prototype.indexOf.call(tabElems, activeTabElemRef.current);
     setActiveTabIndex(index >= 0 ? index : null);
   }, [activeTabId]);
 
@@ -77,7 +78,7 @@ export default function Panel({
 
   return (
     <div
-      ref={panelRef}
+      ref={panelElemRef}
       className={`${common.card} ${styles.panel} ${panelOpen ? styles.panelOpen : ''}`}
     >
       <Dashboard
@@ -89,7 +90,7 @@ export default function Panel({
         onNext={onNext}
       />
 
-      <div ref={panelBodyRef} className={`${styles.panelBody}`}></div>
+      <div ref={panelBodyElemRefRef} className={`${styles.panelBodyElemRef}`}></div>
     </div>
   );
 }

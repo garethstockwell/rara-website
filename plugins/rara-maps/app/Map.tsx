@@ -17,9 +17,9 @@ export default function Map({
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapRef = useRef();
   const mapElemRef = useRef();
-  const oldActiveLocation = useRef();
-  const oldActiveOverlay = useRef();
-  const oldActivePopup = useRef();
+  const oldActiveLocationRef = useRef();
+  const oldActiveOverlayIdRef = useRef();
+  const oldActivePopupRef = useRef();
   const routeRef = useRef();
 
   function locationOnClick(id) {
@@ -30,8 +30,8 @@ export default function Map({
     if (mapRef.current) {
       const popups = getAppData(mapRef.current).popups;
 
-      if (oldActivePopup.current) {
-        oldActivePopup.current.visibleStatic = false;
+      if (oldActivePopupRef.current) {
+        oldActivePopupRef.current.visibleStatic = false;
       }
 
       if (activeObjectId) {
@@ -40,7 +40,7 @@ export default function Map({
           popup.visibleStatic = true;
         }
 
-        oldActivePopup.current = popup;
+        oldActivePopupRef.current = popup;
 
         const loc = data.locations.features.find(
           (el) => (el?.properties?.id ?? null) === activeObjectId
@@ -53,11 +53,11 @@ export default function Map({
           }
           setActiveObjectTitle(loc ? loc.properties.title : '');
 
-          if (data.view.fly === 'route' && oldActiveLocation.current) {
-            const fromCoord = oldActiveLocation.current.geometry.coordinates;
+          if (data.view.fly === 'route' && oldActiveLocationRef.current) {
+            const fromCoord = oldActiveLocationRef.current.geometry.coordinates;
             const toCoord = loc.geometry.coordinates;
             console.debug(
-              `Fly from ${oldActiveLocation} ${fromCoord} to ${activeObjectId} ${toCoord}`
+              `Fly from ${oldActiveLocationRef} ${fromCoord} to ${activeObjectId} ${toCoord}`
             );
             routeRef.current.fly(fromCoord, toCoord, 2000);
           }
@@ -65,7 +65,7 @@ export default function Map({
           setActiveObjectTitle(loc ? loc.properties.title : '');
         }
 
-        oldActiveLocation.current = loc;
+        oldActiveLocationRef.current = loc;
       }
     }
   }
@@ -74,13 +74,13 @@ export default function Map({
     if (mapRef.current) {
       const layers = getAppData(mapRef.current).layers;
 
-      if (oldActiveOverlay.current) {
-        layers.getLayer(oldActiveOverlay.current).visible = false;
+      if (oldActiveOverlayIdRef.current) {
+        layers.getLayer(oldActiveOverlayIdRef.current).visible = false;
       }
 
       layers.getLayer(activeObjectId).visible = true;
 
-      oldActiveOverlay.current = activeObjectId;
+      oldActiveOverlayIdRef.current = activeObjectId;
     }
   }
 
