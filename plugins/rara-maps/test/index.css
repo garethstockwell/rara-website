@@ -1,121 +1,111 @@
 :root {
-	--color-dark-blue: #364154;
-	--color-green: #0f0;
-	--color-white: #fff;
+  --color-dark-blue: #364154;
+  --color-green: #0f0;
+  --color-white: #fff;
 }
 
 html,
 body {
-	--header-height: 50px;
-	--footer-height: 150px;
+  --header-height: 50px;
+  --footer-height: 150px;
 
-	height: 100%;
-	margin: 0;
+  height: 100%;
+  margin: 0;
 
-	font-family:
-		-apple-system,
-		BlinkMacSystemFont,
-		"Segoe UI",
-		Roboto,
-		Oxygen,
-		Ubuntu,
-		Cantarell,
-		"Fira Sans",
-		"Droid Sans",
-		"Helvetica Neue",
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .site {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .site-header {
-	display: flex;
-	position: fixed;
-	width: 100%;
-	height: var(--header-height);
-	box-sizing: border-box;
-	z-index: 999;
-	top: 0;
-	transition: transform 0.3s ease;
-	color: var(--color-white);
-	background-color: var(--color-dark-blue);
-	transform: translateY(0);
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: var(--header-height);
+  box-sizing: border-box;
+  z-index: 999;
+  top: 0;
+  transition: transform 0.3s ease;
+  color: var(--color-white);
+  background-color: var(--color-dark-blue);
+  transform: translateY(0);
 }
 
 .site-header.hidden {
-	transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .site-header div {
-	flex-grow: 1;
-	text-align: center;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .site-content {
-	display: flex;
-	--header-offset: var(--header-height);
-	flex-grow: 1;
-	padding-top: var(--header-offset);
-	transition: padding-top ease 0.3s;
+  display: flex;
+  --header-offset: var(--header-height);
+  flex-grow: 1;
+  padding-top: var(--header-offset);
+  transition: padding-top ease 0.3s;
 }
 
 .site-header.hidden + .site-content {
-	--header-offset: 0;
-	padding-top: 0;
-	padding-bottom: 0;
+  --header-offset: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-
 #toolbar {
-	height: 50px;
-	text-align: center;
-	line-height: 50px;
-	flex-shrink: 0; /* Prevent shrinking */
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
 .toolbar a {
-	font-size: large;
-	background-color: transparent;
-	color: var(--color-white);
-	text-decoration: none;
-	padding-left: 1em;
-	padding-right: 1em;
-	background-repeat: no-repeat;
-	border: none;
-	cursor: pointer;
-	overflow: hidden;
-	outline: none;
+  font-size: large;
+  background-color: transparent;
+  color: var(--color-white);
+  text-decoration: none;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
 }
 
 .toolbar a:hover {
-	background-color: #fff;
-	color: #000;
+  background-color: #fff;
+  color: #000;
 }
 
 .toolbar a.active {
-	background-color: var(--color-blue);
-	color: #fff;
+  background-color: var(--color-blue);
+  color: #fff;
 }
 
 .site-footer {
-	border-top: var(--color-white) 1px solid;
-	height: var(--footer-height);
-	padding: 0 1rem;
-	box-sizing: border-box;
-	color: var(--color-white);
-	background: var(--color-dark-blue);
-	display: flex;
+  border-top: var(--color-white) 1px solid;
+  height: var(--footer-height);
+  padding: 0 1rem;
+  box-sizing: border-box;
+  color: var(--color-white);
+  background: var(--color-dark-blue);
+  display: flex;
 }
 
 .site-footer div {
-	flex-grow: 1;
-	text-align: center;
+  flex-grow: 1;
+  text-align: center;
 }
 
 /*
@@ -123,5 +113,5 @@ body {
   before the React app (and in particular its global.css) is loaded.
 */
 .rara-maps-content-tab.hidden {
-	display: none;
+  display: none;
 }

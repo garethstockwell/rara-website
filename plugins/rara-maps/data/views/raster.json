@@ -1,82 +1,80 @@
 {
-	"name": "raster",
-	"config": {
-		"style": {
-			"version": 8,
-			"sources": {
-				"osm": {
-					"type": "raster",
-					"tiles": [
-						"https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-					],
-					"tileSize": 256
-				}
-			},
-			"layers": [
-				{
-					"id": "osm-layer",
-					"type": "raster",
-					"source": "osm",
-					"minzoom": 0
-				}
-			]
-		},
-		"center": [ 0.144843, 52.212231 ],
-		"zoom": 15
-	},
-	"layers": [
-		{
-			"name": "3d_buildings",
-			"type": "buildings",
-			"visible": true
-		},
-		{
-			"name": "camantsoc_1836_1838",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1910",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1925",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "barnwell_priory",
-			"type": "overlay",
-			"visible": true
-		},
-		{
-			"name": "boundary",
-			"type": "line",
-			"color": "black",
-			"visible": true
-		},
-		{
-			"name": "heritage_trail",
-			"type": "line",
-			"color": "green",
-			"visible": true
-		},
-		{
-			"name": "attractions",
-			"type": "locations",
-			"tags": [ "attractions" ],
-			"color": "yellow",
-			"visible": true
-		},
-		{
-			"name": "improvements",
-			"type": "locations",
-			"tags": [ "improvements" ],
-			"color": "red",
-			"visible": true
-		}
-	],
-	"mode": "location",
-	"fly": "direct"
+  "id": "raster",
+  "config": {
+    "style": {
+      "version": 8,
+      "sources": {
+        "osm": {
+          "type": "raster",
+          "tiles": ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+          "tileSize": 256
+        }
+      },
+      "layers": [
+        {
+          "id": "osm-layer",
+          "type": "raster",
+          "source": "osm",
+          "minzoom": 0
+        }
+      ]
+    },
+    "center": [0.144843, 52.212231],
+    "zoom": 15
+  },
+  "layers": [
+    {
+      "id": "3d_buildings",
+      "type": "buildings",
+      "visible": true
+    },
+    {
+      "id": "camantsoc_1836_1838",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "camantsoc_1910",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "camantsoc_1925",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "barnwell_priory",
+      "type": "overlay",
+      "visible": true
+    },
+    {
+      "id": "boundary",
+      "type": "line",
+      "color": "black",
+      "visible": true
+    },
+    {
+      "id": "heritage_trail",
+      "type": "line",
+      "color": "green",
+      "visible": true
+    },
+    {
+      "id": "attractions",
+      "type": "locations",
+      "tags": ["attractions"],
+      "color": "yellow",
+      "visible": true
+    },
+    {
+      "id": "improvements",
+      "type": "locations",
+      "tags": ["improvements"],
+      "color": "red",
+      "visible": true
+    }
+  ],
+  "mode": "location",
+  "fly": "direct"
 }

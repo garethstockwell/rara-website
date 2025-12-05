@@ -1,37 +1,37 @@
 {
-	"name": "history",
-	"config": {
-		"style": "%{RARA_MAPS}/data/style.json",
-		"center": [ 0.144843, 52.212231 ],
-		"zoom": 15
-	},
-	"layers": [
-		{
-			"name": "camantsoc_1836_1838",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1910",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "camantsoc_1925",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "barnwell_priory",
-			"type": "overlay",
-			"visible": false
-		},
-		{
-			"name": "boundary",
-			"type": "line",
-			"color": "black",
-			"visible": true
-		}
-	],
-	"mode": "overlay"
+  "id": "history",
+  "config": {
+    "style": "%{RARA_MAPS}/build/style.json",
+    "center": [0.144843, 52.212231],
+    "zoom": 15
+  },
+  "layers": [
+    {
+      "id": "camantsoc_1836_1838",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "camantsoc_1910",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "camantsoc_1925",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "barnwell_priory",
+      "type": "overlay",
+      "visible": false
+    },
+    {
+      "id": "boundary",
+      "type": "line",
+      "color": "black",
+      "visible": true
+    }
+  ],
+  "mode": "overlay"
 }

@@ -51,6 +51,11 @@ function rara_maps_enqueue_script() {
     }, 100 ); // run late in footer
 }
 
+function rara_maps_enqueue_style() {
+    $this_url  = plugin_dir_url(__FILE__);
+    wp_enqueue_style('rara-maps-style', $this_url . 'build/bundle.css');
+}
+
 /*
  * Enqueue plugin scripts and styles
  */
@@ -63,6 +68,7 @@ function rara_maps_enqueue() {
         if (strpos($slug, 'explore') === 0) {
             rara_maps_enqueue_maplibregl();
             rara_maps_enqueue_script();
+            rara_maps_enqueue_style();
         }
     }
 }

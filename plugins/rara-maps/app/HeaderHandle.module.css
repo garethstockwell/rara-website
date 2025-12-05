@@ -1,14 +1,14 @@
 .handle {
-	position: fixed;
-	width: var(--handle-size);
-	left: var(--handle-radius);
-	top: var(--header-height);
-	transition: transform 0.3s ease;
-	height: var(--handle-size);
-	border-radius: 0 0 var(--handle-radius) var(--handle-radius);
-	transform: translateY(0);
+  position: fixed;
+  width: var(--handle-size);
+  left: var(--handle-radius);
+  top: var(--header-height);
+  transition: transform 0.3s ease;
+  height: var(--handle-size);
+  border-radius: 0 0 var(--handle-radius) var(--handle-radius);
+  transform: translateY(0);
 }
 
 .header_closed {
-	transform: translateY(calc(-1 * var(--header-height)));
+  transform: translateY(calc(-1 * var(--header-height)));
 }
