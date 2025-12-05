@@ -171,7 +171,7 @@ export class LayerManager {
     const layer = this.#addLayer(args.id, args.visible, args.callback);
 
     args.callback = (id) => {
-      layer.onLoaded(id);
+      layer.onLoaded();
     };
     args.zOrder = this.#zOrder;
     func(this.#map, args);

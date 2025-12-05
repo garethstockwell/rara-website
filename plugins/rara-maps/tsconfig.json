@@ -19,6 +19,6 @@
     "sourceMap": true,
     "baseUrl": "."
   },
-  "include": ["app", "index.ts", "index.tsx", "index.js", "index.jsx", "lib"],
+  "include": ["app", "index.ts", "index.tsx", "index.js", "index.jsx", "lib", "types"],
   "exclude": ["node_modules", "build", "dist", "test"]
 }

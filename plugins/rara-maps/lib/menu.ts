@@ -31,7 +31,7 @@ export class Menu {
    */
   addItem(args) {
     if (this.#elem) {
-      const link = document.createElement('a');
+      const link = document.createElement('a') as HTMLAnchorElement & { layerId: string };
       link.id = `menu_${args.id}`;
       link.layerId = args.id;
       link.href = '#';

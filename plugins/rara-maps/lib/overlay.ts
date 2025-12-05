@@ -1,6 +1,6 @@
 // Add a map layer which shows an image
 
-import { addAttribution } from './attribution.js';
+import { addAttribution } from './attribution';
 
 export function addOverlayLayer(map, options) {
   map.on('load', () => {

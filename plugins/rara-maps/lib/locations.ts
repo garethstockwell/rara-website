@@ -1,6 +1,7 @@
 // Add a map layer which shows locations
 
-import { absUrl } from './url.ts';
+import { getAppData } from './appdata';
+import { absUrl } from './url';
 
 /**
  * Create the map
@@ -23,7 +24,7 @@ export function addLocationsLayer(map, args) {
     const image = await map.loadImage(absUrl(`%{RARA_MAPS}/assets/icons/pin-${args.color}.png`));
     map.addImage(id, image.data);
 
-    const popups = map.appData.popups;
+    const popups = getAppData(map)!.popups;
 
     data.features.forEach((feature) => {
       const id = feature?.properties?.id ?? null;
