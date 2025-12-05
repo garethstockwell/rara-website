@@ -3,7 +3,7 @@
   height: var(--panel-height);
   left: 0;
   right: 0;
-  top: calc(100vh - var(--dashboard-height));
+  top: calc(100vh - (var(--dashboard-height) + 28px));
   border-top: var(--color-white) 1px solid;
   overflow-y: auto;
   transition: transform 0.3s ease;
@@ -15,4 +15,22 @@
 }
 
 .panelBody {
+}
+
+.panelHandle {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ns-resize;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.handleDot {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ccc;
 }
