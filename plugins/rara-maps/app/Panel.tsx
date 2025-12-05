@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import common from './common.module.css';
 import styles from './Panel.module.css';
 import Dashboard from './Dashboard';
@@ -39,7 +39,9 @@ export default function Panel({
   }, []); // empty dependency array = runs once after mount
 
   function togglePanel() {
-    setPanelOpen((v) => !v);
+    const target = panelOpen ? MIN_TRANSLATE : MID_TRANSLATE;
+    setTranslateY(target);
+    setPanelOpen(!panelOpen);
   }
 
   useEffect(() => {
@@ -80,11 +82,59 @@ export default function Panel({
     setActiveTabIndex(activeTabIndex + 1);
   }
 
+  const MIN_TRANSLATE = 0; // closed position
+  const MID_TRANSLATE = -75; // panelOpen default
+  const MAX_TRANSLATE = -90; // fully dragged up
+
+  const [translateY, setTranslateY] = useState<number>(MIN_TRANSLATE);
+  const draggingRef = useRef(false);
+
+  const onPointerMove = useCallback((ev: PointerEvent) => {
+    console.log('onPointerMove', ev, 'draggingRef', draggingRef.current);
+    if (!draggingRef.current) return;
+    const vh = window.innerHeight;
+    // convert pointerY to translateY in vh
+    let y = (ev.clientY / vh) * 100;
+    y = Math.min(Math.max(y, 10), 100); // clamp
+    setTranslateY(y - 100); // negative transform
+  }, []);
+
+  const onPointerUp = useCallback(() => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+    // snap to nearest position
+    let snapped = [MIN_TRANSLATE, MID_TRANSLATE, MAX_TRANSLATE].reduce((a, b) =>
+      Math.abs(b - translateY) < Math.abs(a - translateY) ? b : a
+    );
+    setTranslateY(snapped);
+
+    window.removeEventListener('pointermove', onPointerMove);
+    window.removeEventListener('pointerup', onPointerUp);
+  }, [translateY, onPointerMove]);
+
+  const onHandlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      draggingRef.current = true;
+      e.currentTarget.setPointerCapture?.(e.pointerId);
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', onPointerUp);
+    },
+    [onPointerMove, onPointerUp]
+  );
+
   return (
     <div
       ref={panelElemRef}
       className={`${common.card} ${styles.panel} ${panelOpen ? styles.panelOpen : ''}`}
+      style={{
+        transform: `translateY(${translateY}vh)`,
+        transition: draggingRef.current ? 'none' : 'transform 0.3s ease',
+      }}
     >
+      <div className={styles.panelHandle} onPointerDown={onHandlePointerDown}>
+        <div className={styles.handleDot}></div>
+      </div>
+
       <Dashboard
         title={activeTabTitle}
         showPrev={activeTabIndex > 0}

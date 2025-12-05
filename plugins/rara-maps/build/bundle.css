@@ -1,4 +1,4 @@
-/*! Built from commit: 320399dc92bf0a18ac70c9c82a0a2059a843733e */
+/*! Built from commit: f0f0d41d661fb3437eb13a5e235322664675bbde */
 :root {
   --color-dark-blue: #364154;
   --color-green: #0f0;
@@ -84,7 +84,7 @@
   height: var(--panel-height);
   left: 0;
   right: 0;
-  top: calc(100vh - var(--dashboard-height));
+  top: calc(100vh - (var(--dashboard-height) + 28px));
   border-top: var(--color-white) 1px solid;
   overflow-y: auto;
   transition: transform 0.3s ease;
@@ -96,6 +96,25 @@
 }
 
 .GNSCbaxl5vsev9Y_dkYJ {
+}
+
+.qHM3YQO52NzbJKvO7NfH {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ns-resize;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.oJLukgf9glIUxQUEaDyQ {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ccc;
 }
 
 .FP3aSbbIYeNuD2BjzPmB {
