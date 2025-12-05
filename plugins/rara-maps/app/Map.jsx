@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Map.module.css';
-import createMap from '../lib/map.js';
-import flyRouteRadius from '../lib/fly_radius.js';
-import { Route, flyRouteTangent } from '../lib/fly_tangent.js';
+import { getAppData } from '../lib/appdata';
+import createMap from '../lib/map.ts';
+import flyRouteRadius from '../lib/fly_radius';
+import { Route, flyRouteTangent } from '../lib/fly_tangent';
 
 export default function Map({
   panelEnabled,
@@ -27,7 +28,7 @@ export default function Map({
 
   function onLocationChange() {
     if (mapRef.current) {
-      const popups = mapRef.current.appData.popups;
+      const popups = getAppData(mapRef.current).popups;
 
       if (oldActivePopup.current) {
         oldActivePopup.current.visibleStatic = false;
@@ -71,7 +72,7 @@ export default function Map({
 
   function onOverlayChange() {
     if (mapRef.current) {
-      const layers = mapRef.current.appData.layers;
+      const layers = getAppData(mapRef.current).layers;
 
       if (oldActiveOverlay.current) {
         layers.getLayer(oldActiveOverlay.current).visible = false;

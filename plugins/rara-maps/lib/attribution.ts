@@ -5,7 +5,7 @@ let attributionControl = null;
 
 const position = 'bottom-left';
 
-export function addAttribution(map, attribution) {
+export function addAttribution(map, attribution: string) {
   if (!attributions.includes(attribution)) {
     attributions.push(attribution);
   }
