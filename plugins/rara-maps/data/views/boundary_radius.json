@@ -1,5 +1,9 @@
 {
   "id": "boundary_radius",
+  "app": {
+    "auto": "fly_radius",
+    "route": "boundary_smooth"
+  },
   "config": {
     "style": "%{RARA_MAPS}/build/style.json",
     "center": [0.14547600132800653, 52.212610097321885],
@@ -51,7 +55,5 @@
       "color": "red",
       "visible": true
     }
-  ],
-  "mode": "fly_radius",
-  "route": "boundary_smooth"
+  ]
 }

@@ -1,5 +1,9 @@
 {
   "id": "boundary_tangent",
+  "app": {
+    "auto": "fly_tangent",
+    "route": "boundary_smooth"
+  },
   "config": {
     "style": "%{RARA_MAPS}/build/style.json",
     "center": [0.14547600132800653, 52.212610097321885],
@@ -57,7 +61,5 @@
       "color": "red",
       "visible": true
     }
-  ],
-  "mode": "fly_tangent",
-  "route": "boundary_smooth"
+  ]
 }

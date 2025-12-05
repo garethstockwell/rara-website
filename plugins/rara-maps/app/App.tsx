@@ -52,12 +52,14 @@ export default function App({ footer, viewName }) {
 
   useEffect(() => {
     if (data) {
-      if (data.view.mode === 'overlay') {
+      if (data.view.app.binding === 'overlay') {
         setActivePanelTabIndex(0);
       }
 
-      if (data.view.route) {
-        const line = data.lines.find((line) => (line?.properties?.id ?? null) === data.view.route);
+      if (data.view.app.route) {
+        const line = data.lines.find(
+          (line) => (line?.properties?.id ?? null) === data.view.app.route
+        );
         setRouteCoords(line?.geometry?.coordinates ?? null);
         setActivePanelTabIndex(0);
       }
@@ -65,15 +67,17 @@ export default function App({ footer, viewName }) {
   }, [data]);
 
   useEffect(() => {
-    if (activePanelTabId && data) {
-      if (data.view.mode === 'location') {
+    console.debug(`App activePanelTabId=${activePanelTabId}`);
+
+    if (activePanelTabId) {
+      if (data.view.app.binding === 'location') {
         const loc = data.locations.features.find(
           (el) => (el?.properties?.id ?? null) === activePanelTabId
         );
         setActiveLocation(loc);
       }
 
-      if (data.view.mode === 'overlay') {
+      if (data.view.app.binding === 'overlay') {
         setActiveOverlayId(activePanelTabId);
       }
     }
@@ -84,6 +88,8 @@ export default function App({ footer, viewName }) {
   }
 
   useEffect(() => {
+    console.debug(`App activeLocation=${activeLocation}`);
+
     let title = null;
     if (activeLocation) {
       title = activeLocation?.properties?.title;
@@ -104,8 +110,8 @@ export default function App({ footer, viewName }) {
           onLocationClick={onLocationClick}
           activeLocation={activeLocation}
           activeOverlayId={activeOverlayId}
-          flyRadiusEnabled={(data?.view?.mode ?? null) === 'fly_radius'}
-          flyTangentEnabled={(data?.view?.mode ?? null) === 'fly_tangent'}
+          flyRadiusEnabled={(data.view.app.auto ?? null) === 'fly_radius'}
+          flyTangentEnabled={(data.view.app.auto ?? null) === 'fly_tangent'}
         />
       )}
 

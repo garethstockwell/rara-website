@@ -43,6 +43,8 @@ export default function Panel({
   }
 
   useEffect(() => {
+    console.debug(`Panel activeTabId=${activeTabId}`);
+
     if (activeTabElemRef.current) {
       activeTabElemRef.current.classList.add('hidden');
     }
@@ -63,6 +65,8 @@ export default function Panel({
   }, [activeTabId]);
 
   useEffect(() => {
+    console.debug(`Panel activeTabIndex=${activeTabIndex}`);
+
     if (activeTabIndex !== null) {
       setActiveTabId(tabElems[activeTabIndex].id);
     }
