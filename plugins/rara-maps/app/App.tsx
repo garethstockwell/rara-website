@@ -9,14 +9,12 @@ import { absUrl } from '../lib/url';
 
 export default function App({ footer, viewName }) {
   const [data, setData] = useState(null);
-
   const [routeCoords, setRouteCoords] = useState(null);
 
   const [panelOpen, setPanelOpen] = useState(false);
   const [panelLoaded, setPanelLoaded] = useState(false);
 
   const [activeLocation, setActiveLocation] = useState(null);
-
   const [activeOverlayId, setActiveOverlayId] = useState(null);
 
   const [activePanelTabId, setActivePanelTabId] = useState(null);
@@ -24,13 +22,6 @@ export default function App({ footer, viewName }) {
   const [activePanelTitle, setActivePanelTitle] = useState(null);
 
   const panelEnabled = document.querySelector('.rara-maps-content') !== null;
-
-  function arrayToMap(arr) {
-    return arr.reduce((acc, obj) => {
-      acc[obj.id] = obj;
-      return acc;
-    }, {});
-  }
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +37,7 @@ export default function App({ footer, viewName }) {
         if (!cancelled) {
           const theData = {
             ...json,
-            view: arrayToMap(json.views)[viewName],
+            view: json.views.find((view) => view.id === viewName),
           };
 
           setData(theData);
