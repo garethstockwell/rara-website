@@ -2,10 +2,10 @@
 
 class Popup {
   #id;
-  #data;
   #manager;
   #popup;
-  #popupVisible;
+  #visibleDynamic;
+  #visibleStatic;
 
   /**
    * Create a Popup
@@ -17,25 +17,52 @@ class Popup {
     this.#id = id;
     this.#manager = manager;
     this.#popup = null;
-    this.#popupVisible = false;
+    this.#visibleDynamic = false;
+    this.#visibleStatic = false;
   }
 
-  get popupVisible() {
-    return this.#popupVisible;
+  get visibleDynamic() {
+    return this.#visibleDynamic;
   }
 
-  set popupVisible(visible) {
-    console.debug(`Popup.setPopupVisible id=${this.#id} visible=${visible}`);
-    this.#popupVisible = visible;
+  set visibleDynamic(visible) {
+    console.debug(`Popup.setVisibleDynamic id=${this.#id} visible=${visible}`);
+    this.#visibleDynamic = visible;
+    this.#onPopupVisibleChange();
+  }
+
+  get visibleStatic() {
+    return this.#visibleStatic;
+  }
+
+  set visibleStatic(visible) {
+    console.debug(`Popup.setVisibleStatic id=${this.#id} visible=${visible}`);
+    this.#visibleStatic = visible;
+    this.#onPopupVisibleChange();
+  }
+
+  setData(data) {
+    console.debug(`Popup.setData id=${this.#id} data=${data}`);
+    this.#popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+    });
+
+    this.#popup
+      .setLngLat(data.geometry.coordinates)
+      .setHTML(data.properties.title)
+      .addTo(this.#manager.map);
+
     this.#onPopupVisibleChange();
   }
 
   #onPopupVisibleChange() {
     console.debug(
-      `Popup.onPopupVisibleChange id=${this.#id} visible=${this.popupVisible} popup=${this.#popup}`
+      `Popup.onPopupVisibleChange id=${this.#id} dynamic=${this.visibleDynamic} static=${this.visibleStatic} popup=${this.#popup}`
     );
+    const visible = this.visibleDynamic || this.visibleStatic;
     if (this.#popup) {
-      this.#popup.getElement().style.visibility = this.popupVisible ? 'visible' : 'hidden';
+      this.#popup.getElement().style.visibility = visible ? 'visible' : 'hidden';
     }
   }
 }

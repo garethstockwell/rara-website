@@ -28,9 +28,9 @@ export function addLocationsLayer(map, args) {
     data.features.forEach((feature) => {
       feature.properties.id = feature.id;
       const popup = popups.getPopup(feature.id);
-      //loc.setData(feature);
+      popup.setData(feature);
       if (args.staticPopups) {
-        popup.popupVisible = true;
+        popup.visibleStatic = true;
       }
     });
 
@@ -79,11 +79,11 @@ export function addLocationsLayer(map, args) {
           }
 
           if (currentFeatureId) {
-            popups.getPopup(currentFeatureId).popupVisible = false;
+            popups.getPopup(currentFeatureId).visibleDynamic = false;
           }
 
           currentFeatureId = feature.properties.id;
-          popups.getPopup(currentFeatureId).popupVisible = true;
+          popups.getPopup(currentFeatureId).visibleDynamic = true;
 
           if (args.onenter) {
             args.onenter(currentFeatureId);
@@ -95,7 +95,7 @@ export function addLocationsLayer(map, args) {
         const featureId = currentFeatureId;
 
         map.getCanvas().style.cursor = '';
-        popups.getPopup(currentFeatureId).popupVisible = false;
+        popups.getPopup(currentFeatureId).visibleDynamic = false;
         currentFeatureId = undefined;
         currentFeatureCoordinates = undefined;
 

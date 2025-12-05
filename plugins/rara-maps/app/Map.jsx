@@ -30,13 +30,13 @@ export default function Map({
       const popups = mapRef.current.appData.popups;
 
       if (oldActivePopup.current) {
-        oldActivePopup.current.popupVisible = false;
+        oldActivePopup.current.visibleStatic = false;
       }
 
       if (activeObjectId) {
         const popup = popups.getPopup(activeObjectId);
         if (popup) {
-          popup.popupVisible = true; // TODO: make this sticky
+          popup.visibleStatic = true;
         }
 
         oldActivePopup.current = popup;
