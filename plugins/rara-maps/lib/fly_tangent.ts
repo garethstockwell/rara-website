@@ -122,7 +122,11 @@ export class Route {
     //console.debug('advance currentDistance=', currentDistance, 'stopDistance=', stopDistance);
 
     const lngLat = turf.along(this.#route, currentDistance).geometry.coordinates;
-    this.#map.getSource('point').setData({ type: 'Point', coordinates: lngLat });
+
+    const point = this.#map.getSource('point');
+    if (point) {
+      point.setData({ type: 'Point', coordinates: lngLat });
+    }
 
     // Let the camera follow the route
     const coord = maplibregl.MercatorCoordinate.fromLngLat(lngLat);

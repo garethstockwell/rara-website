@@ -1,20 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+
 import styles from './Map.module.css';
+
 import { getAppData } from '../lib/appdata';
-import createMap from '../lib/map';
 import flyRouteRadius from '../lib/fly_radius';
 import { Route, flyRouteTangent } from '../lib/fly_tangent';
+import createMap from '../lib/map';
 
 export default function Map({
   panelEnabled,
   panelOpen,
   data,
-  activeObjectId,
-  setActiveObjectId,
-  setActiveObjectTitle,
-  setActiveObjectIndex,
+  routeCoords,
+  onLocationClick,
+  activeLocation,
+  activeOverlayId,
+  flyRadiusEnabled,
+  flyTangentEnabled,
 }) {
   const [mapLoaded, setMapLoaded] = useState(false);
+
   const mapRef = useRef();
   const mapElemRef = useRef();
   const oldActiveLocationRef = useRef();
@@ -22,125 +27,17 @@ export default function Map({
   const oldActivePopupRef = useRef();
   const routeRef = useRef();
 
-  function locationOnClick(id) {
-    setActiveObjectId(id);
-  }
-
-  function onLocationChange() {
-    if (mapRef.current) {
-      const popups = getAppData(mapRef.current).popups;
-
-      if (oldActivePopupRef.current) {
-        oldActivePopupRef.current.visibleStatic = false;
-      }
-
-      if (activeObjectId) {
-        const popup = popups.getPopup(activeObjectId);
-        if (popup) {
-          popup.visibleStatic = true;
-        }
-
-        oldActivePopupRef.current = popup;
-
-        const loc = data.locations.features.find(
-          (el) => (el?.properties?.id ?? null) === activeObjectId
-        );
-        if (loc) {
-          if (data.view.fly === 'direct') {
-            mapRef.current.flyTo({
-              center: loc.geometry.coordinates,
-            });
-          }
-          setActiveObjectTitle(loc ? loc.properties.title : '');
-
-          if (data.view.fly === 'route' && oldActiveLocationRef.current) {
-            const fromCoord = oldActiveLocationRef.current.geometry.coordinates;
-            const toCoord = loc.geometry.coordinates;
-            console.debug(
-              `Fly from ${oldActiveLocationRef} ${fromCoord} to ${activeObjectId} ${toCoord}`
-            );
-            routeRef.current.fly(fromCoord, toCoord, 2000);
-          }
-
-          setActiveObjectTitle(loc ? loc.properties.title : '');
-        }
-
-        oldActiveLocationRef.current = loc;
-      }
-    }
-  }
-
-  function onOverlayChange() {
-    if (mapRef.current) {
-      const layers = getAppData(mapRef.current).layers;
-
-      if (oldActiveOverlayIdRef.current) {
-        layers.getLayer(oldActiveOverlayIdRef.current).visible = false;
-      }
-
-      layers.getLayer(activeObjectId).visible = true;
-
-      oldActiveOverlayIdRef.current = activeObjectId;
-    }
-  }
-
-  function onActiveObjectChange() {
-    if (mapLoaded) {
-      if (data.view.mode === 'location') {
-        onLocationChange();
-      }
-
-      if (data.view.mode === 'overlay') {
-        onOverlayChange();
-      }
-    }
-  }
-
-  useEffect(() => {
-    onActiveObjectChange();
-  }, [activeObjectId]);
-
-  useEffect(() => {
-    onActiveObjectChange();
-  }, [mapLoaded]);
-
   function loadMap() {
     mapRef.current = createMap({
       container: 'map',
       data,
       overlay_opacity: 0.75,
-      locationOnClick,
+      onLocationClick: onLocationClick,
       locationVisible: true,
     });
 
     mapRef.current.on('load', () => {
       setMapLoaded(true);
-
-      const line = data.lines.find((line) => (line?.properties?.id ?? null) === data.view.route);
-
-      if (data.view.mode === 'fly_radius') {
-        flyRouteRadius({
-          center: data.view.config.center,
-          coordinates: line.geometry.coordinates,
-          map: mapRef.current,
-        });
-      }
-
-      if (data.view.mode === 'fly_tangent') {
-        flyRouteTangent({
-          coordinates: line.geometry.coordinates,
-          map: mapRef.current,
-        });
-      }
-
-      if (data.view.fly === 'route') {
-        routeRef.current = new Route({
-          coordinates: line.geometry.coordinates,
-          map: mapRef.current,
-        });
-
-        setActiveObjectIndex(0);
-      }
     });
   }
 
@@ -148,6 +45,101 @@ export default function Map({
   useEffect(() => {
     loadMap();
   }, []); // empty dependency array = runs once after mount
+
+  useEffect(() => {
+    if (routeCoords && mapRef) {
+      routeRef.current = new Route({
+        coordinates: routeCoords,
+        map: mapRef.current,
+      });
+    }
+  }, [routeCoords, mapRef]);
+
+  useEffect(() => {
+    console.log(
+      'Map.activeLocation',
+      activeLocation,
+      routeRef.current,
+      oldActiveLocationRef.current
+    );
+
+    if (oldActivePopupRef.current) {
+      oldActivePopupRef.current.visibleStatic = false;
+      oldActivePopupRef.current = null;
+    }
+
+    if (activeLocation) {
+      const id = activeLocation?.properties?.id ?? null;
+      const popup = getAppData(mapRef.current).popups.getPopup(id);
+      if (popup) {
+        popup.visibleStatic = true;
+        oldActivePopupRef.current = popup;
+      }
+
+      const coordinates = activeLocation.geometry.coordinates;
+
+      if (routeRef.current && oldActiveLocationRef.current) {
+        const fromCoord = oldActiveLocationRef.current.geometry.coordinates;
+        const toCoord = activeLocation.geometry.coordinates;
+        console.debug(
+          `Fly from ${oldActiveLocationRef} ${fromCoord} to ${activeLocation.properties.id} ${toCoord}`
+        );
+        routeRef.current.fly(fromCoord, toCoord, 2000);
+      } else {
+        mapRef.current.flyTo({
+          center: coordinates,
+        });
+      }
+
+      if (mapRef.current) {
+        const point = mapRef.current.getSource('point');
+        if (point) {
+          point.setData({ type: 'Point', coordinates });
+        }
+      }
+    }
+
+    oldActiveLocationRef.current = activeLocation;
+  }, [activeLocation, mapRef, mapLoaded]);
+
+  useEffect(() => {
+    console.log('Map.activeOverlayId', activeOverlayId);
+
+    if (mapRef.current && mapLoaded) {
+      const layers = getAppData(mapRef.current).layers;
+
+      if (oldActiveOverlayIdRef.current) {
+        layers.getLayer(oldActiveOverlayIdRef.current).visible = false;
+      }
+
+      if (activeOverlayId) {
+        layers.getLayer(activeOverlayId).visible = true;
+      }
+
+      oldActiveOverlayIdRef.current = activeOverlayId;
+    }
+  }, [activeOverlayId, mapLoaded]);
+
+  useEffect(() => {
+    console.log('flyRadiusEnabled', flyRadiusEnabled);
+    if (flyRadiusEnabled && routeCoords) {
+      flyRouteRadius({
+        center: data.view.config.center,
+        coordinates: routeCoords,
+        map: mapRef.current,
+      });
+    }
+  }, [flyRadiusEnabled, routeCoords]);
+
+  useEffect(() => {
+    console.log('flyTangentEnabled', flyTangentEnabled);
+    if (flyTangentEnabled && routeCoords) {
+      flyRouteTangent({
+        coordinates: routeCoords,
+        map: mapRef.current,
+      });
+    }
+  }, [flyTangentEnabled, routeCoords]);
 
   return (
     <div

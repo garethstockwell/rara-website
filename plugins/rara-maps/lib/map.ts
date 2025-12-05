@@ -113,7 +113,7 @@ export default function createMap(args) {
         tags: element.tags,
         color: element.color,
         visible: element.visible,
-        onclick: args.locationOnClick ?? null,
+        onclick: args.onLocationClick ?? null,
         onenter: args.locationOnEnter ?? null,
         onleave: args.locationOnLeave ?? null,
       });
