@@ -1,8 +1,8 @@
 // URL-mangling utilities
 
-const PLACEHOLDER = '%{RARA_MAPS}';
+const PLACEHOLDER: string = '%{RARA_MAPS}';
 
-export function absUrl(url) {
+export function absUrl(url: string): string {
   if (url.startsWith(PLACEHOLDER)) {
     return raraMapsData.baseUrl + url.slice(PLACEHOLDER.length);
   }
