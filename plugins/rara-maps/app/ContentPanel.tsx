@@ -3,17 +3,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Dashboard from './Dashboard';
 
 import common from './styles/common.module.css';
-import styles from './styles/Panel.module.css';
+import styles from './styles/ContentPanel.module.css';
 
-export default function Panel({
+export default function ContentPanel({
   panelOpen,
   setPanelOpen,
-  activeTabId,
-  setActiveTabId,
-  activeTabTitle,
-  setActiveTabTitle,
-  activeTabIndex,
-  setActiveTabIndex,
+  tabId,
+  setTabId,
+  tabTitle,
+  setTabTitle,
+  tabIndex,
+  setTabIndex,
   footer,
   onLoad,
 }) {
@@ -22,7 +22,7 @@ export default function Panel({
 
   const panelElemRef = useRef(null);
   const panelBodyElemRefRef = useRef(null);
-  const activeTabElemRef = useRef();
+  const tabElemRef = useRef();
 
   // After initial render, move content and footer elements to the end of the panel
   useEffect(() => {
@@ -47,41 +47,41 @@ export default function Panel({
   }
 
   useEffect(() => {
-    console.debug(`Panel activeTabId=${activeTabId}`);
+    console.debug(`Panel tabId=${tabId}`);
 
-    if (activeTabElemRef.current) {
-      activeTabElemRef.current.classList.add('hidden');
+    if (tabElemRef.current) {
+      tabElemRef.current.classList.add('hidden');
     }
 
-    activeTabElemRef.current = document.querySelector('#' + activeTabId);
+    tabElemRef.current = document.querySelector('#' + tabId);
 
-    if (activeTabElemRef.current) {
-      activeTabElemRef.current.classList.remove('hidden');
+    if (tabElemRef.current) {
+      tabElemRef.current.classList.remove('hidden');
 
-      const title = activeTabElemRef.current.getAttribute('title');
+      const title = tabElemRef.current.getAttribute('title');
       if (title) {
-        setActiveTabTitle(title);
+        setTabTitle(title);
       }
     }
 
-    const index = Array.prototype.indexOf.call(tabElems, activeTabElemRef.current);
-    setActiveTabIndex(index >= 0 ? index : null);
-  }, [activeTabId]);
+    const index = Array.prototype.indexOf.call(tabElems, tabElemRef.current);
+    setTabIndex(index >= 0 ? index : null);
+  }, [tabId]);
 
   useEffect(() => {
-    console.debug(`Panel activeTabIndex=${activeTabIndex}`);
+    console.debug(`Panel tabIndex=${tabIndex}`);
 
-    if (activeTabIndex !== null) {
-      setActiveTabId(tabElems[activeTabIndex].id);
+    if (tabIndex !== null) {
+      setTabId(tabElems[tabIndex].id);
     }
-  }, [activeTabIndex]);
+  }, [tabIndex]);
 
   function onPrev() {
-    setActiveTabIndex(activeTabIndex - 1);
+    setTabIndex(tabIndex - 1);
   }
 
   function onNext() {
-    setActiveTabIndex(activeTabIndex + 1);
+    setTabIndex(tabIndex + 1);
   }
 
   const MIN_TRANSLATE = 0; // closed position
@@ -137,11 +137,11 @@ export default function Panel({
       </div>
 
       <Dashboard
-        title={activeTabTitle}
-        showPrev={activeTabIndex > 0}
+        title={tabTitle}
+        showPrev={tabIndex > 0}
         onPrev={onPrev}
         onToggle={togglePanel}
-        showNext={activeTabIndex + 1 < tabElems.length}
+        showNext={tabIndex + 1 < tabElems.length}
         onNext={onNext}
       />
 

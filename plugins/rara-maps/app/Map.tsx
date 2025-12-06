@@ -8,8 +8,8 @@ import { Route, flyRouteTangent } from '../lib/fly_tangent';
 import createMap from '../lib/map';
 
 export default function Map({
-  panelEnabled,
-  panelOpen,
+  contentPanelEnabled,
+  contentPanelOpen,
   data,
   routeCoords,
   onLocationClick,
@@ -22,9 +22,11 @@ export default function Map({
 
   const mapRef = useRef();
   const mapElemRef = useRef();
+
   const oldActiveLocationRef = useRef();
   const oldActiveOverlayIdRef = useRef();
   const oldActivePopupRef = useRef();
+  
   const routeRef = useRef();
 
   function loadMap() {
@@ -142,8 +144,8 @@ export default function Map({
       id="map"
       className={`
 			${styles.map}
-			${panelEnabled ? styles.panelEnabled : ''}
-			${panelOpen ? styles.panelOpen : ''}
+			${contentPanelEnabled ? styles.contentPanelEnabled : ''}
+			${contentPanelOpen ? styles.contentPanelOpen : ''}
 			`}
     ></div>
   );

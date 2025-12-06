@@ -1,27 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 
 import HeaderHandle from './HeaderHandle';
+import ContentPanel from './ContentPanel';
 import Map from './Map';
-import Panel from './Panel';
 import styles from './styles/App.module.css';
 
 import { absUrl } from '../lib/url';
 
 export default function App({ footer, viewName }) {
   const [data, setData] = useState(null);
+  
   const [routeCoords, setRouteCoords] = useState(null);
-
-  const [panelOpen, setPanelOpen] = useState(false);
-  const [panelLoaded, setPanelLoaded] = useState(false);
-
   const [activeLocation, setActiveLocation] = useState(null);
   const [activeOverlayId, setActiveOverlayId] = useState(null);
 
-  const [activePanelTabId, setActivePanelTabId] = useState(null);
-  const [activePanelTabIndex, setActivePanelTabIndex] = useState(null);
-  const [activePanelTitle, setActivePanelTitle] = useState(null);
+  const contentPanelEnabled = document.querySelector('.rara-maps-content') !== null;
+  const [contentPanelOpen, setContentPanelOpen] = useState(false);
+  const [contentPanelLoaded, setContentPanelLoaded] = useState(false);
 
-  const panelEnabled = document.querySelector('.rara-maps-content') !== null;
+  const [contentTabId, setContentTabId] = useState(null);
+  const [contentTabIndex, setContentTabIndex] = useState(null);
+  const [contentTitle, setContentTitle] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,7 +52,7 @@ export default function App({ footer, viewName }) {
   useEffect(() => {
     if (data) {
       if (data.view.app.binding === 'overlay') {
-        setActivePanelTabIndex(0);
+        setContentTabIndex(0);
       }
 
       if (data.view.app.route) {
@@ -61,46 +60,46 @@ export default function App({ footer, viewName }) {
           (line) => (line?.properties?.id ?? null) === data.view.app.route
         );
         setRouteCoords(line?.geometry?.coordinates ?? null);
-        setActivePanelTabIndex(0);
+        setContentTabIndex(0);
       }
     }
   }, [data]);
 
   useEffect(() => {
-    console.debug(`App activePanelTabId=${activePanelTabId}`);
+    console.debug(`App contentTabId=${contentTabId}`);
 
-    if (activePanelTabId) {
+    if (contentTabId) {
       if (data.view.app.binding === 'location') {
         const loc = data.locations.features.find(
-          (el) => (el?.properties?.id ?? null) === activePanelTabId
+          (el) => (el?.properties?.id ?? null) === contentTabId
         );
         setActiveLocation(loc);
       }
 
       if (data.view.app.binding === 'overlay') {
-        setActiveOverlayId(activePanelTabId);
+        setActiveOverlayId(contentTabId);
       }
     }
-  }, [activePanelTabId]);
+  }, [contentTabId]);
 
   function onLocationClick(id) {
-    setActivePanelTabId(id);
+    setContentTabId(id);
   }
 
   useEffect(() => {
     console.debug(`App activeLocation=${activeLocation}`);
 
-    setActivePanelTitle(activeLocation?.properties?.title ?? '');
+    setContentTitle(activeLocation?.properties?.title ?? '');
   }, [activeLocation]);
 
   return (
     <div className={styles.app}>
       <HeaderHandle />
 
-      {data && (!panelEnabled || panelLoaded) && (
+      {data && (!contentPanelEnabled || contentPanelLoaded) && (
         <Map
-          panelEnabled={panelEnabled}
-          panelOpen={panelOpen}
+          contentPanelEnabled={contentPanelEnabled}
+          contentPanelOpen={contentPanelOpen}
           data={data}
           routeCoords={routeCoords}
           onLocationClick={onLocationClick}
@@ -111,19 +110,19 @@ export default function App({ footer, viewName }) {
         />
       )}
 
-      {panelEnabled && (
-        <Panel
-          panelOpen={panelOpen}
-          setPanelOpen={setPanelOpen}
-          activeTabId={activePanelTabId}
-          setActiveTabId={setActivePanelTabId}
-          activeTabIndex={activePanelTabIndex}
-          setActiveTabIndex={setActivePanelTabIndex}
-          activeTabTitle={activePanelTitle}
-          setActiveTabTitle={setActivePanelTitle}
+      {contentPanelEnabled && (
+        <ContentPanel
+          panelOpen={contentPanelOpen}
+          setPanelOpen={setContentPanelOpen}
+          tabId={contentTabId}
+          setTabId={setContentTabId}
+          tabIndex={contentTabIndex}
+          setTabIndex={setContentTabIndex}
+          tabTitle={contentTitle}
+          setTabTitle={setContentTitle}
           footer={footer}
           onLoad={() => {
-            setPanelLoaded(true);
+            setContentPanelLoaded(true);
           }}
         />
       )}
