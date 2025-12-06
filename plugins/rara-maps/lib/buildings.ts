@@ -62,9 +62,5 @@ export function addBuildingsLayer(map, options) {
       },
       labelLayerId
     );
-
-    if (options.callback) {
-      options.callback(['buildings', id]);
-    }
   });
 }

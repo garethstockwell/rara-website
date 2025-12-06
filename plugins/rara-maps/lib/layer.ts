@@ -55,21 +55,18 @@ class Layer {
   #id;
   #manager;
   #visible;
-  #callback;
 
   /**
    * Create a Layer
    * @param {LayerManager} manager  The parent manager
    * @param {string}       id       The layer ID
    * @param {boolean}      visible  Layer visibility
-   * @param                callback
    */
-  constructor(manager, id, visible, callback) {
+  constructor(manager, id, visible) {
     console.debug(`Layer.create id=${id} visible=${visible}`);
     this.#id = id;
     this.#manager = manager;
     this.#visible = visible;
-    this.#callback = callback;
   }
 
   set visible(visible) {
@@ -86,13 +83,8 @@ class Layer {
    * Callback when map is loaded
    */
   onLoaded() {
-    console.debug(
-      `Layer.onLoaded id=${this.#id} visible=${this.visible} callback=${this.#callback}`
-    );
+    console.debug(`Layer.onLoaded id=${this.#id} visible=${this.visible}`);
     this.#onVisibleChange();
-    if (this.#callback) {
-      this.#callback(this.#id);
-    }
   }
 
   /**
@@ -168,11 +160,8 @@ export class LayerManager {
    */
   addLayer(func, args) {
     args.visible = args.visible ?? true;
-    const layer = this.#addLayer(args.id, args.visible, args.callback);
+    const layer = this.#addLayer(args.id, args.visible);
 
-    args.callback = (id) => {
-      layer.onLoaded();
-    };
     args.zOrder = this.#zOrder;
     func(this.#map, args);
 
@@ -190,8 +179,8 @@ export class LayerManager {
     }
   }
 
-  #addLayer(id, visible, callback) {
-    const layer = new Layer(this, id, visible, callback);
+  #addLayer(id, visible) {
+    const layer = new Layer(this, id, visible);
     this.#layers[id] = layer;
     return layer;
   }
