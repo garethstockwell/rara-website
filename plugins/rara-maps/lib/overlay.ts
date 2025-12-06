@@ -30,9 +30,5 @@ export function addOverlayLayer(map, options) {
     if (options.attribution) {
       addAttribution(map, options.attribution);
     }
-
-    if (options.callback) {
-      options.callback(['overlay', options.id]);
-    }
   });
 }
