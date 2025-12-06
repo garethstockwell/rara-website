@@ -90,11 +90,7 @@ export default function App({ footer, viewName }) {
   useEffect(() => {
     console.debug(`App activeLocation=${activeLocation}`);
 
-    let title = null;
-    if (activeLocation) {
-      title = activeLocation?.properties?.title;
-    }
-    setActivePanelTitle(title ?? '');
+    setActivePanelTitle(activeLocation?.properties?.title ?? '');
   }, [activeLocation]);
 
   return (
