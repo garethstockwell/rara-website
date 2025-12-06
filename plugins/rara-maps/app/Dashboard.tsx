@@ -1,5 +1,5 @@
-import common from './common.module.css';
-import styles from './Dashboard.module.css';
+import common from './styles/common.module.css';
+import styles from './styles/Dashboard.module.css';
 
 export default function Dashboard({ title, showPrev, onPrev, onToggle, showNext, onNext }) {
   function handleClick() {
