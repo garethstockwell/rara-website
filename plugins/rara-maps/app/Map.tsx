@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import styles from './Map.module.css';
+import styles from './styles/Map.module.css';
 
 import { getAppData } from '../lib/appdata';
 import flyRouteRadius from '../lib/fly_radius';

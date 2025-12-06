@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import common from './common.module.css';
-import styles from './HeaderHandle.module.css';
+
+import common from './styles/common.module.css';
+import styles from './styles/HeaderHandle.module.css';
 
 export default function HeaderHandle() {
   const headerElem = document.querySelector('.site-header');

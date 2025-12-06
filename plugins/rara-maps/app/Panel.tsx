@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import common from './common.module.css';
-import styles from './Panel.module.css';
+
 import Dashboard from './Dashboard';
+
+import common from './styles/common.module.css';
+import styles from './styles/Panel.module.css';
 
 export default function Panel({
   panelOpen,

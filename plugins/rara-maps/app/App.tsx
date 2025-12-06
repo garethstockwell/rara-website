@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import styles from './App.module.css';
 import HeaderHandle from './HeaderHandle';
 import Map from './Map';
 import Panel from './Panel';
+import styles from './styles/App.module.css';
 
 import { absUrl } from '../lib/url';
 
